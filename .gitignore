@@ -1,30 +1,21 @@
 # Node.js
 node_modules/
 
-# Dependências de build
+# Build output (excluding pre-built Tailwind CSS for GitHub Pages)
 dist/
+!dist/css/style.css
 
-# Arquivos de logs
+# Logs
 *.log
 
-# Diretórios de cache
-/.cache
-/.npm
+# Cache
+.cache/
+.npm/
 
-# Arquivos de configuração do IDE
+# IDE Configurations
 .idea/
 .vscode/
 
-# Arquivos do sistema operacional
+# System files
 .DS_Store
 Thumbs.db
-
-# Arquivos do Tailwind CSS (se você não quiser versionar a saída CSS)
-dist/css/style.css
-
-# Arquivos de configuração do Tailwind CSS
-tailwind.config.js
-postcss.config.js
-
-# Arquivos de configuração do NPM
-package-lock.json
