@@ -1,0 +1,30 @@
+# Node.js
+node_modules/
+
+# Dependências de build
+dist/
+
+# Arquivos de logs
+*.log
+
+# Diretórios de cache
+/.cache
+/.npm
+
+# Arquivos de configuração do IDE
+.idea/
+.vscode/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos do Tailwind CSS (se você não quiser versionar a saída CSS)
+dist/css/style.css
+
+# Arquivos de configuração do Tailwind CSS
+tailwind.config.js
+postcss.config.js
+
+# Arquivos de configuração do NPM
+package-lock.json
