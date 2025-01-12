@@ -1,10 +1,6 @@
 # Node.js
 node_modules/
 
-# Build output (excluding pre-built Tailwind CSS for GitHub Pages)
-dist/
-!dist/css/style.css
-
 # Logs
 *.log
 
