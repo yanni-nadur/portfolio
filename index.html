@@ -4,11 +4,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Portfolio</title>
         <link href="dist/css/style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <section id="banner" class="h-screen bg-gray-200">
-            <div class="shadow-md py-20 flex items-center justify-center bg-yellow-200">
-                <h1 class="text-4xl font-serif text-black shadow-sm">Hello World</h1>
+        <section id="banner" class="background">
+            <div class="container h-screen flex items-end">
+                <div class="grid grid-cols-12 h-fit py-20">
+                    <div class="col-span-12 font-serif mb-20">
+                        <h1 class="text-[9rem] leading-[10rem] text-lightGray">Yanni Nadur</h1>
+                    </div>
+                    <div class="col-span-6">
+                        <h2 class="text-2xl">A passionate developer with 4+ years of experience in web development and a strong commitment to building scalable, responsive, and user-centric digital experiences.</h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="about" class="bg-white text-darkGray">
+            <div class="container h-screen">
+                <div class="grid grid-cols-12 py-20">
+                    <div class="col-span-12 mb-20 relative after:absolute after:left-0 after:-bottom-3 after:h-[1px] after:w-full after:bg-darkGray">
+                        <h3 class="font-serif text-4xl uppercase">About</h3>
+                    </div>
+                    <div class="col-span-12 lg:col-span-6">
+                        <p> Graduated in Computer Science, I specialize in creating high-quality websites and applications using a diverse range of technologies, including HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), PHP, and Node.js. My expertise includes working with CMS platforms like WordPress, CraftCMS, and Strapi to develop robust, data-driven solutions.</p>
+                        <br>
+                        <p>I excel at translating design prototypes from tools like Figma into functional, pixel-perfect implementations, ensuring an optimal user experience. With a strong focus on clean code practices and scalability, I leverage tools like Docker to streamline development and deployment workflows.</p>
+                        <br>
+                        <p>In addition to technical skills, I bring experience working in dynamic, brand-focused environments, delivering projects that emphasize design precision, user engagement, and performance optimization.</p>
+                    </div>
+                    <div class="col-span-12 lg:col-start-9 lg:col-span-4">
+                        <ul>
+                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
+                                <div class="group-hover:opacity-0 ease-in-out duration-300">
+                                    Contact me!
+                                </div>
+                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
+                            </li>
+                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
+                                <div class="group-hover:opacity-0 ease-in-out duration-300">
+                                    Say hello?
+                                </div>
+                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
+                            </li>
+                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
+                                <div class="group-hover:opacity-0 ease-in-out duration-300">
+                                    Explore LinkedIn
+                                </div>
+                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
     </body>

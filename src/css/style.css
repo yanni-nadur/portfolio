@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body{
+    @apply font-sans bg-darkGray text-normalGray;
+}
+
+h1, h2, h3{
+    @apply font-serif
+}
+
+.container{
+    @apply w-full sm:px-5 md:max-w-[48rem] md:px-8 lg:max-w-[64rem] lg:px-10 xl:max-w-[100rem] xl:px-20 my-0 mx-auto;
+}
+
+.background {
+    @apply w-full h-full relative;
+    /* background: linear-gradient(132deg, #FC415A, #591BC5, #212335); */
+    background: linear-gradient(132deg, #646262, #232a41, #212335); 
+    background-size: 400% 400%;
+    animation: Gradient 8s ease-in-out infinite;
+}
+  
+@keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+  
+    50% {
+      background-position: 100% 50%;
+    }
+  
+    100% {
+      background-position: 0% 50%;
+    }
+}
