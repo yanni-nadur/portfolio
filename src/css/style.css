@@ -3,11 +3,15 @@
 @tailwind utilities;
 
 body{
-    @apply font-sans bg-darkGray text-normalGray;
+    @apply font-sans text-normalGray text-lg;
 }
 
 h1, h2, h3{
-    @apply font-serif
+    @apply font-serif;
+}
+
+h3{
+    @apply text-4xl;
 }
 
 .container{
@@ -15,11 +19,11 @@ h1, h2, h3{
 }
 
 .background {
-    @apply w-full h-full relative;
-    /* background: linear-gradient(132deg, #FC415A, #591BC5, #212335); */
-    background: linear-gradient(132deg, #646262, #232a41, #212335); 
+    @apply w-full h-[85vh] relative;
+    background: linear-gradient(132deg, #202552, #591BC5, #232a41);
+    /* background: linear-gradient(132deg, #202552, #232a41, #343377);  */
     background-size: 400% 400%;
-    animation: Gradient 8s ease-in-out infinite;
+    animation: Gradient 5s ease-in-out infinite;
 }
   
 @keyframes Gradient {

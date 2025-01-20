@@ -8,54 +8,144 @@
     </head>
     <body>
         <section id="banner" class="background">
-            <div class="container h-screen flex items-end">
+            <div class="container h-full flex items-end">
                 <div class="grid grid-cols-12 h-fit py-20">
                     <div class="col-span-12 font-serif mb-20">
-                        <h1 class="text-[9rem] leading-[10rem] text-lightGray">Yanni Nadur</h1>
+                        <h1 class="text-[9rem] leading-[10rem] text-white">Yanni Nadur</h1>
                     </div>
                     <div class="col-span-6">
-                        <h2 class="text-2xl">A passionate developer with 4+ years of experience in web development and a strong commitment to building scalable, responsive, and user-centric digital experiences.</h2>
+                        <h2 class="text-2xl text-white">A passionate developer with 4+ years of experience in web development and a strong commitment to building scalable, responsive, and user-centric digital experiences.</h2>
                     </div>
                 </div>
             </div>
         </section>
+
         <section id="about" class="bg-white text-darkGray">
-            <div class="container h-screen">
+            <div class="container">
                 <div class="grid grid-cols-12 py-20">
-                    <div class="col-span-12 mb-20 relative after:absolute after:left-0 after:-bottom-3 after:h-[1px] after:w-full after:bg-darkGray">
-                        <h3 class="font-serif text-4xl uppercase">About</h3>
+                    <div class="col-span-12 mb-16 relative after:absolute after:left-0 after:-bottom-3 after:h-[1px] after:w-full after:bg-darkGray">
+                        <h3 class="font-serif">About</h3>
                     </div>
-                    <div class="col-span-12 lg:col-span-6">
-                        <p> Graduated in Computer Science, I specialize in creating high-quality websites and applications using a diverse range of technologies, including HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), PHP, and Node.js. My expertise includes working with CMS platforms like WordPress, CraftCMS, and Strapi to develop robust, data-driven solutions.</p>
-                        <br>
-                        <p>I excel at translating design prototypes from tools like Figma into functional, pixel-perfect implementations, ensuring an optimal user experience. With a strong focus on clean code practices and scalability, I leverage tools like Docker to streamline development and deployment workflows.</p>
-                        <br>
-                        <p>In addition to technical skills, I bring experience working in dynamic, brand-focused environments, delivering projects that emphasize design precision, user engagement, and performance optimization.</p>
+                    <div class="col-span-12 lg:col-span-7">
+                        <div class="flex flex-col h-full">
+                            <div class="text-3xl"><span>Over the years, I have specialized in developing innovative, functional, and scalable digital experiences with a strong focus on design fidelity, responsiveness, and performance optimization.</span></div>
+    
+                            <div class="flex w-4/5 justify-between mt-auto">
+                                <div class="flex flex-col">
+                                    <strong class="mb-2">Product Development</strong>
+                                    <strong>UX/UI</strong>
+                                </div>
+                                <div class="flex flex-col">
+                                    <strong class="mb-2">Say hello!</strong>
+                                    <div class="relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300">
+                                        <a href="https://wa.me/5511949272576?text=Hello!%20I%20would%20like%20to%20get%20in%20touch." target="_blank">+55 (11) 94927-2576</a>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col">
+                                    <strong class="mb-2">Want to connect?</strong>
+                                    <div class="relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300">
+                                        <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank">Explore LinkedIn</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-span-12 lg:col-start-9 lg:col-span-4">
-                        <ul>
-                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
-                                <div class="group-hover:opacity-0 ease-in-out duration-300">
-                                    Contact me!
-                                </div>
-                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
-                            </li>
-                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
-                                <div class="group-hover:opacity-0 ease-in-out duration-300">
-                                    Say hello?
-                                </div>
-                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
-                            </li>
-                            <li class="group hover:cursor-pointer relative hover:bg-darkGray py-5 px-3 text-3xl ease-in-out duration-300 border-darkGray overflow-hidden">
-                                <div class="group-hover:opacity-0 ease-in-out duration-300">
-                                    Explore LinkedIn
-                                </div>
-                                <div class="-left-48 opacity-0 py-5 px-3 group-hover:opacity-100 group-hover:w-full ease-in-out duration-300 z-10 absolute top-0 group-hover:left-0 text-lightGray">+55 (11) 94927-2576</div>
-                            </li>
-                        </ul>
+                        <div class="flex flex-col gap-y-3">
+                            <p>A passionate web developer with expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP. I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
+                            <p>I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
+                            <p>I hold a Bachelor of Computer Science in and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
+                            <p>Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <section id="projects" class="bg-darkGray text-white">
+            <div class="container min-h-screen py-32">
+                <div class="grid grid-cols-12 pb-20">
+                    <div class="col-span-12 text-center">
+                        <h3 class="mb-6">My Recent Work</h3>
+                        <p>Here are some projects that I previously worked on. Want to reach out? <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com">Email me.</a>.</p>
+                    </div>
+                </div>
+                <ul class="grid grid-cols-12 gap-4">
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/notcoimage.webp" alt="Notco Image">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/notco.svg" alt="Notco Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/nordicimage.jpg" alt="Nordic Batteries">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/nordiclogo.svg" alt="Nordic Batteries Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/karenimage.png" alt="Karen Oliveira">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/karenlogo2.png" alt="Karen Oliveira Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/nantesimage.webp" alt="Nantes Mello">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Mello Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/kongsbergimage.webp" alt="Nantes Mello">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/kongsberglogo.svg" alt="Nantes Mello Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+
+                    <li class="col-span-4 relative group aspect-[432/288] overflow-hidden">
+                        <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/solonimage.webp" alt="Nantes Mello">
+                            <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
+                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/solonlogo.svg" alt="Nantes Mello Logo">
+                        </div>
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                            <h4>Plant-based food innovators revolutionizing the industry with cutting-edge AI, creating delicious, sustainable alternatives for a better future.</h4>
+                            <a href="" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section></section>
     </body>
 </html>
