@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Yanni Nadur | Software Developer</title>
         <link href="dist/css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../portfolio/src/images/favicomatic/apple-touch-icon-57x57.png" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../portfolio/src/images/favicomatic/apple-touch-icon-114x114.png" />
@@ -27,6 +28,17 @@
         <meta name="msapplication-square310x310logo" content="../portfolio/src/images/favicomatic/mstile-310x310.png" />
     </head>
     <body>
+        <header class="group fixed top-0 left-0 z-50 w-full [&.scrolled]:bg-white [&.scrolled]:shadow-md ease-in-out duration-500">
+            <div class="container flex items-center justify-between pt-8 group-[&.scrolled]:py-4 ease-in-out duration-300">
+                <a href="#banner"><img class="w-10 h-10 object-contain invert group-[&.scrolled]:invert-0" src="../portfolio/src/images/origami.svg" alt="Yanni"></a>
+                <ul class="flex gap-x-10 ">
+                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#about">About</a></li>
+                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#projects">Projects</a></li>
+                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#testimonials">Testimonials</a></li>
+                </ul>
+            </div>
+        </header>
+
         <section id="banner" class="background">
             <div class="container h-full flex items-end">
                 <div class="grid grid-cols-12 h-fit py-20">
@@ -57,14 +69,14 @@
                                 </div>
                                 <div class="flex flex-col">
                                     <strong class="mb-2">Say hello!</strong>
-                                    <div class="relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300">
+                                    <div class="after-animation">
                                         <a href="https://wa.me/5511949272576?text=Hello!%20I%20would%20like%20to%20get%20in%20touch." target="_blank">+55 (11) 94927-2576</a>
                                     </div>
                                 </div>
 
                                 <div class="flex flex-col">
                                     <strong class="mb-2">Want to connect?</strong>
-                                    <div class="relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300">
+                                    <div class="after-animation">
                                         <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank">Explore LinkedIn</a>
                                     </div>
                                 </div>
@@ -73,7 +85,7 @@
                     </div>
                     <div class="col-span-12 lg:col-start-9 lg:col-span-4">
                         <div class="flex flex-col gap-y-3">
-                            <p>A passionate web developer with expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP. I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
+                            <p>With expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP, I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
                             <p>I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
                             <p>I hold a Bachelor of Computer Science in and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
                             <p>Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
@@ -88,7 +100,7 @@
                 <div class="grid grid-cols-12 pb-20">
                     <div class="col-span-12 text-center">
                         <h3 class="mb-6">My Recent Work</h3>
-                        <p>Here are some projects that I previously worked on. Want to reach out? <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com">Email me</a>.</p>
+                        <p>Here are some projects that I previously worked on. Want to reach out? <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com">Email me</a>!</p>
                     </div>
                 </div>
                 <ul class="grid grid-cols-12 gap-4">
@@ -98,9 +110,9 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/notco.svg" alt="Notco Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future.</h4>
-                            <a href="https://notco.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="https://notco.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
 
@@ -110,9 +122,9 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/nordiclogo.svg" alt="Nordic Batteries Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Powering sustainable energy solutions with innovative battery technology for a greener, brighter future</h4>
-                            <a href="https://nordicbatteries.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="https://nordicbatteries.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
 
@@ -122,9 +134,9 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/karenlogo2.png" alt="Karen Oliveira Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle.</h4>
-                            <a href="http://nutrikarenoliveira.com.br/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="http://nutrikarenoliveira.com.br/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
 
@@ -134,9 +146,9 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Mello Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Personalized and multidisciplinary care for high complexity local and international matters.</h4>
-                            <a href="https://www.nantesmello.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="https://www.nantesmello.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
 
@@ -146,9 +158,9 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/kongsberglogo.svg" alt="Nantes Mello Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Empowering innovation and collaboration to shape the future of technology and society in Norway.</h4>
-                            <a href="https://kongsbergagenda.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="https://kongsbergagenda.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
 
@@ -158,13 +170,117 @@
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/solonlogo.svg" alt="Nantes Mello Logo">
                         </div>
-                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-darkerBlue opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
+                        <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
                             <h4>Building sustainable, high-quality homes that combine modern design with environmental responsibility.</h4>
-                            <a href="https://soloneiendom.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-darkerBlue ease-in-out duration-200">Visit Website</a>
+                            <a href="https://soloneiendom.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
                         </div>
                     </li>
                 </ul>
             </div>
         </section>
+
+        <section id="testimonials" class="py-20 container">
+            <div class="grid grid-cols-12">
+                <div class="col-span-12 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 relative text-center text-darkGray">
+                    <h3 class="mb-6">Testimonials</h3>
+                    <h4>People I've worked with have said some nice things!</h4>
+                    <div class="swiper-container w-full h-fit relative overflow-hidden pointer-events-auto mt-10">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide bg-white rounded-3xl p-10">
+                            <div class="flex flex-col items-center justify-center w-full text-center">
+                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/ulisses.jpeg" alt="Ulisses">
+                                <p class="text-center mb-6">“I had the pleasure of working with Yanni, and I can confidently say they are a standout professional. Yanni is not only creative and solution-driven but also an excellent communicator who collaborates seamlessly with others.”</p>
+                                <strong>Ulisses Inácio Militão</strong>
+                                <span>.NET Software Engineer at VenturiX Solutions</span>
+                            </div>
+                          </div>
+                          
+                          <div class="swiper-slide bg-white rounded-3xl p-10">
+                            <div class="flex flex-col items-center justify-center w-full text-center">
+                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/felipe.jpeg" alt="Ulisses">
+                                <p class="text-center mb-6">“Professional strongly engaged to development efficiency. Always able to help in any aspect of the process. Yanni uses techs n' tools focused on solving problems, writing clean, semantics and accessible codes.”</p>
+                                <strong>Felipe Oliveira</strong>
+                                <span>Fullstack Web Developer at FutureBrand</span>
+                            </div>
+                          </div>
+
+                          <div class="swiper-slide bg-white rounded-3xl p-10">
+                            <div class="flex flex-col items-center justify-center w-full text-center">
+                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/rodolfo.jpeg" alt="Ulisses">
+                                <p class="text-center mb-6">“Yanni is a very smart young developer eager to learn new skills as a web developer. Working as a team member he is always asking and searching for new and better ways of getting the job done.”</p>
+                                <strong>Rodolfo Araki</strong>
+                                <span>Senior Developer at DAYTWO</span>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-prev group">
+                        <svg viewBox="0 0 330 330" class="!w-8 !h-8 fill-darkGray object-center pr-1 group-hover:fill-white ease-in-out duration-300">
+                            <path d="M111.213,165.004L250.607,25.607c5.858-5.858,5.858-15.355,0-21.213c-5.858-5.858-15.355-5.858-21.213,0.001 l-150,150.004C76.58,157.211,75,161.026,75,165.004c0,3.979,1.581,7.794,4.394,10.607l150,149.996 C232.322,328.536,236.161,330,240,330s7.678-1.464,10.607-4.394c5.858-5.858,5.858-15.355,0-21.213L111.213,165.004z"/>
+                        </svg>
+                    </div>
+                    <div class="swiper-button-next group">
+                        <svg viewBox="0 0 330 330" class="!w-8 !h-8 -scale-x-100 object-center pr-1 fill-darkGray group-hover:fill-white ease-in-out duration-300">
+                            <path d="M111.213,165.004L250.607,25.607c5.858-5.858,5.858-15.355,0-21.213c-5.858-5.858-15.355-5.858-21.213,0.001 l-150,150.004C76.58,157.211,75,161.026,75,165.004c0,3.979,1.581,7.794,4.394,10.607l150,149.996 C232.322,328.536,236.161,330,240,330s7.678-1.464,10.607-4.394c5.858-5.858,5.858-15.355,0-21.213L111.213,165.004z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="pt-32 pb-16 bg-darkGray text-white">
+            <div class="container">
+                <div class="flex flex-col items-center justify-center">
+                    <a href="#banner" title="Back to top">
+                        <img class="w-20 h-20 mb-6 invert" src="../portfolio/src/images/origami.svg" alt="Yanni Nadur">
+                    </a>
+                    <span class="text-4xl mb-20">Let's Collaborate?</span>
+                    <ul class="flex gap-x-6 mb-20">
+                        <li class="group cursor-pointer w-14 h-14 border-2 border-white rounded-full flex items-center justify-center hover:bg-white ease-in-out duration-500">
+                            <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank" title="Linkedin">
+                                <svg viewBox="0 0 24 24" class="!w-7 !h-7 fill-white group-hover:fill-darkGray" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M6.5 8C7.32843 8 8 7.32843 8 6.5C8 5.67157 7.32843 5 6.5 5C5.67157 5 5 5.67157 5 6.5C5 7.32843 5.67157 8 6.5 8Z"/>
+                                    <path d="M5 10C5 9.44772 5.44772 9 6 9H7C7.55228 9 8 9.44771 8 10V18C8 18.5523 7.55228 19 7 19H6C5.44772 19 5 18.5523 5 18V10Z"/>
+                                    <path d="M11 19H12C12.5523 19 13 18.5523 13 18V13.5C13 12 16 11 16 13V18.0004C16 18.5527 16.4477 19 17 19H18C18.5523 19 19 18.5523 19 18V12C19 10 17.5 9 15.5 9C13.5 9 13 10.5 13 10.5V10C13 9.44771 12.5523 9 12 9H11C10.4477 9 10 9.44772 10 10V18C10 18.5523 10.4477 19 11 19Z"/>
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M20 1C21.6569 1 23 2.34315 23 4V20C23 21.6569 21.6569 23 20 23H4C2.34315 23 1 21.6569 1 20V4C1 2.34315 2.34315 1 4 1H20ZM20 3C20.5523 3 21 3.44772 21 4V20C21 20.5523 20.5523 21 20 21H4C3.44772 21 3 20.5523 3 20V4C3 3.44772 3.44772 3 4 3H20Z"/>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li class="group cursor-pointer w-14 h-14 border-2 border-white rounded-full flex items-center justify-center hover:bg-white ease-in-out duration-500">
+                            <a href="https://github.com/Yanni-Nadur" target="_blank" title="Github">
+                                <svg viewBox="0 0 24 24" class="!w-7 !h-7 fill-white group-hover:fill-darkGray" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M4.0744 2.9938C4.13263 1.96371 4.37869 1.51577 5.08432 1.15606C5.84357 0.768899 7.04106 0.949072 8.45014 1.66261C9.05706 1.97009 9.11886 1.97635 10.1825 1.83998C11.5963 1.65865 13.4164 1.65929 14.7213 1.84164C15.7081 1.97954 15.7729 1.97265 16.3813 1.66453C18.3814 0.651679 19.9605 0.71795 20.5323 1.8387C20.8177 2.39812 20.8707 3.84971 20.6494 5.04695C20.5267 5.71069 20.5397 5.79356 20.8353 6.22912C22.915 9.29385 21.4165 14.2616 17.8528 16.1155C17.5801 16.2574 17.3503 16.3452 17.163 16.4167C16.5879 16.6363 16.4133 16.703 16.6247 17.7138C16.7265 18.2 16.8491 19.4088 16.8973 20.4002C16.9844 22.1922 16.9831 22.2047 16.6688 22.5703C16.241 23.0676 15.6244 23.076 15.2066 22.5902C14.9341 22.2734 14.9075 22.1238 14.9075 20.9015C14.9075 19.0952 14.7095 17.8946 14.2417 16.8658C13.6854 15.6415 14.0978 15.185 15.37 14.9114C17.1383 14.531 18.5194 13.4397 19.2892 11.8146C20.0211 10.2698 20.1314 8.13501 18.8082 6.83668C18.4319 6.3895 18.4057 5.98446 18.6744 4.76309C18.7748 4.3066 18.859 3.71768 18.8615 3.45425C18.8653 3.03823 18.8274 2.97541 18.5719 2.97541C18.4102 2.97541 17.7924 3.21062 17.1992 3.49805L16.2524 3.95695C16.1663 3.99866 16.07 4.0147 15.975 4.0038C13.5675 3.72746 11.2799 3.72319 8.86062 4.00488C8.76526 4.01598 8.66853 3.99994 8.58215 3.95802L7.63585 3.49882C7.04259 3.21087 6.42482 2.97541 6.26317 2.97541C5.88941 2.97541 5.88379 3.25135 6.22447 4.89078C6.43258 5.89203 6.57262 6.11513 5.97101 6.91572C5.06925 8.11576 4.844 9.60592 5.32757 11.1716C5.93704 13.1446 7.4295 14.4775 9.52773 14.9222C10.7926 15.1903 11.1232 15.5401 10.6402 16.9905C10.26 18.1319 10.0196 18.4261 9.46707 18.4261C8.72365 18.4261 8.25796 17.7821 8.51424 17.1082C8.62712 16.8112 8.59354 16.7795 7.89711 16.5255C5.77117 15.7504 4.14514 14.0131 3.40172 11.7223C2.82711 9.95184 3.07994 7.64739 4.00175 6.25453C4.31561 5.78028 4.32047 5.74006 4.174 4.83217C4.09113 4.31822 4.04631 3.49103 4.0744 2.9938Z"/>
+                                    <path d="M3.33203 15.9454C3.02568 15.4859 2.40481 15.3617 1.94528 15.6681C1.48576 15.9744 1.36158 16.5953 1.66793 17.0548C1.8941 17.3941 2.16467 17.6728 2.39444 17.9025C2.4368 17.9449 2.47796 17.9858 2.51815 18.0257C2.71062 18.2169 2.88056 18.3857 3.05124 18.5861C3.42875 19.0292 3.80536 19.626 4.0194 20.6962C4.11474 21.1729 4.45739 21.4297 4.64725 21.5419C4.85315 21.6635 5.07812 21.7352 5.26325 21.7819C5.64196 21.8774 6.10169 21.927 6.53799 21.9559C7.01695 21.9877 7.53592 21.998 7.99999 22.0008C8.00033 22.5527 8.44791 23.0001 8.99998 23.0001C9.55227 23.0001 9.99998 22.5524 9.99998 22.0001V21.0001C9.99998 20.4478 9.55227 20.0001 8.99998 20.0001C8.90571 20.0001 8.80372 20.0004 8.69569 20.0008C8.10883 20.0026 7.34388 20.0049 6.67018 19.9603C6.34531 19.9388 6.07825 19.9083 5.88241 19.871C5.58083 18.6871 5.09362 17.8994 4.57373 17.2891C4.34391 17.0194 4.10593 16.7834 3.91236 16.5914C3.87612 16.5555 3.84144 16.5211 3.80865 16.4883C3.5853 16.265 3.4392 16.1062 3.33203 15.9454Z"/>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li class="group cursor-pointer w-14 h-14 border-2 border-white rounded-full flex items-center justify-center hover:bg-white ease-in-out duration-500">
+                            <a href="../portfolio/src/images/resume-en.pdf" download="Yanni Nadur - Resume" title="Resume">
+                                <svg class="!w-7 !h-7 fill-white group-hover:fill-darkGray" viewBox="0 0 846.66 846.66" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <path class="fil0" d="M539.75 794.68c27.15,0 27.15,41.29 0,41.29l-497.47 0c-11.4,0 -20.64,-9.25 -20.64,-20.65l0 -621.69c0,-5.7 2.31,-10.87 6.04,-14.6l162.3 -162.29c4.03,-4.03 9.31,-6.05 14.59,-6.05l466.89 0c11.4,0 20.65,9.25 20.65,20.65l0 361.36c0,27.16 -41.29,27.16 -41.29,0l0 -340.72 -437.7 0 -150.19 150.2 0 592.5 476.82 0zm-351.21 -181.98c-27.16,0 -27.16,-41.29 0,-41.29l306.67 0c27.16,0 27.16,41.29 0,41.29l-306.67 0zm0 -274.68c-27.16,0 -27.16,-41.29 0,-41.29l306.67 0c27.16,0 27.16,41.29 0,41.29l-306.67 0zm0 91.56c-27.16,0 -27.16,-41.29 0,-41.29l306.67 0c27.16,0 27.16,41.29 0,41.29l-306.67 0zm0 91.56c-27.16,0 -27.16,-41.29 0,-41.29l306.67 0c27.16,0 27.16,41.29 0,41.29l-306.67 0zm0 -274.68c-27.16,0 -27.16,-41.29 0,-41.29l306.67 0c27.16,0 27.16,41.29 0,41.29l-306.67 0zm496.57 238.25c49.84,0 90.24,40.4 90.24,90.24 0,18.1 -5.33,34.95 -14.5,49.07 37.57,24.93 61.47,66.08 64.13,111.2 1.59,27.06 -39.55,29.47 -41.13,2.42 -2.11,-35.69 -22.61,-67.48 -54.13,-84.24 -13.16,7.5 -28.38,11.78 -44.61,11.78 -17.56,0 -33.95,-5.01 -47.81,-13.69 -33.44,16.12 -55.6,49.04 -57.79,86.15 -1.59,27.05 -42.72,24.64 -41.13,-2.42 2.79,-47.18 28.75,-89.88 69.08,-114.28 -7.99,-13.47 -12.58,-29.19 -12.58,-45.99 0,-49.83 40.4,-90.24 90.23,-90.24zm0 41.29c-27.03,0 -48.94,21.92 -48.94,48.95 0,27.03 21.91,48.94 48.94,48.94 27.03,0 48.95,-21.91 48.95,-48.94 0,-27.03 -21.91,-48.95 -48.95,-48.95z"/>
+                                </svg>
+                            </a>
+                        </li>
+
+                        <li class="group cursor-pointer w-14 h-14 border-2 border-white rounded-full flex items-center justify-center hover:bg-white ease-in-out duration-500">
+                            <a href="mailto:yanninadur@gmail.com" target="_blank" title="Mail">
+                                <svg class="!w-7 !h-7 fill-white group-hover:fill-darkGray" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 1694.235h1920V226H0v1468.235ZM112.941 376.664V338.94H1807.06v37.723L960 1111.233l-847.059-734.57ZM1807.06 526.198v950.513l-351.134-438.89-88.32 70.475 378.353 472.998H174.042l378.353-472.998-88.32-70.475-351.134 438.89V526.198L960 1260.768l847.059-734.57Z" fill-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                    <span id="currentYear"></span>
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="../portfolio/src/js/index.js"></script>
     </body>
 </html>

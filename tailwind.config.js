@@ -16,6 +16,7 @@ module.exports = {
         normalGray: '#969696',
         darkerBlue: '#202552',
         acidYellow: '#ffcd00',
+        normalPurple: '#591BC5',
       },
     },
   },

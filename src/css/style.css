@@ -3,39 +3,59 @@
 @tailwind utilities;
 
 body{
-    @apply font-sans text-normalGray text-lg;
+	@apply font-sans text-base xl:text-lg;
 }
 
 h1, h2, h3{
-    @apply font-serif;
+	@apply font-serif;
 }
 
 h3{
-    @apply text-4xl;
+	@apply text-4xl;
 }
 
 .container{
-    @apply w-full sm:px-5 md:max-w-[48rem] md:px-8 lg:max-w-[64rem] lg:px-10 xl:max-w-[100rem] xl:px-20 my-0 mx-auto;
+	@apply w-full sm:px-5 md:max-w-[768px] md:px-8 lg:max-w-[1024px] lg:px-10 xl:max-w-[1600px] xl:px-20 my-0 mx-auto;
 }
 
 .background {
-    @apply w-full h-[85vh] relative;
-    background: linear-gradient(132deg, #202552, #591BC5, #232a41);
-    /* background: linear-gradient(132deg, #202552, #232a41, #343377);  */
-    background-size: 400% 400%;
-    animation: Gradient 5s ease-in-out infinite;
+	@apply w-full h-[85vh] relative;
+	background: linear-gradient(132deg, #202552, #591BC5, #860d35);
+	/* background: linear-gradient(132deg, #202552, #232a41, #343377);  */
+	background-size: 400% 400%;
+	animation: Gradient 5s ease-in-out infinite;
 }
-  
+
+.swiper-button-prev{
+	@apply hidden md:flex items-center justify-center top-1/2 -left-[5rem] -translate-y-1/2 w-14 h-14 bg-white border-2 border-darkGray rounded-full ease-in-out duration-300 hover:bg-darkGray after:hidden before:hidden !important;
+}
+
+.swiper-button-next{
+	@apply hidden md:flex items-center justify-center top-1/2 -right-[5rem] -translate-y-1/2 w-14 h-14 bg-white border-2 border-darkGray rounded-full ease-in-out duration-300 hover:bg-darkGray after:hidden before:hidden !important;
+}
+
+.swiper-pagination-bullet{
+	@apply w-[.625rem] h-[.625rem] bg-white border-2 border-darkGray opacity-100 !important;
+}
+
+.swiper-pagination-bullet-active{
+	@apply bg-darkGray !important;
+}
+
+.after-animation{
+	@apply relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300;
+}
+
 @keyframes Gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-  
-    50% {
-      background-position: 100% 50%;
-    }
-  
-    100% {
-      background-position: 0% 50%;
-    }
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }
