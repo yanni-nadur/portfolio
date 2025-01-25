@@ -1,4 +1,4 @@
-const swiper = new Swiper('.swiper-container', {
+const testimonialsSwiper = new Swiper('.testimonials-swiper-container', {
 	loop: true,
 	effect: 'fade',
 	fadeEffect: {
@@ -13,8 +13,8 @@ const swiper = new Swiper('.swiper-container', {
 	spaceBetween: 0,
 	grabCursor: true,
 	navigation: {
-		nextEl: '.swiper-button-next',
-		prevEl: '.swiper-button-prev',
+		nextEl: '.testimonials-swiper-button-next',
+		prevEl: '.testimonials-swiper-button-prev',
 	},
 	pagination: {
 		el: '.testimonials-swiper-pagination',
@@ -22,7 +22,7 @@ const swiper = new Swiper('.swiper-container', {
 	},
 });
 
-const mobileProjectsSwiper = new Swiper('.mobile-projects-swiper', {
+const projectsSwiper = new Swiper('.projects-swiper-container', {
 	loop: true,
 	effect: 'fade',
 	fadeEffect: {
@@ -36,6 +36,10 @@ const mobileProjectsSwiper = new Swiper('.mobile-projects-swiper', {
 	slidesPerView: 1,
 	spaceBetween: 0,
 	grabCursor: true,
+	navigation: {
+		nextEl: '.projects-swiper-button-next',
+		prevEl: '.projects-swiper-button-prev',
+	},
 	pagination: {
 		el: '.projects-swiper-pagination',
 		clickable: true,
