@@ -6,7 +6,7 @@ const swiper = new Swiper('.swiper-container', {
 	},
 	speed: 1000,
 	autoplay: {
-		delay: 50000,
+		delay: 3000,
 		disableOnInteraction: true,
 	},
 	slidesPerView: 1,
@@ -17,7 +17,27 @@ const swiper = new Swiper('.swiper-container', {
 		prevEl: '.swiper-button-prev',
 	},
 	pagination: {
-		el: '.swiper-pagination',
+		el: '.testimonials-swiper-pagination',
+		clickable: true,
+	},
+});
+
+const mobileProjectsSwiper = new Swiper('.mobile-projects-swiper', {
+	loop: true,
+	effect: 'fade',
+	fadeEffect: {
+		crossFade: true
+	},
+	speed: 1000,
+	autoplay: {
+		delay: 3000,
+		disableOnInteraction: false,
+	},
+	slidesPerView: 1,
+	spaceBetween: 0,
+	grabCursor: true,
+	pagination: {
+		el: '.projects-swiper-pagination',
 		clickable: true,
 	},
 });

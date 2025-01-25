@@ -15,7 +15,7 @@ h3{
 }
 
 .container{
-	@apply w-full sm:px-5 md:max-w-[768px] md:px-8 lg:max-w-[1024px] lg:px-10 xl:max-w-[1600px] xl:px-20 my-0 mx-auto;
+	@apply w-full px-5 md:max-w-[768px] md:px-8 lg:max-w-[1024px] lg:px-10 xl:max-w-[1600px] xl:px-20 my-0 mx-auto;
 }
 
 .background {
@@ -35,12 +35,25 @@ h3{
 }
 
 .swiper-pagination-bullet{
-	@apply w-[.625rem] h-[.625rem] bg-white border-2 border-darkGray opacity-100 !important;
+	@apply w-[.625rem] h-[.625rem] !important;
 }
 
-.swiper-pagination-bullet-active{
+.projects-swiper-pagination .swiper-pagination-bullet{
+	@apply bg-darkGray border-2 border-white opacity-100 !important;
+}
+
+.projects-swiper-pagination .swiper-pagination-bullet-active{
+	@apply bg-white !important;
+}
+
+.testimonials-swiper-pagination .swiper-pagination-bullet{
+	@apply bg-white border-2 border-darkGray opacity-100 !important;
+}
+
+.testimonials-swiper-pagination .swiper-pagination-bullet-active{
 	@apply bg-darkGray !important;
 }
+
 
 .after-animation{
 	@apply relative before:absolute before:-bottom-[.625rem] before:left-0 before:bg-lightGray before:w-full before:h-[.125rem] before:rounded-3xl after:absolute after:-bottom-[.625rem] after:left-0 after:bg-darkGray after:w-0 after:h-[.125rem] after:rounded-xl hover:after:w-full after:ease-out after:duration-300;
