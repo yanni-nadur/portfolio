@@ -30,12 +30,39 @@
     <body>
         <header class="group fixed top-0 left-0 z-50 w-full [&.scrolled]:bg-white [&.scrolled]:shadow-md ease-in-out duration-500">
             <div class="container flex items-center justify-between pt-8 group-[&.scrolled]:py-4 ease-in-out duration-300">
-                <a href="#banner"><img class="w-10 h-10 object-contain invert group-[&.scrolled]:invert-0" src="../portfolio/src/images/origami.svg" alt="Yanni"></a>
-                <ul class="flex gap-x-10 ">
-                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#about">About</a></li>
-                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#projects">Projects</a></li>
-                    <li><a class="text-white group-[&.scrolled]:text-darkGray hover:text-normalPurple" href="#testimonials">Testimonials</a></li>
+                <a class="z-40" href="#banner" title="Home">
+                    <img class="w-10 h-10 object-contain invert group-[&.scrolled]:invert-0" src="../portfolio/src/images/origami.svg" alt="Yanni">
+                </a>
+                <ul class="hidden lg:flex gap-x-10 ">
+                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#about" title="About">About</a></li>
+                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#projects" title="Projects">Projects</a></li>
+                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#testimonials" title="Testimonials">Testimonials</a></li>
                 </ul>
+
+                <div class="hamburger lg:hidden z-[100]">
+                    <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
+                    <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
+                    <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
+                </div>
+                
+                <div class="fixed top-0 left-0 w-full h-full bg-black opacity-0 pointer-events-none z-50 ease-in-out duration-300 group-[&.mobile-open]:opacity-65 group-[&.mobile-open]:pointer-events-auto"></div>
+                <div class="fixed flex flex-col justify-between px-6 pt-[25%] pb-[10%] -right-[200%] bottom-0 w-[80%] h-screen bg-white z-50 ease-in-out duration-300 group-[&.mobile-open]:right-0">
+                    <ul class="flex flex-col gap-y-10">
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#about" title="About">About</a></li>
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#mobile-projects" title="Projects">Projects</a></li>
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#testimonials" title="Testimonials">Testimonials</a></li>
+                    </ul>
+
+                    <div class="flex items-center gap-x-6">
+                        <a class="mobile-menu-item text-darkGray text-3xl font-serif w-fit" href="#banner" title="Home">Back to Top</a>
+
+                        <svg class="w-8 h-18 fill-darkGray" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
+                            <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+                            l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+                            C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"/>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -102,7 +129,6 @@
             </div>
         </section>
 
-
         <section id="mobile-projects" class="lg:hidden bg-darkGray text-white">
             <div class="container py-20 lg:py-32">
                 <div class="grid grid-cols-12 lg:pb-20">
@@ -150,7 +176,7 @@
                                         <div class="relative w-full h-full cursor-pointer mb-6">
                                             <img class="w-full aspect-[391/270] object-cover z-10" src="../portfolio/src/images/nantesimage.webp" alt="Nantes Image">
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
-                                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Logo">
+                                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Logo">
                                         </div>
                                         <p>Personalized and multidisciplinary care for high complexity local and international matters.</p>
                                     </a>
