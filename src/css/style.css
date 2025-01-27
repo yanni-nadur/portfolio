@@ -6,7 +6,6 @@ body{
 	@apply font-sans text-base xl:text-lg;
 }
 
-
 h1, h2, h3{
 	@apply font-serif;
 }
@@ -26,7 +25,6 @@ h3{
 .background {
 	@apply w-full h-[85vh] relative;
 	background: linear-gradient(132deg, #202552, #591BC5, #860d35);
-	/* background: linear-gradient(132deg, #202552, #232a41, #343377);  */
 	background-size: 400% 400%;
 	animation: Gradient 5s ease-in-out infinite;
 }
@@ -124,4 +122,20 @@ h3{
 .w-nav-button.w--open .hamburger-line:nth-child(3) {
 	@apply top-1/2 w-full -translate-y-1/2 rotate-[135deg];
 }
+
+.fade-out {
+	opacity: 0;
+	transition: opacity 300ms ease-out;
+}
+
+.fade-in {
+	opacity: 1;
+	transition: opacity 300ms ease-in;
+}
+
+/* Set elements to have a smooth opacity transition */
+[data-translate] {
+	transition: opacity 300ms ease-in-out;
+}
+
 

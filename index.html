@@ -33,85 +33,110 @@
                 <a class="z-40" href="#banner" title="Home">
                     <img class="w-10 h-10 object-contain invert group-[&.scrolled]:invert-0" src="../portfolio/src/images/origami.svg" alt="Yanni">
                 </a>
-                <ul class="hidden lg:flex gap-x-10 ">
-                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#about" title="About">About</a></li>
-                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#projects" title="Projects">Projects</a></li>
-                    <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#testimonials" title="Testimonials">Testimonials</a></li>
-                </ul>
-
+                <div class="hidden lg:flex gap-x-12 items-center">
+                    <ul class="flex gap-x-10 ">
+                        <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#about" title="About" data-translate="Sobre">About</a></li>
+                        <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#projects" title="Projects" data-translate="Projetos">Projects</a></li>
+                        <li><a class="font-medium text-white group-[&.scrolled]:text-darkGray hover:!text-normalPurple z-30" href="#testimonials" title="Testimonials" data-translate="Depoimentos">Testimonials</a></li>
+                    </ul>
+                    
+                    <div class="language-toggle-button group relative hidden lg:flex items-center w-[6.25rem] h-10 bg-darkGray rounded-full cursor-pointer">
+                        <div class="pointer-events-none absolute left-4 opacity-100 group-[&.active]:opacity-40 ease-in-out duration-300">
+                            <img class="h-4 w-6 object-fill" src="../portfolio/src/images/us.webp" alt="USA">
+                        </div>
+                        <div class="pointer-events-none absolute right-4 opacity-40 group-[&.active]:opacity-100 ease-in-out duration-300">
+                            <img class="h-4 w-6 object-fill" src="../portfolio/src/images/brazil.webp" alt="Brazil">
+                        </div>
+                    </div>
+                </div>
+                  
+                
                 <div class="hamburger lg:hidden z-[100]">
                     <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
                     <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
                     <span class="hamburger-line bg-white group-[&.scrolled]:bg-darkGray group-[&.mobile-open]:bg-darkGray"></span>
                 </div>
-                
+        
                 <div class="fixed top-0 left-0 w-full h-full bg-black opacity-0 pointer-events-none z-50 ease-in-out duration-300 group-[&.mobile-open]:opacity-65 group-[&.mobile-open]:pointer-events-auto"></div>
-                <div class="fixed flex flex-col justify-between px-6 pt-[25%] pb-[10%] -right-[200%] bottom-0 w-[80%] h-screen bg-white z-50 ease-in-out duration-300 group-[&.mobile-open]:right-0">
+
+                <div class="fixed flex flex-col justify-between px-6 pt-[30%] pb-[2.5rem] -right-[200%] bottom-0 w-[80%] md:w-[60%] h-screen bg-white z-50 ease-in-out duration-300 group-[&.mobile-open]:right-0">
+                      
                     <ul class="flex flex-col gap-y-10">
-                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#about" title="About">About</a></li>
-                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#mobile-projects" title="Projects">Projects</a></li>
-                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#testimonials" title="Testimonials">Testimonials</a></li>
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#about" title="About" data-translate="Sobre">About</a></li>
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#mobile-projects" title="Projects" data-translate="Projetos">Projects</a></li>
+                        <li><a class="mobile-menu-item text-darkGray text-4xl font-serif w-full" href="#testimonials" title="Testimonials" data-translate="Depoimentos">Testimonials</a></li>
                     </ul>
 
-                    <div class="flex items-center gap-x-6">
-                        <a class="mobile-menu-item text-darkGray text-3xl font-serif w-fit" href="#banner" title="Home">Back to Top</a>
-
-                        <svg class="w-8 h-18 fill-darkGray" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
-                            <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
-                            l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
-                            C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"/>
-                        </svg>
+                    <div class="flex flex-col gap-y-10">
+                        <div class="language-toggle-button group relative flex lg:hidden items-center w-[6.25rem] h-10 bg-darkGray rounded-full cursor-pointer">
+                            <div class="pointer-events-none absolute left-4 opacity-100 group-[&.active]:opacity-40 ease-in-out duration-300">
+                                <img class="h-4 w-6 object-fill" src="../portfolio/src/images/us.webp" alt="USA">
+                            </div>
+                            <div class="pointer-events-none absolute right-4 opacity-40 group-[&.active]:opacity-100 ease-in-out duration-300">
+                                <img class="h-4 w-6 object-fill" src="../portfolio/src/images/brazil.webp" alt="Brazil">
+                            </div>
+                        </div>
+            
+                        <div id="back-to-top" class="flex items-center gap-x-6 [&.top-hidden]:opacity-0 [&.top-hidden]:pointer-events-none transition-all">
+                            <a class="mobile-menu-item text-darkGray text-2xl font-serif w-fit" href="#banner" title="Home" data-translate="Voltar ao topo">Back to Top</a>
+            
+                            <svg class="w-6 h-14 fill-darkGray" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve">
+                                <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394
+                                l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393
+                                C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
-
+        
         <section id="banner" class="background">
             <div class="container h-full flex items-end">
                 <div class="grid grid-cols-12 h-fit py-20">
                     <div class="col-span-12 font-serif mb-20">
-                        <h1 class="text-5xl lg:text-[9rem] lg:leading-[10rem] text-white">Yanni Nadur</h1>
+                        <h1 class="text-5xl lg:text-[144px] lg:leading-[160px] text-white" data-translate="Yanni Nadur">Yanni Nadur</h1>
                     </div>
                     <div class="col-span-12 lg:col-span-6">
-                        <h2 class="text-xl text-white">A passionate developer with 4+ years of experience in web development and a strong commitment to building scalable, responsive, and user-centric digital experiences.</h2>
+                        <h2 class="text-xl text-white" data-translate="Desenvolvedor apaixonado com mais de 4 anos de experiência em desenvolvimento web e um forte compromisso em criar experiências digitais escaláveis, responsivas e centradas no usuário.">A passionate developer with 4+ years of experience in web development and a strong commitment to building scalable, responsive, and user-centric digital experiences.</h2>
                     </div>
                 </div>
             </div>
         </section>
-
+        
         <section id="about" class="bg-white text-darkGray">
             <div class="container">
                 <div class="grid grid-cols-12 py-20">
-                    <div class="col-span-12 mb-16 relative after:absolute after:left-0 after:-bottom-3 after:h-[1px] after:w-full after:bg-darkGray">
-                        <h3 class="font-serif">About</h3>
+                    <div class="col-span-12 mb-16 relative after:absolute after:left-0 after:-bottom-3 after:h-[.0625rem] after:w-full after:bg-darkGray">
+                        <h3 class="font-serif" data-translate="Sobre">About</h3>
                     </div>
                     <div class="col-span-12 lg:col-span-7 mb-10 lg:mb-0">
                         <div class="flex flex-col h-full">
-                            <div class="text-xl lg:text-3xl mb-6 lg:mb-0"><span>Over the years, I have specialized in developing innovative, functional, and scalable digital experiences with a strong focus on design fidelity, responsiveness, and performance optimization.</span></div>
-                            
+                            <div class="text-xl lg:text-3xl mb-6 lg:mb-0" data-translate="Ao longo dos anos, especializei-me em desenvolver experiências digitais inovadoras, funcionais e escaláveis, com forte foco na fidelidade ao design, responsividade e otimização de desempenho."><span>Over the years, I have specialized in developing innovative, functional, and scalable digital experiences with a strong focus on design fidelity, responsiveness, and performance optimization.</span></div>
+        
                             <div class="flex lg:hidden flex-col gap-y-3 mb-6">
-                                <p>With expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP, I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
-                                <p>I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
-                                <p>I hold a Bachelor of Computer Science in and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
-                                <p>Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
+                                <p data-translate="Com expertise em HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS) e PHP, desenvolvi soluções web personalizadas usando plataformas CMS como WordPress, CraftCMS e Strapi. Estou dedicado a entregar aplicações centradas no usuário que estejam alinhadas aos padrões modernos da web, incluindo acessibilidade e boas práticas de SEO.">With expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP, I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
+                                <p data-translate="Tenho experiência prática na criação de sites de alto tráfego, garantindo bases de código limpas e mantíveis para escalabilidade de longo prazo. Meu histórico inclui transformar designs do Figma em implementações perfeitas e usar ferramentas como Docker para fluxos de trabalho e implantações consistentes.">I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
+                                <p data-translate="Sou bacharel em Ciência da Computação e concluí certificações em AWS, desenvolvimento full-stack, Git/GitHub e muito mais.">I hold a Bachelor of Computer Science and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
+                                <p data-translate="Fluente em português e inglês, tenho um histórico de excelência em ambientes colaborativos, dinâmicos e multiculturais.">Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
                             </div>
-
+        
                             <div class="flex flex-col lg:flex-row w-full xl:w-4/5 gap-y-6 justify-between mt-auto">
                                 <div class="flex flex-col">
-                                    <strong class="mb-2">Product Development</strong>
-                                    <strong>UX/UI</strong>
+                                    <strong class="mb-2" data-translate="Desenvolvimento de Produtos">Product Development</strong>
+                                    <strong data-translate="UX/UI">UX/UI</strong>
                                 </div>
                                 <div class="flex flex-col">
-                                    <strong class="mb-2">Say hello!</strong>
+                                    <strong class="mb-2" data-translate="Diga olá!">Say hello!</strong>
                                     <div class="after-animation">
-                                        <a href="https://wa.me/5511949272576?text=Hello!%20I%20would%20like%20to%20get%20in%20touch." target="_blank">+55 (11) 94927-2576</a>
+                                        <a href="https://wa.me/5511949272576?text=Hello!%20I%20would%20like%20to%20get%20in%20touch." target="_blank" data-translate="+55 (11) 94927-2576">+55 (11) 94927-2576</a>
                                     </div>
                                 </div>
-
+        
                                 <div class="flex flex-col">
-                                    <strong class="mb-2">Want to connect?</strong>
+                                    <strong class="mb-2" data-translate="Vamos conectar?">Want to connect?</strong>
                                     <div class="after-animation">
-                                        <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank">Explore LinkedIn</a>
+                                        <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank" data-translate="Explorar LinkedIn">Explore LinkedIn</a>
                                     </div>
                                 </div>
                             </div>
@@ -119,23 +144,24 @@
                     </div>
                     <div class="hidden lg:block lg:col-start-9 lg:col-span-4">
                         <div class="flex flex-col gap-y-3">
-                            <p>With expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP, I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
-                            <p>I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
-                            <p>I hold a Bachelor of Computer Science in and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
-                            <p>Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
+                            <p data-translate="Com expertise em HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS) e PHP, desenvolvi soluções web personalizadas usando plataformas CMS como WordPress, CraftCMS e Strapi. Estou dedicado a entregar aplicações centradas no usuário que estejam alinhadas aos padrões modernos da web, incluindo acessibilidade e boas práticas de SEO.">With expertise in HTML, CSS (Sass, Tailwind), JavaScript (Vanilla, ReactJS, NextJS), and PHP, I have built custom web solutions using CMS platforms like WordPress, CraftCMS, and Strapi. I am dedicated to delivering user-centric applications that align with modern web standards, including accessibility and SEO best practices.</p>
+                            <p data-translate="Tenho experiência prática na criação de sites de alto tráfego, garantindo bases de código limpas e mantíveis para escalabilidade de longo prazo. Meu histórico inclui transformar designs do Figma em implementações perfeitas e usar ferramentas como Docker para fluxos de trabalho e implantações consistentes.">I have hands-on experience in creating high-traffic websites, ensuring clean and maintainable codebases for long-term scalability. My background includes transforming Figma designs into pixel-perfect implementations and leveraging tools like Docker for consistent workflows and deployment.</p>
+                            <p data-translate="Sou bacharel em Ciência da Computação e concluí certificações em AWS, desenvolvimento full-stack, Git/GitHub e muito mais.">I hold a Bachelor of Computer Science and have completed certifications in AWS, full-stack development, Git/GitHub and many more.</p>
+                            <p data-translate="Fluente em português e inglês, tenho um histórico de excelência em ambientes colaborativos, dinâmicos e multiculturais.">Fluent in Portuguese and English, I have a history of excelling in collaborative, dynamic, and multicultural environments.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
+        
         <section id="mobile-projects" class="lg:hidden bg-darkGray text-white">
             <div class="container py-20 lg:py-32">
                 <div class="grid grid-cols-12 lg:pb-20">
                     <div class="col-span-12 md:col-span-8 md:col-start-3 text-center relative">
-                        <h3 class="mb-6">My Recent Work</h3>
-                        <p>Here are some projects that I previously worked on. Want to reach out? <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com">Email me</a>!</p>
-
+                        <h3 class="mb-6" data-translate="Meus trabalhos recentes">My Recent Work</h3>
+                        <p data-translate="Aqui estão alguns projetos em que trabalhei anteriormente. Quer entrar em contato?">Here are some projects that I previously worked on. Want to reach out?</p>
+                        <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com" data-translate="Me envie um e-mail">Email me</a> 😊
+        
                         <div class="projects-swiper-container w-full h-fit relative overflow-hidden pointer-events-auto py-10">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
@@ -145,10 +171,10 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/notco.svg" alt="Notco Logo">
                                         </div>
-                                        <p>Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future.</p>
+                                        <p data-translate="Revolucionando alimentos à base de plantas com IA de ponta para criar alternativas sustentáveis e deliciosas para um futuro melhor.">Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future.</p>
                                     </a>
                                 </div>
-
+        
                                 <div class="swiper-slide">
                                     <a href="https://nordicabatteries.com.br" target="_blank">
                                         <div class="relative w-full h-full cursor-pointer mb-6">
@@ -156,10 +182,10 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/nordiclogo.svg" alt="Nordic Logo">
                                         </div>
-                                        <p>Powering sustainable energy solutions with innovative battery technology for a greener, brighter future.</p>
+                                        <p data-translate="Potencializando soluções de energia sustentável com tecnologia inovadora de baterias para um futuro mais verde e brilhante.">Powering sustainable energy solutions with innovative battery technology for a greener, brighter future.</p>
                                     </a>
                                 </div>
-
+        
                                 <div class="swiper-slide">
                                     <a href="https://nutrikarenoliveira.com.br" target="_blank">
                                         <div class="relative w-full h-full cursor-pointer mb-6">
@@ -167,10 +193,10 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/karenlogo2.png" alt="Karen Logo">
                                         </div>
-                                        <p>Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle.</p>
+                                        <p data-translate="Transformando vidas através de orientação nutricional personalizada para saúde, bem-estar e um estilo de vida equilibrado.">Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle.</p>
                                     </a>
                                 </div>
-
+        
                                 <div class="swiper-slide">
                                     <a href="https://www.nantesmello.com/" target="_blank">
                                         <div class="relative w-full h-full cursor-pointer mb-6">
@@ -178,10 +204,10 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Logo">
                                         </div>
-                                        <p>Personalized and multidisciplinary care for high complexity local and international matters.</p>
+                                        <p data-translate="Cuidados personalizados e multidisciplinares para questões de alta complexidade, locais e internacionais.">Personalized and multidisciplinary care for high complexity local and international matters.</p>
                                     </a>
                                 </div>
-
+        
                                 <div class="swiper-slide">
                                     <a href="https://kongsbergagenda.no/" target="_blank">
                                         <div class="relative w-full h-full cursor-pointer mb-6">
@@ -189,10 +215,10 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/kongsberglogo.svg" alt="Kongsberg Logo">
                                         </div>
-                                        <p>Empowering innovation and collaboration to shape the future of technology and society in Norway.</p>
+                                        <p data-translate="Empoderando a inovação e colaboração para moldar o futuro da tecnologia e da sociedade na Noruega.">Empowering innovation and collaboration to shape the future of technology and society in Norway.</p>
                                     </a>
                                 </div>
-
+        
                                 <div class="swiper-slide">
                                     <a href="https://soloneiendom.no/" target="_blank">
                                         <div class="relative w-full h-full cursor-pointer mb-6">
@@ -200,7 +226,7 @@
                                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
                                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/solonlogo.svg" alt="Solon Logo">
                                         </div>
-                                        <p>Building sustainable, high-quality homes that combine modern design with environmental responsibility.</p>
+                                        <p data-translate="Construindo casas sustentáveis e de alta qualidade que combinam design moderno com responsabilidade ambiental.">Building sustainable, high-quality homes that combine modern design with environmental responsibility.</p>
                                     </a>
                                 </div>
                             </div>
@@ -220,14 +246,15 @@
                 </div>
             </div>
         </section>
-
         
         <section id="projects" class="hidden lg:block bg-darkGray text-white">
             <div class="container py-20 lg:py-32">
                 <div class="grid grid-cols-12 pb-20">
                     <div class="col-span-12 text-center">
-                        <h3 class="mb-6">My Recent Work</h3>
-                        <p>Here are some projects that I previously worked on. Want to reach out? <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com">Email me</a>!</p>
+                        <h3 class="mb-6" data-translate="Meus Trabalhos Recentes">My Recent Work</h3>
+                        <p data-translate="Aqui estão alguns projetos nos quais trabalhei anteriormente.">Here are some projects that I previously worked on.</p>
+                        <p class="inline" data-translate="Quer conversar?">Want to reach out?</p>
+                        <a class="text-blue-500 hover:underline" href="mailto:yanninadur@gmail.com" data-translate="Me envie um e-mail">Email me</a> 😊
                     </div>
                 </div>
                 <ul class="grid grid-cols-12 gap-4">
@@ -238,11 +265,13 @@
                             <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/notco.svg" alt="Notco Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future.</h4>
-                            <a href="https://notco.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Revolucionando alimentos à base de plantas com IA de ponta para criar alternativas sustentáveis e deliciosas para um futuro melhor.">
+                                Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future.
+                            </h4>
+                            <a href="https://notco.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
-
+        
                     <li class="lg:col-span-4 xl:col-span-4 relative group aspect-[432/288] overflow-hidden">
                         <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
                             <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/nordicimage.jpg" alt="Nordic Batteries">
@@ -250,11 +279,13 @@
                             <img class="w-2/5 h-2/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/nordiclogo.svg" alt="Nordic Batteries Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Powering sustainable energy solutions with innovative battery technology for a greener, brighter future</h4>
-                            <a href="https://nordicbatteries.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Fornecendo soluções de energia sustentável com tecnologia de baterias inovadora para um futuro mais verde e brilhante.">
+                                Powering sustainable energy solutions with innovative battery technology for a greener, brighter future.
+                            </h4>
+                            <a href="https://nordicbatteries.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
-
+        
                     <li class="lg:col-span-4 xl:col-span-4 relative group aspect-[432/288] overflow-hidden">
                         <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
                             <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/karenimage.png" alt="Karen Oliveira">
@@ -262,11 +293,13 @@
                             <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/karenlogo2.png" alt="Karen Oliveira Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle.</h4>
-                            <a href="https://nutrikarenoliveira.com.br/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Transformando vidas por meio de orientação nutricional personalizada para saúde, bem-estar e um estilo de vida equilibrado.">
+                                Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle.
+                            </h4>
+                            <a href="https://nutrikarenoliveira.com.br/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
-
+        
                     <li class="lg:col-span-4 xl:col-span-4 relative group aspect-[432/288] overflow-hidden">
                         <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
                             <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/nantesimage.webp" alt="Nantes Mello">
@@ -274,32 +307,38 @@
                             <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/nantelogo.svg" alt="Nantes Mello Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Personalized and multidisciplinary care for high complexity local and international matters.</h4>
-                            <a href="https://www.nantesmello.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Cuidados personalizados e multidisciplinares para questões locais e internacionais de alta complexidade.">
+                                Personalized and multidisciplinary care for high complexity local and international matters.
+                            </h4>
+                            <a href="https://www.nantesmello.com/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
-
+        
                     <li class="lg:col-span-4 xl:col-span-4 relative group aspect-[432/288] overflow-hidden">
                         <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
-                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/kongsbergimage.webp" alt="Nantes Mello">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/kongsbergimage.webp" alt="Kongsberg Agenda">
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
-                            <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/kongsberglogo.svg" alt="Nantes Mello Logo">
+                            <img class="w-auto h-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30" src="../portfolio/src/images/kongsberglogo.svg" alt="Kongsberg Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Empowering innovation and collaboration to shape the future of technology and society in Norway.</h4>
-                            <a href="https://kongsbergagenda.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Empoderando a inovação e colaboração para moldar o futuro da tecnologia e da sociedade na Noruega.">
+                                Empowering innovation and collaboration to shape the future of technology and society in Norway.
+                            </h4>
+                            <a href="https://kongsbergagenda.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
-
+        
                     <li class="lg:col-span-4 xl:col-span-4 relative group aspect-[432/288] overflow-hidden">
                         <div class="relative w-full h-full cursor-pointer group-hover:scale-[120%] origin-center ease-in duration-200">
-                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/solonimage.webp" alt="Nantes Mello">
+                            <img class="w-full h-full object-cover z-10" src="../portfolio/src/images/solonimage.webp" alt="Solon Eiendom">
                             <div class="absolute top-0 left-0 bg-black w-full h-full opacity-60 brightness-50 z-20"></div>
-                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/solonlogo.svg" alt="Nantes Mello Logo">
+                            <img class="w-1/2 h-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invert" src="../portfolio/src/images/solonlogo.svg" alt="Solon Eiendom Logo">
                         </div>
                         <div class="absolute flex flex-col p-10 items-center justify-center text-center border-4 border-white text-white top-0 left-0 z-40 w-full h-full bg-normalPurple opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto ease-in-out duration-500 delay-75 font-bold">
-                            <h4>Building sustainable, high-quality homes that combine modern design with environmental responsibility.</h4>
-                            <a href="https://soloneiendom.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200">Visit Website</a>
+                            <h4 data-translate="Construindo casas sustentáveis e de alta qualidade que combinam design moderno com responsabilidade ambiental.">
+                                Building sustainable, high-quality homes that combine modern design with environmental responsibility.
+                            </h4>
+                            <a href="https://soloneiendom.no/" target="_blank" class="mt-10 py-2 px-6 rounded-3xl flex items-center justify-center border-2 border-white hover:bg-white hover:text-normalPurple ease-in-out duration-200" data-translate="Visitar o site">Visit Website</a>
                         </div>
                     </li>
                 </ul>
@@ -309,40 +348,40 @@
         <section id="testimonials" class="py-20 container">
             <div class="grid grid-cols-12">
                 <div class="col-span-12 md:col-span-8 md:col-start-3 lg:col-span-6 lg:col-start-4 relative text-center text-darkGray">
-                    <h3 class="mb-6">Testimonials</h3>
-                    <h4>People I've worked with have said some nice things!</h4>
-
+                    <h3 class="mb-6" data-translate="Depoimentos">Testimonials</h3>
+                    <h4 data-translate="Algumas palavras dos meus colegas!">People I've worked with have said some nice things!</h4>
+        
                     <div class="testimonials-swiper-container w-full h-fit relative overflow-hidden pointer-events-auto py-10">
                         <div class="swiper-wrapper">
-                          <div class="swiper-slide bg-white rounded-3xl lg:p-10">
-                            <div class="flex flex-col items-center justify-center w-full text-center">
-                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/ulisses.jpeg" alt="Ulisses">
-                                <p class="text-center mb-6">“I had the pleasure of working with Yanni, and I can confidently say they are a standout professional. Yanni is not only creative and solution-driven but also an excellent communicator who collaborates seamlessly with others.”</p>
-                                <strong>Ulisses Inácio Militão</strong>
-                                <span>.NET Software Engineer at VenturiX Solutions</span>
+                            <div class="swiper-slide bg-white rounded-3xl lg:p-10">
+                                <div class="flex flex-col items-center justify-center w-full text-center">
+                                    <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/ulisses.jpeg" alt="Ulisses">
+                                    <p class="text-center mb-6" data-translate="Tive o prazer de trabalhar com Yanni e posso afirmar com confiança que ele é um profissional de destaque. Yanni não é apenas criativo e orientado a soluções, mas também um excelente comunicador que colabora de maneira impecável com os outros.">“I had the pleasure of working with Yanni, and I can confidently say they are a standout professional. Yanni is not only creative and solution-driven but also an excellent communicator who collaborates seamlessly with others.”</p>
+                                    <strong>Ulisses Inácio Militão</strong>
+                                    <span>.NET Software Engineer at VenturiX Solutions</span>
+                                </div>
                             </div>
-                          </div>
-                          
-                          <div class="swiper-slide bg-white rounded-3xl lg:p-10">
-                            <div class="flex flex-col items-center justify-center w-full text-center">
-                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/felipe.jpeg" alt="Ulisses">
-                                <p class="text-center mb-6">“Professional strongly engaged to development efficiency. Always able to help in any aspect of the process. Yanni uses techs n' tools focused on solving problems, writing clean, semantics and accessible codes.”</p>
-                                <strong>Felipe Oliveira</strong>
-                                <span>Fullstack Web Developer at FutureBrand</span>
+                            
+                            <div class="swiper-slide bg-white rounded-3xl lg:p-10">
+                                <div class="flex flex-col items-center justify-center w-full text-center">
+                                    <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/felipe.jpeg" alt="Felipe">
+                                    <p class="text-center mb-6" data-translate="Profissional altamente comprometido com a eficiência no desenvolvimento. Sempre disposto a ajudar em qualquer aspecto do processo. Yanni usa tecnologias e ferramentas focadas em resolver problemas, escrevendo códigos limpos, semânticos e acessíveis.">“Professional strongly engaged to development efficiency. Always able to help in any aspect of the process. Yanni uses techs n' tools focused on solving problems, writing clean, semantics and accessible codes.”</p>
+                                    <strong>Felipe Oliveira</strong>
+                                    <span>Fullstack Web Developer at FutureBrand</span>
+                                </div>
                             </div>
-                          </div>
-
-                          <div class="swiper-slide bg-white rounded-3xl lg:p-10">
-                            <div class="flex flex-col items-center justify-center w-full text-center">
-                                <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/rodolfo.jpeg" alt="Ulisses">
-                                <p class="text-center mb-6">“Yanni is a very smart young developer eager to learn new skills as a web developer. Working as a team member he is always asking and searching for new and better ways of getting the job done.”</p>
-                                <strong>Rodolfo Araki</strong>
-                                <span>Senior Developer at DAYTWO</span>
+        
+                            <div class="swiper-slide bg-white rounded-3xl lg:p-10">
+                                <div class="flex flex-col items-center justify-center w-full text-center">
+                                    <img class="border border-darkGray w-40 h-40 rounded-full object-cover mb-6" src="../portfolio/src/images/rodolfo.jpeg" alt="Rodolfo">
+                                    <p class="text-center mb-6" data-translate="Yanni é um jovem desenvolvedor muito inteligente e ávido por aprender novas habilidades como desenvolvedor web. Trabalhando como membro de equipe, ele está sempre perguntando e buscando novas e melhores maneiras de realizar o trabalho.">“Yanni is a very smart young developer eager to learn new skills as a web developer. Working as a team member he is always asking and searching for new and better ways of getting the job done.”</p>
+                                    <strong>Rodolfo Araki</strong>
+                                    <span>Senior Developer at DAYTWO</span>
+                                </div>
                             </div>
-                          </div>
                         </div>
                     </div>
-
+        
                     <div class="testimonials-swiper-pagination swiper-pagination"></div>
                     <div class="testimonials-swiper-button-prev group">
                         <svg viewBox="0 0 330 330" class="!w-8 !h-8 fill-darkGray object-center pr-1 group-hover:fill-white ease-in-out duration-300">
@@ -364,7 +403,7 @@
                     <a href="#banner" title="Back to top">
                         <img class="w-20 h-20 mb-6 invert" src="../portfolio/src/images/origami.svg" alt="Yanni Nadur">
                     </a>
-                    <span class="text-4xl mb-20">Let's Collaborate?</span>
+                    <span class="text-4xl mb-20 text-center" data-translate="Vamos trabalhar juntos?">Let's Collaborate?</span>
                     <ul class="flex gap-x-6 mb-20">
                         <li class="group cursor-pointer w-14 h-14 border-2 border-white rounded-full flex items-center justify-center hover:bg-white ease-in-out duration-500">
                             <a href="https://www.linkedin.com/in/yanninaxim/" target="_blank" title="Linkedin">
