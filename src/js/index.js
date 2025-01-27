@@ -1,52 +1,54 @@
-// Function to toggle translation with fade effect
+// Function to toggle translation with fade effect and resume change
 function toggleTranslation() {
-	const elements = document.querySelectorAll('[data-translate]'); // Select all elements with data-translate attribute
+	const elements = document.querySelectorAll('[data-translate]');
+	const resumeLink = document.getElementById('resume-download');
 	
 	elements.forEach(element => {
-	  // Check if the original text has already been stored
-	  if (!element.hasAttribute('data-original-text')) {
-		element.setAttribute('data-original-text', element.textContent); // Store the original text if not already stored
-	  }
-  
-	  // Get the current text content and the translated text
-	  const originalText = element.getAttribute('data-original-text');
-	  const translatedText = element.getAttribute('data-translate');
-  
-	  // Fade out effect
-	  element.classList.add('fade-out');
-	  
-	  // After fade-out finishes, change text and fade in
-	  setTimeout(() => {
-		// Toggle between original text and translated text
-		if (element.textContent === translatedText) {
-		  element.textContent = originalText; // Switch back to the original text
-		} else {
-		  element.textContent = translatedText; // Switch to the translated text
+		if (!element.hasAttribute('data-original-text')) {
+			element.setAttribute('data-original-text', element.textContent);
 		}
-		
-		// Fade in effect
-		element.classList.remove('fade-out');
-		element.classList.add('fade-in');
-	  }, 300); // Match the duration of the fade-out transition (300ms)
-	  
-	  // Reset fade-in after it's done
-	  setTimeout(() => {
-		element.classList.remove('fade-in');
-	  }, 600); // Match the duration of the fade-in transition (600ms)
-	});
-}
-  
-// // Event listener for the button to toggle translation
-// document.getElementById('translateButton').addEventListener('click', toggleTranslation);
-  
 
+		const originalText = element.getAttribute('data-original-text');
+		const translatedText = element.getAttribute('data-translate');
+
+		element.classList.add('fade-out');
+		
+		setTimeout(() => {
+			if (element.textContent === translatedText) {
+				element.textContent = originalText; 
+			} else {
+				element.textContent = translatedText;
+			}
+			
+			element.classList.remove('fade-out');
+			element.classList.add('fade-in');
+		}, 300);
+		
+		setTimeout(() => {
+			element.classList.remove('fade-in');
+		}, 600);
+	});
+
+	if (resumeLink) {
+		const currentHref = resumeLink.getAttribute('href');
+		if (currentHref.includes('resume-en')) {
+			resumeLink.setAttribute('href', '../portfolio/src/files/resume-pt.pdf');
+			resumeLink.setAttribute('download', 'Yanni Nadur - Resume PT');
+		} else {
+			resumeLink.setAttribute('href', '../portfolio/src/files/resume-en.pdf');
+			resumeLink.setAttribute('download', 'Yanni Nadur - Resume EN');
+		}
+	}
+}
+
+// Language Toggle
 const toggleButtons = document.querySelectorAll('.language-toggle-button');
 
 toggleButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    button.classList.toggle('active');
-	toggleTranslation();
-  });
+	button.addEventListener('click', () => {
+		button.classList.toggle('active');
+		toggleTranslation();
+	});
 });
 
 // Initialize Swipers
@@ -74,34 +76,32 @@ createSwiper('.projects-swiper-container', '.projects-swiper-button-next', '.pro
 // Smooth Scroll for Anchor Links with Offset
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 	anchor.addEventListener('click', e => {
-		e.preventDefault(); // Impede o comportamento padrão do clique
+		e.preventDefault();
 
-		const target = document.querySelector(anchor.getAttribute('href')); // Obtem o elemento alvo
+		const target = document.querySelector(anchor.getAttribute('href'));
 		if (!target) return;
 
-		const offset = 100; // Offset para parar antes da âncora
-		const startPosition = window.pageYOffset; // Posição inicial de rolagem
-		const targetPosition = target.getBoundingClientRect().top - offset; // Posição da âncora ajustada com o offset
-		const duration = 1000; // Duração da animação em ms
-		const startTime = performance.now(); // Hora de início
+		const offset = 100;
+		const startPosition = window.pageYOffset;
+		const targetPosition = target.getBoundingClientRect().top - offset; 
+		const duration = 1000; 
+		const startTime = performance.now();
 
-		// Função de easing (easeInOutQuad)
 		const easeInOutQuad = (t, b, c, d) => {
 			t /= d / 2;
 			return t < 1 ? (c / 2) * t * t + b : -c / 2 * (--t * (t - 2) - 1) + b;
 		};
 
-		// Função de animação
 		const smoothScroll = currentTime => {
-			const elapsed = currentTime - startTime; // Tempo decorrido
-			const scrollAmount = easeInOutQuad(elapsed, startPosition, targetPosition, duration); // Calcula o deslocamento suave
+			const elapsed = currentTime - startTime;
+			const scrollAmount = easeInOutQuad(elapsed, startPosition, targetPosition, duration);
 
-			window.scrollTo(0, scrollAmount); // Rola para a posição calculada
-			if (elapsed < duration) requestAnimationFrame(smoothScroll); // Continua a animação até terminar
-			else window.scrollTo(0, startPosition + targetPosition); // Garante que chegue exatamente ao destino
+			window.scrollTo(0, scrollAmount);
+			if (elapsed < duration) requestAnimationFrame(smoothScroll);
+			else window.scrollTo(0, startPosition + targetPosition);
 		};
 
-		requestAnimationFrame(smoothScroll); // Inicia a animação
+		requestAnimationFrame(smoothScroll); 
 	});
 });
 
@@ -112,10 +112,8 @@ const backToTopButton = document.getElementById('back-to-top');
 const toggleHeaderScrolled = () => {
 	const scrolled = window.scrollY > 0;
 
-	// Toggle "scrolled" class on the header
 	header.classList.toggle('scrolled', scrolled);
 
-	// Add or remove "top-hidden" class on the back-to-top button
 	if (backToTopButton) {
 		backToTopButton.classList.toggle('top-hidden', !scrolled);
 	}

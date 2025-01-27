@@ -133,9 +133,6 @@ h3{
 	transition: opacity 300ms ease-in;
 }
 
-/* Set elements to have a smooth opacity transition */
 [data-translate] {
 	transition: opacity 300ms ease-in-out;
 }
-
-
