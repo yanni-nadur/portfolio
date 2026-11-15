@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, type ReactNode } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { useFocusTrap } from "../hooks/useFocusTrap";
@@ -321,9 +321,4 @@ function AppLoading()
             {t("loadingApp")}
         </div>
     );
-}
-
-export function AppShell({ children }: { children: ReactNode })
-{
-    return <div className="h-full">{children}</div>;
 }

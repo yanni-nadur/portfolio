@@ -272,9 +272,7 @@ assert(profileText.includes("yanninadur@gmail.com"), "profile email looks valid"
 assert(projectsText.includes("karen-oliveira"), "karen project restored");
 assert(projectsText.includes("nantes-mello"), "nantes project restored");
 assert(fs.existsSync(path.join(rootPath, "public/images/karenimage.webp")), "karen image exists");
-assert(fs.existsSync(path.join(rootPath, "public/images/karenlogo.webp")), "karen logo exists");
 assert(fs.existsSync(path.join(rootPath, "public/images/nantesimage.webp")), "nantes image exists");
-assert(fs.existsSync(path.join(rootPath, "public/images/nantelogo.svg")), "nantes logo exists");
 assert(!fs.existsSync(path.join(rootPath, "public/images/karenimage.png")), "heavy karen png removed");
 assert(fs.existsSync(path.join(rootPath, "public/images/nordicimage.webp")), "nordic image converted to webp");
 assert(!fs.existsSync(path.join(rootPath, "public/images/nordicimage.jpg")), "nordic jpg removed");

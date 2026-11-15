@@ -31,7 +31,6 @@ export type FeaturedProject = {
     hasPublicUrl: boolean;
     url: string | null;
     image: string | null;
-    logo: string | null;
     accent: string;
     media: MediaConfig;
 } & LocalizedPair<FeaturedProjectCopy>;
@@ -46,8 +45,6 @@ export type AdditionalProject = {
     hasPublicUrl: boolean;
     url: string | null;
     image: string | null;
-    logo: string | null;
-    logoInvert?: boolean;
 } & LocalizedPair<AdditionalProjectCopy>;
 
 export type ExperienceCopy = {
@@ -94,7 +91,6 @@ export type ProfileLinks = {
     whatsapp: string | null;
     resumeEn: string;
     resumePt: string;
-    logo: string;
     avatar: string | null;
 };
 

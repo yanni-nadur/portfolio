@@ -111,7 +111,7 @@ export function LandingScreen()
 
             <header className="absolute inset-x-0 top-0 z-20 flex justify-end px-4 pt-4 sm:px-6 sm:pt-5">
                 <div className="w-[9.5rem] sm:w-40">
-                    <LanguageSwitch labelMode="always" />
+                    <LanguageSwitch />
                 </div>
             </header>
 

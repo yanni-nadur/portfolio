@@ -8,7 +8,6 @@ export const profileLinks: ProfileLinks = {
     whatsapp: "https://wa.me/5511949272576",
     resumeEn: "files/resume-en.pdf",
     resumePt: "files/resume-pt.pdf",
-    logo: "images/origami.svg",
     avatar: "images/avatar.webp"
 };
 

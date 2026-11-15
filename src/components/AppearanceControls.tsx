@@ -1,13 +1,6 @@
 import { useI18n } from "../i18n/I18nProvider";
 import { useSettings } from "../store/settingsStore";
 
-// -- TYPES
-type LabelMode = "always" | "responsive";
-
-type SwitchProps = {
-    labelMode: LabelMode;
-};
-
 // -- FUNCTIONS
 function selectionClassName(isSelected: boolean): string
 {
@@ -17,16 +10,6 @@ function selectionClassName(isSelected: boolean): string
     }
 
     return "text-slateSoft hover:bg-white/80 dark:text-white/75 dark:hover:bg-white/10";
-}
-
-function labelClassName(labelMode: LabelMode): string
-{
-    if (labelMode === "responsive")
-    {
-        return "hidden sm:inline";
-    }
-
-    return "inline";
 }
 
 function FlagUnitedStates()
@@ -130,11 +113,10 @@ function MoonIcon()
 }
 
 // -- OPERATIONS
-export function ThemeSwitch({ labelMode }: SwitchProps)
+function ThemeSwitch()
 {
     const { t } = useI18n();
     const { theme, setTheme } = useSettings();
-    const textClassName = labelClassName(labelMode);
 
     return (
         <div
@@ -149,7 +131,7 @@ export function ThemeSwitch({ labelMode }: SwitchProps)
                 onClick={() => setTheme("dark")}
             >
                 <MoonIcon />
-                <span className={textClassName}>{t("simpleThemeDark")}</span>
+                <span>{t("simpleThemeDark")}</span>
             </button>
             <button
                 type="button"
@@ -158,17 +140,16 @@ export function ThemeSwitch({ labelMode }: SwitchProps)
                 onClick={() => setTheme("light")}
             >
                 <SunIcon />
-                <span className={textClassName}>{t("simpleThemeLight")}</span>
+                <span>{t("simpleThemeLight")}</span>
             </button>
         </div>
     );
 }
 
-export function LanguageSwitch({ labelMode }: SwitchProps)
+export function LanguageSwitch()
 {
     const { t } = useI18n();
     const { language, setLanguage } = useSettings();
-    const textClassName = labelClassName(labelMode);
 
     return (
         <div
@@ -183,7 +164,7 @@ export function LanguageSwitch({ labelMode }: SwitchProps)
                 onClick={() => setLanguage("en")}
             >
                 <FlagUnitedStates />
-                <span className={textClassName}>EN</span>
+                <span>EN</span>
             </button>
             <button
                 type="button"
@@ -192,18 +173,18 @@ export function LanguageSwitch({ labelMode }: SwitchProps)
                 onClick={() => setLanguage("pt")}
             >
                 <FlagBrazil />
-                <span className={textClassName}>PT</span>
+                <span>PT</span>
             </button>
         </div>
     );
 }
 
-export function AppearanceControls({ labelMode }: SwitchProps)
+export function AppearanceControls()
 {
     return (
         <div className="space-y-2">
-            <ThemeSwitch labelMode={labelMode} />
-            <LanguageSwitch labelMode={labelMode} />
+            <ThemeSwitch />
+            <LanguageSwitch />
         </div>
     );
 }

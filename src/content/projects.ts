@@ -8,7 +8,6 @@ export const featuredProjectArray: FeaturedProject[] = [
         hasPublicUrl: true,
         url: "https://kongsbergagenda.no/",
         image: "images/kongsbergimage.webp",
-        logo: "images/kongsberglogo.svg",
         accent: "#1F3A5F",
         media: {
             sources: [],
@@ -48,8 +47,6 @@ export const additionalProjectArray: AdditionalProject[] = [
         hasPublicUrl: true,
         url: "https://notco.com/",
         image: "images/notcoimage.webp",
-        logo: "images/notco.svg",
-        logoInvert: true,
         en: {
             title: "NotCo",
             summary: "Revolutionizing plant-based food with cutting-edge AI to create sustainable, delicious alternatives for a better future. Frontend implementation and performance-minded delivery as part of the DAYTWO team."
@@ -64,8 +61,6 @@ export const additionalProjectArray: AdditionalProject[] = [
         hasPublicUrl: true,
         url: "https://nordicbatteries.com/",
         image: "images/nordicimage.webp",
-        logo: "images/nordiclogo.svg",
-        logoInvert: false,
         en: {
             title: "Nordic Batteries",
             summary: "Powering sustainable energy solutions with innovative battery technology for a greener, brighter future. Marketing and product web presence with responsive interfaces and CMS-backed content workflows."
@@ -80,8 +75,6 @@ export const additionalProjectArray: AdditionalProject[] = [
         hasPublicUrl: true,
         url: "https://nutrikarenoliveira.com.br/",
         image: "images/karenimage.webp",
-        logo: "images/karenlogo.webp",
-        logoInvert: false,
         en: {
             title: "Nutri Karen Oliveira",
             summary: "Transforming lives through personalized nutrition guidance for health, wellness, and a balanced lifestyle."
@@ -96,8 +89,6 @@ export const additionalProjectArray: AdditionalProject[] = [
         hasPublicUrl: true,
         url: "https://www.nantesmello.com/",
         image: "images/nantesimage.webp",
-        logo: "images/nantelogo.svg",
-        logoInvert: true,
         en: {
             title: "Nantes Mello",
             summary: "Personalized and multidisciplinary care for high complexity local and international matters."
@@ -112,8 +103,6 @@ export const additionalProjectArray: AdditionalProject[] = [
         hasPublicUrl: true,
         url: "https://soloneiendom.no/",
         image: "images/solonimage.webp",
-        logo: "images/solonlogo.svg",
-        logoInvert: true,
         en: {
             title: "Solon Eiendom",
             summary: "Building sustainable, high-quality homes that combine modern design with environmental responsibility."

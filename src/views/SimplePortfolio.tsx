@@ -254,7 +254,7 @@ export function SimplePortfolio()
                             onSelect={scrollToSection}
                         />
                         <div className="mt-auto border-t border-[#E7C8BE]/70 pt-3 dark:border-white/10">
-                            <AppearanceControls labelMode="always" />
+                            <AppearanceControls />
                         </div>
                     </div>
                 </div>
@@ -285,7 +285,7 @@ export function SimplePortfolio()
                         onSelect={scrollToSection}
                     />
                     <div className="mt-auto shrink-0 border-t border-[#E7C8BE]/70 pt-3 dark:border-white/10">
-                        <AppearanceControls labelMode="always" />
+                        <AppearanceControls />
                     </div>
                 </aside>
 

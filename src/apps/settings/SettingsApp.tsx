@@ -20,7 +20,7 @@ export default function SettingsApp()
         <div className="space-y-8 p-5">
             <section className="space-y-3">
                 <h3 className="font-display text-xl font-semibold">{t("settingsAppearance")}</h3>
-                <AppearanceControls labelMode="always" />
+                <AppearanceControls />
             </section>
 
             <section className="space-y-3">
