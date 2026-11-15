@@ -32,6 +32,18 @@ body {
     font-family: "Zen Kaku Gothic New", system-ui, sans-serif;
     background: var(--os-night);
     overflow: hidden;
+    cursor: default;
+}
+
+a,
+button,
+summary,
+[role="button"],
+input,
+select,
+textarea,
+label[for] {
+    cursor: pointer;
 }
 
 body.simple-scroll,
@@ -187,6 +199,18 @@ html.dark .os-seigaiha {
     }
 }
 
+@keyframes landing-hero-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.75rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .animate-sheet {
     animation: sheet-in 0.32s cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -219,6 +243,10 @@ html.dark .os-seigaiha {
 
 .boot-screen-leave {
     animation: boot-out 0.42s ease forwards;
+}
+
+.landing-hero-enter {
+    animation: landing-hero-in 0.55s ease-out both;
 }
 
 .dusk-sky {
@@ -309,7 +337,31 @@ html.dark .os-seigaiha {
 }
 
 .skill-marquee-mask {
-    mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+}
+
+.project-card-glow {
+    box-shadow:
+        0 12px 36px rgba(11, 28, 51, 0.10),
+        0 0 24px rgba(217, 119, 47, 0.16);
+}
+
+.project-card-glow:hover {
+    box-shadow:
+        0 18px 40px rgba(11, 28, 51, 0.14),
+        0 0 36px rgba(217, 119, 47, 0.28);
+}
+
+html.dark .project-card-glow {
+    box-shadow:
+        0 12px 36px rgba(0, 0, 0, 0.35),
+        0 0 28px rgba(217, 119, 47, 0.22);
+}
+
+html.dark .project-card-glow:hover {
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(242, 193, 75, 0.28);
 }
 
 .skill-marquee {
@@ -355,6 +407,7 @@ html.dark .os-seigaiha {
     .star-field,
     .boot-progress-bar,
     .boot-logo,
+    .landing-hero-enter,
     .skill-marquee {
         animation: none;
     }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAssetUrl, profileCopy, profileLinks } from "../content";
+import { getAssetUrl, profileCopy } from "../content";
 import { usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useI18n } from "../i18n/I18nProvider";
 
@@ -102,11 +102,13 @@ export function BootScreen({ variant }: BootScreenProps)
             <div className="absolute inset-0 sakura-sky dark:hidden" />
             <div className="absolute inset-0 night-sky hidden dark:block" />
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center text-ink dark:text-[#FFF7E8]">
-                <img
-                    src={getAssetUrl(profileLinks.logo)}
-                    alt=""
-                    className="boot-logo h-20 w-20 rounded-2xl object-cover shadow-glow ring-2 ring-[#D9772F]/70"
-                />
+                <div className="boot-logo flex h-20 w-20 items-center justify-center rounded-2xl bg-[#FFF8F4] p-3 shadow-glow ring-2 ring-[#D9772F]/70">
+                    <img
+                        src={getAssetUrl("images/companies/aurora.webp")}
+                        alt=""
+                        className="h-full w-full object-contain"
+                    />
+                </div>
                 <p className="mt-5 font-display text-3xl font-semibold">
                     {profile.name}
                 </p>
