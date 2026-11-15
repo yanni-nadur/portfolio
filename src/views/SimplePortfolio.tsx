@@ -211,7 +211,7 @@ export function SimplePortfolio()
                         onClick={openOs}
                     >
                         <MonitorIcon />
-                        <span>{t("simpleHeroCtaOs")}</span>
+                        <span className="whitespace-nowrap">{t("simpleHeroCtaOs")}</span>
                     </button>
                 </header>
                 <div
@@ -258,14 +258,14 @@ export function SimplePortfolio()
                         </div>
                     </div>
                 </div>
-                <aside className="sticky top-0 z-20 hidden h-[100dvh] w-64 shrink-0 flex-col overflow-hidden border-r border-[#E7C8BE]/80 bg-[#FFF8F4]/80 px-3 py-4 backdrop-blur-md dark:border-white/10 dark:bg-black/60 lg:flex">
+                <aside className="sticky top-0 z-20 hidden h-[100dvh] w-72 shrink-0 flex-col overflow-hidden border-r border-[#E7C8BE]/80 bg-[#FFF8F4]/80 px-3 py-4 backdrop-blur-md dark:border-white/10 dark:bg-black/60 lg:flex">
                     <button
                         type="button"
-                        className="mb-3 flex w-full items-center gap-2 rounded-2xl bg-accent px-3 py-3 text-left text-base font-semibold leading-tight text-white shadow-glow transition duration-200 hover:-translate-y-0.5 hover:bg-accentDeep hover:shadow-[0_0_28px_rgba(217,119,47,0.45)]"
+                        className="mb-3 flex w-full items-center gap-2 rounded-2xl bg-accent px-3 py-3 text-left text-sm font-semibold text-white shadow-glow transition duration-200 hover:-translate-y-0.5 hover:bg-accentDeep hover:shadow-[0_0_28px_rgba(217,119,47,0.45)]"
                         onClick={openOs}
                     >
                         <MonitorIcon />
-                        <span>{t("simpleHeroCtaOs")}</span>
+                        <span className="whitespace-nowrap">{t("simpleHeroCtaOs")}</span>
                     </button>
                     <button
                         type="button"
@@ -427,7 +427,7 @@ export function SimplePortfolio()
                         <h2 className="font-display text-2xl font-semibold sm:text-3xl">
                             {t("simpleWorkTitle")}
                         </h2>
-                        <div className="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 pt-1 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
+                        <div className="-mx-4 flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-4 pt-1 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0">
                             {featuredProjectArray.map((project) =>
                             {
                                 const localized = localize(project);
@@ -508,10 +508,11 @@ export function SimplePortfolio()
             {showScrollTop ? (
                 <button
                     type="button"
-                    className="fixed bottom-20 right-4 z-30 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white shadow-glow transition duration-200 hover:-translate-y-1 hover:bg-accentDeep hover:shadow-[0_0_28px_rgba(217,119,47,0.45)] sm:bottom-6 sm:right-5"
+                    className="fixed bottom-5 right-4 z-30 inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent text-white shadow-glow transition duration-200 hover:-translate-y-1 hover:bg-accentDeep hover:shadow-[0_0_28px_rgba(217,119,47,0.45)] sm:bottom-6 sm:right-5"
+                    aria-label={t("simpleScrollTop")}
                     onClick={() => scrollToSection("banner")}
                 >
-                    {t("simpleScrollTop")}
+                    <ArrowUpIcon />
                 </button>
             ) : null}
         </div>
@@ -852,6 +853,23 @@ function ArrowLeftIcon()
 }
 
 // ~~
+function ArrowUpIcon()
+{
+    return (
+        <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
+            <path
+                d="M12 19V5M5 12l7-7 7 7"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+// ~~
 function MonitorIcon()
 {
     return (
@@ -940,7 +958,7 @@ function ProjectLinkCard({
     visitLabel: string;
 })
 {
-    const className = "project-card-glow flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-line/80 bg-white/85 shadow-soft transition duration-200 hover:-translate-y-1 hover:border-accent/60 dark:border-white/10 dark:bg-black/55 lg:w-auto";
+    const className = "project-card-glow flex w-[85%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-line/80 bg-white/85 transition duration-200 hover:-translate-y-1 hover:border-accent/60 dark:border-white/10 dark:bg-black/55 lg:w-auto";
     const content = (
         <>
             {image ? (

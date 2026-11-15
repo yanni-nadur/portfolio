@@ -288,27 +288,19 @@ html.dark .os-seigaiha {
 }
 
 .project-card-glow {
-    box-shadow:
-        0 12px 36px rgba(11, 28, 51, 0.10),
-        0 0 24px rgba(217, 119, 47, 0.16);
+    box-shadow: 0 0 10px 0 rgba(11, 28, 51, 0.08), 0 0 8px 0 rgba(217, 119, 47, 0.14);
 }
 
 .project-card-glow:hover {
-    box-shadow:
-        0 18px 40px rgba(11, 28, 51, 0.14),
-        0 0 36px rgba(217, 119, 47, 0.28);
+    box-shadow: 0 0 12px 0 rgba(11, 28, 51, 0.10), 0 0 10px 0 rgba(217, 119, 47, 0.22);
 }
 
 html.dark .project-card-glow {
-    box-shadow:
-        0 12px 36px rgba(0, 0, 0, 0.35),
-        0 0 28px rgba(217, 119, 47, 0.22);
+    box-shadow: 0 0 10px 0 rgba(255, 255, 255, 0.04), 0 0 8px 0 rgba(217, 119, 47, 0.18);
 }
 
 html.dark .project-card-glow:hover {
-    box-shadow:
-        0 18px 42px rgba(0, 0, 0, 0.45),
-        0 0 40px rgba(242, 193, 75, 0.28);
+    box-shadow: 0 0 12px 0 rgba(255, 255, 255, 0.06), 0 0 10px 0 rgba(242, 193, 75, 0.24);
 }
 
 .skill-marquee {

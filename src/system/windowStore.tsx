@@ -7,7 +7,8 @@ import {
     useReducer,
     type ReactNode
 } from "react";
-import { appIdArray, appRegistry, isAppId, type AppId } from "./appRegistry";
+import { appIdArray, appRegistry, type AppId } from "./appRegistry";
+import { buildAppPath, parseAppFromPath, replacePath } from "./pathRouting";
 
 // -- TYPES
 export type WindowState = {
@@ -28,7 +29,7 @@ type WindowAction =
     | { type: "move"; appId: AppId; position: { x: number; y: number } }
     | { type: "resize"; appId: AppId; size: { width: number; height: number } }
     | { type: "setRoute"; appId: AppId; route: string | null }
-    | { type: "syncFromHash"; hashText: string };
+    | { type: "syncFromPath"; pathname: string };
 
 type WindowContextValue = {
     windowByIdMap: Record<AppId, WindowState>;
@@ -106,49 +107,6 @@ function getFocusedAppId(windowByIdMap: Record<AppId, WindowState>): AppId | nul
     return focusedAppId;
 }
 
-function parseHash(hashText: string): { appId: AppId | null; route: string | null }
-{
-    const cleanedHash = hashText.replace(/^#\/?/, "").trim();
-
-    if (!cleanedHash || cleanedHash === "os")
-    {
-        return { appId: null, route: null };
-    }
-
-    const segmentArray = cleanedHash.split("/").filter(Boolean);
-    let appSegment = segmentArray[0] ?? "";
-    let routeSegmentArray = segmentArray.slice(1);
-
-    if (appSegment === "os")
-    {
-        appSegment = routeSegmentArray[0] ?? "";
-        routeSegmentArray = routeSegmentArray.slice(1);
-    }
-
-    if (!isAppId(appSegment))
-    {
-        return { appId: null, route: null };
-    }
-
-    const route = routeSegmentArray.join("/") || null;
-    return { appId: appSegment, route };
-}
-
-function buildHash(appId: AppId | null, route: string | null): string
-{
-    if (!appId)
-    {
-        return "#/os";
-    }
-
-    if (!route)
-    {
-        return `#/${appId}`;
-    }
-
-    return `#/${appId}/${route}`;
-}
-
 function windowReducer(
     state: Record<AppId, WindowState>,
     action: WindowAction
@@ -223,25 +181,25 @@ function windowReducer(
                     route: action.route
                 }
             };
-        case "syncFromHash":
+        case "syncFromPath":
         {
-            const parsedHash = parseHash(action.hashText);
+            const parsedPath = parseAppFromPath(action.pathname);
 
-            if (!parsedHash.appId)
+            if (!parsedPath.appId)
             {
                 return state;
             }
 
-            const currentWindow = state[parsedHash.appId];
+            const currentWindow = state[parsedPath.appId];
 
             return {
                 ...state,
-                [parsedHash.appId]: {
+                [parsedPath.appId]: {
                     ...currentWindow,
                     isOpen: true,
                     isMinimized: false,
                     zIndex: getNextZIndex(state),
-                    route: parsedHash.route
+                    route: parsedPath.route
                 }
             };
         }
@@ -253,10 +211,10 @@ function windowReducer(
 // -- OPERATIONS
 export function WindowProvider({
     children,
-    hashSyncEnabled = true
+    pathSyncEnabled = true
 }: {
     children: ReactNode;
-    hashSyncEnabled?: boolean;
+    pathSyncEnabled?: boolean;
 })
 {
     const [windowByIdMap, dispatch] = useReducer(windowReducer, undefined, createInitialWindowMap);
@@ -264,42 +222,39 @@ export function WindowProvider({
 
     useEffect(() =>
     {
-        if (!hashSyncEnabled)
+        if (!pathSyncEnabled)
         {
             return;
         }
 
-        function handleHashChange()
+        function handlePopState()
         {
-            dispatch({ type: "syncFromHash", hashText: window.location.hash });
+            dispatch({ type: "syncFromPath", pathname: window.location.pathname });
         }
 
-        handleHashChange();
-        window.addEventListener("hashchange", handleHashChange);
+        handlePopState();
+        window.addEventListener("popstate", handlePopState);
 
         return () =>
         {
-            window.removeEventListener("hashchange", handleHashChange);
+            window.removeEventListener("popstate", handlePopState);
         };
-    }, [hashSyncEnabled]);
+    }, [pathSyncEnabled]);
 
     useEffect(() =>
     {
-        if (!hashSyncEnabled)
+        if (!pathSyncEnabled)
         {
             return;
         }
 
-        const nextHash = buildHash(
+        const nextPath = buildAppPath(
             focusedAppId,
             focusedAppId ? windowByIdMap[focusedAppId].route : null
         );
 
-        if (window.location.hash !== nextHash)
-        {
-            window.history.replaceState(null, "", nextHash);
-        }
-    }, [focusedAppId, hashSyncEnabled, windowByIdMap]);
+        replacePath(nextPath);
+    }, [focusedAppId, pathSyncEnabled, windowByIdMap]);
 
     const openApp = useCallback((appId: AppId, route: string | null = null) =>
     {

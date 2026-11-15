@@ -7,7 +7,12 @@ import {
     useState,
     type ReactNode
 } from "react";
-import { isAppId } from "../system/appRegistry";
+import {
+    buildViewPath,
+    migrateLegacyHashRoute,
+    parseViewFromPath,
+    replacePath
+} from "../system/pathRouting";
 
 // -- TYPES
 export type PortfolioView = "landing" | "simple" | "os";
@@ -23,50 +28,32 @@ type ViewContextValue = {
 const ViewContext = createContext<ViewContextValue | null>(null);
 
 // -- FUNCTIONS
-export function parsePortfolioView(hashText: string): PortfolioView
+export function parsePortfolioView(pathOrHashText: string): PortfolioView
 {
-    const cleanedHash = hashText.replace(/^#\/?/, "").trim();
-    const firstSegment = cleanedHash.split("/").filter(Boolean)[0] ?? "";
-
-    if (!firstSegment)
+    if (pathOrHashText.startsWith("#"))
     {
-        return "landing";
+        const cleanedHash = pathOrHashText.replace(/^#\/?/, "").trim();
+        const firstSegment = cleanedHash.split("/").filter(Boolean)[0] ?? "";
+
+        if (!firstSegment)
+        {
+            return "landing";
+        }
+
+        if (firstSegment === "simple")
+        {
+            return "simple";
+        }
+
+        if (firstSegment === "os")
+        {
+            return "os";
+        }
+
+        return parseViewFromPath(`/${cleanedHash}`);
     }
 
-    if (firstSegment === "simple")
-    {
-        return "simple";
-    }
-
-    if (firstSegment === "os" || isAppId(firstSegment))
-    {
-        return "os";
-    }
-
-    return "landing";
-}
-
-function buildViewHash(view: PortfolioView, currentHash: string): string
-{
-    if (view === "landing")
-    {
-        return "#/";
-    }
-
-    if (view === "simple")
-    {
-        return "#/simple";
-    }
-
-    const cleanedHash = currentHash.replace(/^#\/?/, "").trim();
-    const firstSegment = cleanedHash.split("/").filter(Boolean)[0] ?? "";
-
-    if (firstSegment === "os" || isAppId(firstSegment))
-    {
-        return currentHash.startsWith("#") ? currentHash : `#/${cleanedHash}`;
-    }
-
-    return "#/os";
+    return parseViewFromPath(pathOrHashText);
 }
 
 // -- OPERATIONS
@@ -79,58 +66,54 @@ export function ViewProvider({ children }: { children: ReactNode })
             return "landing";
         }
 
-        return parsePortfolioView(window.location.hash);
+        migrateLegacyHashRoute();
+        return parseViewFromPath();
     });
 
     useEffect(() =>
     {
-        function handleHashChange()
+        function handlePopState()
         {
-            setView(parsePortfolioView(window.location.hash));
+            setView(parseViewFromPath());
         }
 
-        window.addEventListener("hashchange", handleHashChange);
-        handleHashChange();
+        window.addEventListener("popstate", handlePopState);
+        setView(parseViewFromPath());
 
         return () =>
         {
-            window.removeEventListener("hashchange", handleHashChange);
+            window.removeEventListener("popstate", handlePopState);
         };
     }, []);
 
     const openLanding = useCallback(() =>
     {
         setView("landing");
-        window.history.replaceState(null, "", "#/");
+        replacePath(buildViewPath("landing"));
     }, []);
 
     const openSimple = useCallback(() =>
     {
         setView("simple");
-        window.history.replaceState(null, "", "#/simple");
+        replacePath(buildViewPath("simple"));
     }, []);
 
     const openOs = useCallback(() =>
     {
         setView("os");
-        const currentView = parsePortfolioView(window.location.hash);
+        const currentView = parseViewFromPath();
 
         if (currentView !== "os")
         {
-            window.history.replaceState(null, "", "#/os");
+            replacePath(buildViewPath("os"));
         }
     }, []);
 
     useEffect(() =>
     {
-        const nextHash = buildViewHash(view, window.location.hash);
-
         if (view === "landing" || view === "simple")
         {
-            if (window.location.hash !== nextHash)
-            {
-                window.history.replaceState(null, "", nextHash);
-            }
+            replacePath(buildViewPath(view));
         }
     }, [view]);
 

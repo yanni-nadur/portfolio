@@ -40,7 +40,7 @@ function AppRoutes()
     }
 
     return (
-        <WindowProvider hashSyncEnabled={true}>
+        <WindowProvider pathSyncEnabled={true}>
             <DesktopShell />
             <BootScreen variant="os" />
         </WindowProvider>
