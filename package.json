@@ -1,19 +1,37 @@
 {
-  "name": "portfolio",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tailwindcss -i src/css/style.css -o dist/css/style.css --minify",
-    "watch": "tailwindcss -i src/css/style.css -o dist/css/style.css --watch"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17"
-  }
+    "name": "portfolio",
+    "version": "3.0.0",
+    "description": "Personal portfolio for Yanni Nadur - Full Stack Software Engineer",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc --noEmit && vite build",
+        "preview": "vite preview",
+        "validate": "node scripts/validate.mjs",
+        "test": "npm run build && npm run validate"
+    },
+    "keywords": [
+        "portfolio",
+        "fullstack",
+        "typescript"
+    ],
+    "author": "Yanni Nadur",
+    "license": "UNLICENSED",
+    "dependencies": {
+        "@react-spring/web": "^10.1.2",
+        "@use-gesture/react": "^10.3.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1"
+    },
+    "devDependencies": {
+        "@types/react": "^18.3.18",
+        "@types/react-dom": "^18.3.5",
+        "@vitejs/plugin-react": "^4.7.0",
+        "autoprefixer": "^10.4.20",
+        "postcss": "^8.4.49",
+        "tailwindcss": "^3.4.17",
+        "typescript": "^5.7.3",
+        "vite": "^5.4.21"
+    }
 }
