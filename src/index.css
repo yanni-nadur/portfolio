@@ -253,6 +253,214 @@ html.dark .os-seigaiha {
     background: #000000;
 }
 
+.os-anime-wallpaper {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background: #071536;
+}
+
+.os-anime-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 68% center;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+.os-anime-camera {
+    position: absolute;
+    inset: 0;
+    transform-origin: 74% 42%;
+}
+
+.os-anime-camera-intro {
+    animation: os-anime-zoom-out 2.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.os-anime-sky {
+    z-index: 0;
+}
+
+.os-anime-effects,
+.os-anime-twinkles,
+.os-anime-meteors {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.os-anime-effects.is-paused .os-anime-twinkle,
+.os-anime-effects.is-paused .os-anime-meteor {
+    animation-play-state: paused;
+}
+
+.os-anime-twinkle {
+    position: absolute;
+    border-radius: 50%;
+    background: #e7f2ff;
+    box-shadow: 0 0 4px 1px rgba(190, 214, 255, 0.28);
+    opacity: 0.12;
+    animation: os-anime-twinkle var(--twinkle-period, 4s) ease-in-out var(--twinkle-delay, 0s) infinite alternate;
+    pointer-events: none;
+}
+
+.os-anime-meteor {
+    position: absolute;
+    height: 2px;
+    border-radius: 999px;
+    pointer-events: none;
+    opacity: 0;
+    transform-origin: left center;
+    transform: rotate(var(--meteor-angle, -22deg));
+    background: linear-gradient(90deg, #ffffff, rgba(214, 228, 255, 0.72) 28%, rgba(176, 204, 255, 0.18) 72%, transparent);
+    box-shadow: 0 0 8px 1px rgba(186, 210, 255, 0.45);
+    animation: os-anime-meteor-flight var(--meteor-duration, 1.1s) linear forwards;
+}
+
+.os-anime-meteor::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    top: 50%;
+    width: 4px;
+    height: 4px;
+    margin-top: -2px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 6px 2px rgba(226, 236, 255, 0.9);
+}
+
+.os-anime-character-idle {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    transform-origin: 78% 90%;
+    pointer-events: none;
+    will-change: transform;
+}
+
+.os-anime-character-breathe {
+    animation: os-anime-breathe 4.2s ease-in-out infinite;
+}
+
+.os-anime-character-idle.is-paused,
+.os-anime-effects.is-paused .os-anime-character-breathe {
+    animation-play-state: paused;
+}
+
+.os-anime-character {
+    z-index: 2;
+}
+
+.os-chrome-wait {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.os-chrome-reveal {
+    animation: os-chrome-in 0.4s ease both;
+}
+
+@keyframes os-anime-zoom-out {
+    from {
+        transform: scale(1.32);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes os-anime-zoom-out-narrow {
+    from {
+        transform: scale(1.26);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes os-chrome-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes os-anime-twinkle {
+    from {
+        opacity: 0.08;
+        transform: scale(0.72);
+    }
+
+    to {
+        opacity: var(--twinkle-alpha, 0.7);
+        transform: scale(1);
+    }
+}
+
+@keyframes os-anime-breathe {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+    }
+
+    50% {
+        transform: translate3d(0, -2px, 0) scale3d(1.004, 1.014, 1);
+    }
+}
+
+@keyframes os-anime-meteor-flight {
+    0% {
+        opacity: 0;
+        translate: 0 0;
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    78% {
+        opacity: 0.92;
+    }
+
+    100% {
+        opacity: 0;
+        translate: var(--meteor-dx, 320px) var(--meteor-dy, 120px);
+    }
+}
+
+@media (max-width: 700px) {
+    .os-anime-layer {
+        object-position: 77% center;
+    }
+
+    .os-anime-character-idle {
+        transform-origin: 84% 88%;
+    }
+
+    .os-anime-camera {
+        transform-origin: 80% 36%;
+    }
+
+    .os-anime-camera-intro {
+        animation-name: os-anime-zoom-out-narrow;
+    }
+}
+
 .night-glow {
     background:
         radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.08), transparent 42%),
@@ -347,7 +555,12 @@ html.dark .project-card-glow:hover {
     .boot-progress-bar,
     .boot-logo,
     .landing-hero-enter,
-    .skill-marquee {
+    .skill-marquee,
+    .os-anime-camera-intro,
+    .os-chrome-reveal,
+    .os-anime-twinkle,
+    .os-anime-meteor,
+    .os-anime-character-breathe {
         animation: none;
     }
 }

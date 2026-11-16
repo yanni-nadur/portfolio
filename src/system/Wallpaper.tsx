@@ -2,10 +2,13 @@ import { useEffect, useMemo, useRef } from "react";
 import { animated, useSpring } from "@react-spring/web";
 import { useIsFinePointer, usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useSettings } from "../store/settingsStore";
+import { AnimatedAnimeWallpaper } from "./AnimatedAnimeWallpaper";
 
 // -- TYPES
 type WallpaperProps = {
     className?: string;
+    variant?: "classic" | "os";
+    playOsIntro?: boolean;
 };
 
 type Star = {
@@ -104,7 +107,11 @@ function StarMark({
 }
 
 // -- OPERATIONS
-export function Wallpaper({ className = "absolute inset-0" }: WallpaperProps)
+export function Wallpaper({
+    className = "absolute inset-0",
+    variant = "classic",
+    playOsIntro = false
+}: WallpaperProps)
 {
     const { parallaxEnabled, theme } = useSettings();
     const prefersReducedMotion = usePrefersReducedMotion();
@@ -112,8 +119,25 @@ export function Wallpaper({ className = "absolute inset-0" }: WallpaperProps)
     const starArray = useMemo(() => createStarArray(), []);
     const petalArray = useMemo(() => createPetalArray(), []);
     const rootRef = useRef<HTMLDivElement>(null);
-    const canParallax = parallaxEnabled && isFinePointer && !prefersReducedMotion;
+    const canParallax = variant !== "os"
+        && parallaxEnabled
+        && isFinePointer
+        && !prefersReducedMotion;
     const isDarkTheme = theme === "dark";
+    const showAnimeScene = variant === "os" && isDarkTheme;
+    const introPlayedRef = useRef(false);
+    const keepIntroClassRef = useRef(false);
+
+    if (showAnimeScene && playOsIntro && !introPlayedRef.current)
+    {
+        keepIntroClassRef.current = true;
+        introPlayedRef.current = true;
+    }
+
+    if (!showAnimeScene)
+    {
+        keepIntroClassRef.current = false;
+    }
     const fadeClassName = prefersReducedMotion
         ? ""
         : "transition-opacity duration-[420ms] ease-in-out";
@@ -162,7 +186,7 @@ export function Wallpaper({ className = "absolute inset-0" }: WallpaperProps)
         >
             <div className="absolute inset-0 night-sky" />
             <div className={`absolute inset-0 sakura-sky ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
-            <div className={`absolute inset-0 night-glow ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`} />
+            <div className={`absolute inset-0 night-glow ${fadeClassName} ${showAnimeScene || !isDarkTheme ? "opacity-0" : "opacity-100"}`} />
             <div className={`absolute inset-0 sakura-glow ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
 
             <animated.div
@@ -172,24 +196,30 @@ export function Wallpaper({ className = "absolute inset-0" }: WallpaperProps)
                     y: springStyle.y
                 }}
             >
-                <div className={`star-field absolute left-0 top-0 h-[200%] w-full ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`}>
-                    {starArray.map((star, index) => (
-                        <StarMark
-                            key={`star-a-${index}`}
-                            star={star}
-                            index={index}
-                            topOffset={0}
-                        />
-                    ))}
-                    {starArray.map((star, index) => (
-                        <StarMark
-                            key={`star-b-${index}`}
-                            star={star}
-                            index={index}
-                            topOffset={50}
-                        />
-                    ))}
-                </div>
+                {showAnimeScene ? (
+                    <div className="absolute inset-0">
+                        <AnimatedAnimeWallpaper playIntro={keepIntroClassRef.current} />
+                    </div>
+                ) : (
+                    <div className={`star-field absolute left-0 top-0 h-[200%] w-full ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`}>
+                        {starArray.map((star, index) => (
+                            <StarMark
+                                key={`star-a-${index}`}
+                                star={star}
+                                index={index}
+                                topOffset={0}
+                            />
+                        ))}
+                        {starArray.map((star, index) => (
+                            <StarMark
+                                key={`star-b-${index}`}
+                                star={star}
+                                index={index}
+                                topOffset={50}
+                            />
+                        ))}
+                    </div>
+                )}
                 <div className={`absolute inset-0 ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`}>
                     {petalArray.map((petal, index) => (
                         <span
@@ -208,7 +238,7 @@ export function Wallpaper({ className = "absolute inset-0" }: WallpaperProps)
                 </div>
             </animated.div>
 
-            <div className={`absolute inset-0 night-vignette ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`} />
+            <div className={`absolute inset-0 night-vignette ${fadeClassName} ${showAnimeScene || !isDarkTheme ? "opacity-0" : "opacity-100"}`} />
             <div className={`absolute inset-0 sakura-vignette ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
         </div>
     );

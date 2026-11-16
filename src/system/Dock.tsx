@@ -6,8 +6,13 @@ import { appIdArray, appRegistry, type AppId } from "./appRegistry";
 import { AppIcon } from "./icons";
 import { useWindows } from "./windowStore";
 
+// -- TYPES
+type DockProps = {
+    className?: string;
+};
+
 // -- OPERATIONS
-export function Dock()
+export function Dock({ className = "" }: DockProps)
 {
     const { t } = useI18n();
     const { windowByIdMap, openApp, focusApp, focusedAppId } = useWindows();
@@ -61,7 +66,7 @@ export function Dock()
                 isDesktop
                     ? "bottom-5"
                     : "bottom-0 inset-x-0 translate-x-0 left-0 w-full pb-[env(safe-area-inset-bottom)]"
-            }`}
+            } ${className}`}
             aria-label="Dock"
         >
             <div
