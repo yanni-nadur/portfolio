@@ -11,7 +11,7 @@ import { Wallpaper } from "./Wallpaper";
 import { WindowManager } from "./WindowManager";
 
 // -- CONSTANTS
-const OS_INTRO_MS = 2500;
+const OS_INTRO_MS = 2000;
 const OS_INTRO_SEEN_KEY = "portfolio-os-intro-seen";
 
 // -- FUNCTIONS

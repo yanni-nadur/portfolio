@@ -280,7 +280,7 @@ html.dark .os-seigaiha {
 }
 
 .os-anime-camera-intro {
-    animation: os-anime-zoom-out 2.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: os-anime-zoom-out 2s ease-in-out both;
 }
 
 .os-anime-sky {
@@ -367,7 +367,7 @@ html.dark .os-seigaiha {
 }
 
 .os-chrome-reveal {
-    animation: os-chrome-in 0.4s ease both;
+    animation: os-chrome-in 0.35s ease both;
 }
 
 @keyframes os-anime-zoom-out {
