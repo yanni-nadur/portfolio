@@ -1,11 +1,11 @@
 # Portfolio — contexto completo para IA
 
-Documento de consciência do projeto. Preferir **este arquivo + o código** ao `README.md` quando houver conflito (o README ainda menciona hash routing, que já foi substituído por pathname).
+Documento de consciência do projeto. Preferir este arquivo + o código ao `README.md` quando houver conflito (o README ainda menciona hash routing, que já foi substituído por pathname).
 
 | Campo | Valor |
 | --- | --- |
 | Repo | `d:\Personal\Projects\portfolio` |
-| Produto | Portfólio pessoal de **Yanni Nadur** |
+| Produto | Portfólio pessoal de Yanni Nadur |
 | Live | https://yanni-nadur.github.io/portfolio/ |
 | Versão | `3.0.0` |
 | Base path | `/portfolio/` (GitHub Pages project site) |
@@ -14,7 +14,7 @@ Documento de consciência do projeto. Preferir **este arquivo + o código** ao `
 
 ## 1. Conceito do produto
 
-SPA única com **três modos**:
+SPA única com três modos:
 
 | View | Path | Função |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ No OS: `WindowProvider pathSyncEnabled={true}` envolve `DesktopShell` + `BootScr
 | Bundler | Vite 5.4 (`base: "/portfolio/"`, `outDir: "dist"`) |
 | CSS | Tailwind 3.4 + PostCSS + Autoprefixer |
 | Motion | `@react-spring/web`, `@use-gesture/react` |
-| Router | **Sem react-router** — `src/system/pathRouting.ts` + History API |
+| Router | Sem react-router — `src/system/pathRouting.ts` + History API |
 | Estado | React Context (`settingsStore`, `viewStore`, `windowStore`) |
 | Deploy | GitHub Actions → GitHub Pages |
 
@@ -111,7 +111,7 @@ portfolio/
 
 ## 4. Roteamento (pathname — não hash)
 
-**Fonte da verdade:** `src/system/pathRouting.ts`.
+Fonte da verdade: `src/system/pathRouting.ts`.
 
 Helpers principais:
 
@@ -127,7 +127,7 @@ Helpers principais:
 | --- | --- |
 | `/portfolio/` (sem segmentos) | `landing` |
 | `/portfolio/simple` | `simple` |
-| `/portfolio/os` **ou** qualquer `AppId` | `os` |
+| `/portfolio/os` ou qualquer `AppId` | `os` |
 
 ### Deep links de apps
 
@@ -145,7 +145,7 @@ Photos é o principal consumidor de `window.route` via `setAppRoute`.
 
 ### Atenção: README vs código
 
-`README.md` ainda lista `#/simple`, `#/os`. **Ignorar** — o código usa paths. Hash só é migrado no boot.
+`README.md` ainda lista `#/simple`, `#/os`. Ignorar — o código usa paths. Hash só é migrado no boot.
 
 ### Favicons e base path
 
@@ -155,7 +155,7 @@ Em `index.html`, usar:
 <link rel="icon" href="/favicon.ico" …>
 ```
 
-**Não** usar `%BASE_URL%favicon…`: o Vite já prefixa `/` com `base`, e `%BASE_URL%` duplicava para `/portfolio/portfolio/…` (404 → browser mantinha favicon antigo em cache).
+Não usar `%BASE_URL%favicon…`: o Vite já prefixa `/` com `base`, e `%BASE_URL%` duplicava para `/portfolio/portfolio/…` (404 → browser mantinha favicon antigo em cache).
 
 ---
 
@@ -163,11 +163,11 @@ Em `index.html`, usar:
 
 ### `settingsStore` (`src/store/settingsStore.tsx`)
 
-- **Persistência:** `localStorage` key `portfolio-os-settings`
-- **Campos:** `theme` (`light`|`dark`, default `dark`), `language` (`en`|`pt`, default `en`), `parallaxEnabled`, `favoriteProjectIdArray`, `favoriteTrackKeyArray`
-- **Side effects:** `html.dark`, `documentElement.lang` (`en` / `pt-BR`)
-- **FOUC:** script inline em `index.html` lê a mesma key antes do paint
-- **API:** `setTheme`, `setLanguage`, `setParallaxEnabled`, toggles de favoritos, `clearSettings`
+- Persistência: `localStorage` key `portfolio-os-settings`
+- Campos: `theme` (`light`|`dark`, default `dark`), `language` (`en`|`pt`, default `en`), `parallaxEnabled`, `favoriteProjectIdArray`, `favoriteTrackKeyArray`
+- Side effects: `html.dark`, `documentElement.lang` (`en` / `pt-BR`)
+- FOUC: script inline em `index.html` lê a mesma key antes do paint
+- API: `setTheme`, `setLanguage`, `setParallaxEnabled`, toggles de favoritos, `clearSettings`
 
 ### `viewStore` (`src/store/viewStore.tsx`)
 
@@ -201,20 +201,20 @@ Barrel: `src/content/index.ts` — reexports + `getAssetUrl(relativePath)` + `fi
 | Arquivo | Exports | Campos importantes |
 | --- | --- | --- |
 | `profile.ts` | `profileLinks`, `profileCopy` | email, github, linkedin, whatsapp, resumes, avatar; name/role/status/about/initials |
-| `experience.ts` | `experienceArray` | id, concurrentGroup, track (`career`\|`education`), dates, **logo**, copy EN/PT |
-| `projects.ts` | `featuredProjectArray`, `additionalProjectArray` | id, url, image, accent, media; featured tem case study completo; **sem campo `logo`** |
+| `experience.ts` | `experienceArray` | id, concurrentGroup, track (`career`\|`education`), dates, logo, copy EN/PT |
+| `projects.ts` | `featuredProjectArray`, `additionalProjectArray` | id, url, image, accent, media; featured tem case study completo; sem campo `logo` |
 | `skills.ts` | `skillGroupArray` | 6 grupos (frontend, backend, etc.) |
 | `testimonials.ts` | `testimonialArray` | 5 depoimentos + imagem |
 | `skillIcons.ts` | `skillIconByNameMap` | paths SVG (Simple Icons) para o carousel |
 
 ### Snapshot atual do conteúdo
 
-- **Perfil:** Yanni Nadur — Senior AI & Full Stack Software Engineer; email `yanninadur@gmail.com`; WhatsApp ativo; avatar `images/avatar.webp`
-- **Featured:** só `kongsberg` (público; `media.sources: []`)
-- **Additional:** `notco`, `nordic-batteries`, `karen-oliveira`, `nantes-mello`, `solon` (todos com URL pública)
-- **Carreira:** synorios, bamhub (`concurrentGroup: "sister"`), daytwo, futurebrand, tinpix, aurora, intermeio (`logo: null`)
-- **Educação:** `unip`
-- **Projetos privados** (sem URL pública no produto): Synorios / New Art Fiction / BAMHUB — não inventar “Visit Website”
+- Perfil: Yanni Nadur — Senior AI & Full Stack Software Engineer; email `yanninadur@gmail.com`; WhatsApp ativo; avatar `images/avatar.webp`
+- Featured: só `kongsberg` (público; `media.sources: []`)
+- Additional: `notco`, `nordic-batteries`, `karen-oliveira`, `nantes-mello`, `solon` (todos com URL pública)
+- Carreira: synorios, bamhub (`concurrentGroup: "sister"`), daytwo, futurebrand, tinpix, aurora, intermeio (`logo: null`)
+- Educação: `unip`
+- Projetos privados (sem URL pública no produto): Synorios / New Art Fiction / BAMHUB — não inventar “Visit Website”
 
 ### Chrome (não é biografia)
 
@@ -229,10 +229,11 @@ Barrel: `src/content/index.ts` — reexports + `getAssetUrl(relativePath)` + `fi
 
 | Arquivo | Papel |
 | --- | --- |
-| `DesktopShell.tsx` | Wallpaper + TopBar + WindowManager + Dock |
+| `DesktopShell.tsx` | Wallpaper + TopBar + WindowManager + Dock (desktop) / MobileHomeScreen |
 | `Wallpaper.tsx` | Night (estrelas) vs sakura (pétalas) conforme tema; parallax opcional |
 | `TopBar.tsx` | Voltar ao landing, avatar, nome + app focado, relógio |
-| `Dock.tsx` | Launcher com spring hover; desktop pill / mobile full-width |
+| `Dock.tsx` | Launcher desktop com spring hover (pill) |
+| `MobileHomeScreen.tsx` | Home mobile: grade 3 colunas de apps com labels |
 | `WindowManager.tsx` | Desktop: stack de janelas; mobile: uma janela fullscreen |
 | `AppWindow.tsx` | Lazy load, drag/resize, minimize/close, focus trap (mobile) |
 | `BootScreen.tsx` | Overlay timed (`os`\|`simple`); skip se reduced motion |
@@ -241,17 +242,17 @@ Barrel: `src/content/index.ts` — reexports + `getAssetUrl(relativePath)` + `fi
 | `icons.tsx` | Ícones SVG dos apps |
 | `pathRouting.ts` | Helpers de URL |
 
-Mobile: `useIsDesktop` — um app por vez; `useFocusTrap` na janela aberta.
+Mobile (`useIsDesktop` false): home grid sem dock; um app fullscreen por vez; Back/Escape volta à home; `useFocusTrap` na janela aberta.
 
 ---
 
 ## 8. Simple portfolio
 
-**Arquivo:** `src/views/SimplePortfolio.tsx`
+Arquivo: `src/views/SimplePortfolio.tsx`
 
-**Seções (ids):** `banner` → `skills` → `experience` → `work` → `testimonials` → `contact`
+Seções (ids): `banner` → `skills` → `experience` → `work` → `testimonials` → `contact`
 
-**UX relevante:**
+UX relevante:
 
 - Wallpaper + parallax compartilhados
 - Aside sticky (`w-72`) com nav + CTA OS (`simpleHeroCtaOs`: “Try OS” / “Abrir OS”, `whitespace-nowrap`)
@@ -265,20 +266,20 @@ Mobile: `useIsDesktop` — um app por vez; `useFocusTrap` na janela aberta.
 
 ## 9. Design system
 
-**Fontes (Google Fonts em `index.html`):**
+Fontes (Google Fonts em `index.html`):
 
 - Display: Shippori Mincho (`font-display`)
 - Body: Zen Kaku Gothic New (`font-sans`)
 
-**Cores (Tailwind extend):** `ink`, `slateSoft`, `mist`, `surface`, `line`, `accent` `#D9772F`, `accentDeep`, `night`, `sky`, `sakura`, `washi`
+Cores (Tailwind extend): `ink`, `slateSoft`, `mist`, `surface`, `line`, `accent` `#D9772F`, `accentDeep`, `night`, `sky`, `sakura`, `washi`
 
-**Temas:** `darkMode: "class"` em `<html>`; dark ≈ night/preto; light ≈ washi/sakura
+Temas: `darkMode: "class"` em `<html>`; dark ≈ night/preto; light ≈ washi/sakura
 
-**Wallpaper CSS:** `night-sky`, `sakura-sky`, glows, vignettes (`src/index.css`)
+Wallpaper CSS: `night-sky`, `sakura-sky`, glows, vignettes (`src/index.css`)
 
-**Glow:** `shadow-glow`; `.project-card-glow` (blur curto ~8–10px, 4 direções)
+Glow: `shadow-glow`; `.project-card-glow` (blur curto ~8–10px, 4 direções)
 
-**Motion:** boot, springs de janela/dock, parallax; respeita `prefers-reduced-motion`
+Motion: boot, springs de janela/dock, parallax; respeita `prefers-reduced-motion`
 
 ### Padrão de código (obrigatório neste repo)
 
@@ -307,19 +308,19 @@ Mobile: `useIsDesktop` — um app por vez; `useFocusTrap` na janela aberta.
 
 URLs de runtime de conteúdo: sempre `getAssetUrl(...)`.
 
-**Nota:** logos de projeto foram removidos do modelo/dados; só experience usa `logo` via `CompanyMark`.
+Nota: logos de projeto foram removidos do modelo/dados; só experience usa `logo` via `CompanyMark`.
 
 ---
 
 ## 11. Decisões e restrições importantes
 
-1. **Path routing**, não hash; migrar hash legado uma vez no boot.
-2. **Projetos sem `logo`/`logoInvert`** — só `image`/`media`; logos ficam em experience.
-3. **Favicon:** paths absolutos `/favicon…` no HTML (evitar double-base); cache de favicon no browser é agressivo (hard refresh / aba anônima).
-4. **GitHub Pages:** `base: "/portfolio/"`, Actions, `404.html` SPA fallback.
-5. **`scripts/validate.mjs`:** estrutura de conteúdo, parity EN/PT de `ui.ts`, existência de assets, sem em/en dashes em content/README/package; featured deve ser `kongsberg`; 5 additional; 6 skill groups; 5 testimonials.
-6. **Confidencialidade:** não publicar código privado, keys, endpoints internos, dados de cliente/pagamento ou demos não sanitizadas.
-7. **README desatualizado** em routing e em alguns “assets still needed” (avatar e WhatsApp já existem no código).
+1. Path routing, não hash; migrar hash legado uma vez no boot.
+2. Projetos sem `logo`/`logoInvert` — só `image`/`media`; logos ficam em experience.
+3. Favicon: paths absolutos `/favicon…` no HTML (evitar double-base); cache de favicon no browser é agressivo (hard refresh / aba anônima).
+4. GitHub Pages: `base: "/portfolio/"`, Actions, `404.html` SPA fallback.
+5. `scripts/validate.mjs`: estrutura de conteúdo, parity EN/PT de `ui.ts`, existência de assets, sem em/en dashes em content/README/package; featured deve ser `kongsberg`; 5 additional; 6 skill groups; 5 testimonials.
+6. Confidencialidade: não publicar código privado, keys, endpoints internos, dados de cliente/pagamento ou demos não sanitizadas.
+7. README desatualizado em routing e em alguns “assets still needed” (avatar e WhatsApp já existem no código).
 
 ---
 
@@ -350,7 +351,7 @@ Deploy: Pages Source = GitHub Actions; push em `main`/`master`.
 - `src/content/testimonials.ts`
 - `src/content/skillIcons.ts`
 - `src/content/types.ts`
-- `public/images/**`, `public/files/**`, `public/media/demos/**`
+- `public/images/`, `public/files/`, `public/media/demos/`
 
 ### Copy de UI / i18n
 
@@ -399,13 +400,13 @@ Deploy: Pages Source = GitHub Actions; push em `main`/`master`.
 
 ## 15. Fluxo mental para tarefas comuns
 
-1. **Mudar texto do site** → `ui.ts` (chrome) ou content modules (biografia); manter EN + PT.
-2. **Novo projeto** → `projects.ts` + imagem em `public/images/` + `npm run validate`.
-3. **Nova experiência** → `experience.ts` + logo em `public/images/companies/` se houver.
-4. **Ajustar visual simple** → `SimplePortfolio.tsx` + `index.css` / Tailwind.
-5. **Ajustar OS** → `system/*` + app correspondente.
-6. **URL / deep link** → `pathRouting.ts` + `viewStore` / `windowStore` (nunca reintroduzir hash como fonte da verdade).
-7. **Antes de considerar pronto** → `npm test`.
+1. Mudar texto do site → `ui.ts` (chrome) ou content modules (biografia); manter EN + PT.
+2. Novo projeto → `projects.ts` + imagem em `public/images/` + `npm run validate`.
+3. Nova experiência → `experience.ts` + logo em `public/images/companies/` se houver.
+4. Ajustar visual simple → `SimplePortfolio.tsx` + `index.css` / Tailwind.
+5. Ajustar OS → `system/*` + app correspondente.
+6. URL / deep link → `pathRouting.ts` + `viewStore` / `windowStore` (nunca reintroduzir hash como fonte da verdade).
+7. Antes de considerar pronto → `npm test`.
 
 ---
 

@@ -4,6 +4,7 @@ import type { LocalizedPair, UiCopy } from "./types";
 export const uiCopy: LocalizedPair<UiCopy> = {
     en: {
         skipToDock: "Skip to dock",
+        skipToApps: "Skip to apps",
         desktopLabel: "Desktop",
         closeWindow: "Close",
         minimizeWindow: "Minimize",
@@ -124,11 +125,12 @@ export const uiCopy: LocalizedPair<UiCopy> = {
         bootSimpleStep1: "Preparing the page",
         bootSimpleStep2: "Loading the portfolio",
         bootSimpleStep3: "Almost ready",
-        osHomeHint: "Choose an app from the dock to begin.",
+        osHomeLabel: "Apps",
         osBackToStart: "Start screen"
     },
     pt: {
         skipToDock: "Ir para o dock",
+        skipToApps: "Ir para os aplicativos",
         desktopLabel: "Área de trabalho",
         closeWindow: "Fechar",
         minimizeWindow: "Minimizar",
@@ -249,7 +251,7 @@ export const uiCopy: LocalizedPair<UiCopy> = {
         bootSimpleStep1: "Preparando a página",
         bootSimpleStep2: "Carregando o portfólio",
         bootSimpleStep3: "Quase pronto",
-        osHomeHint: "Escolha um app no dock para começar.",
+        osHomeLabel: "Aplicativos",
         osBackToStart: "Tela inicial"
     }
 };

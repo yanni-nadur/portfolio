@@ -121,7 +121,7 @@ Missing media shows an elegant project fallback - never a broken player.
 
 This repo includes `.github/workflows/deploy.yml`.
 
-1. In the GitHub repo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+1. In the GitHub repo: Settings → Pages → Build and deployment → Source: GitHub Actions.
 2. Push to `main` / `master`, or run the workflow manually.
 3. Confirm publication at `https://yanni-nadur.github.io/portfolio/`.
 

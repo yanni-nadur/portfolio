@@ -4,6 +4,7 @@ import { useIsDesktop, usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useSettings } from "../store/settingsStore";
 import { useWindows } from "./windowStore";
 import { Dock } from "./Dock";
+import { MobileHomeScreen } from "./MobileHomeScreen";
 import { parseAppFromPath } from "./pathRouting";
 import { TopBar } from "./TopBar";
 import { Wallpaper } from "./Wallpaper";
@@ -89,27 +90,21 @@ export function DesktopShell()
 
     return (
         <div className="relative h-[100dvh] w-full overflow-hidden text-ink">
-            <a className="skip-link" href="#dock">
-                {t("skipToDock")}
+            <a className="skip-link" href={isDesktop ? "#dock" : "#mobile-home"}>
+                {t(isDesktop ? "skipToDock" : "skipToApps")}
             </a>
             <Wallpaper variant="os" playOsIntro={playOsIntro} />
             <div className={`relative z-10 flex h-full min-h-0 flex-col ${chromeClassName}`}>
                 <TopBar />
                 <main
-                    className={`relative min-h-0 flex-1 ${isDesktop ? "" : "pb-dock"}`}
+                    className="relative min-h-0 flex-1"
                     aria-label={t("desktopLabel")}
                 >
-                    {!isDesktop && !hasOpenApp ? (
-                        <div className="flex h-full items-center justify-center px-6 text-center">
-                            <p className="max-w-xs rounded-2xl border border-white/15 bg-black/30 px-4 py-3 text-sm text-[#FFF7E8]/90 backdrop-blur-md">
-                                {t("osHomeHint")}
-                            </p>
-                        </div>
-                    ) : null}
+                    {!isDesktop && !hasOpenApp ? <MobileHomeScreen /> : null}
                     <WindowManager />
                 </main>
             </div>
-            <Dock className={chromeClassName} />
+            {isDesktop ? <Dock className={chromeClassName} /> : null}
         </div>
     );
 }

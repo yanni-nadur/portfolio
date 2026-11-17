@@ -133,9 +133,9 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             if (event.key === "Escape")
             {
                 closeApp(appId);
-                document
-                    .getElementById("dock")
-                    ?.querySelector<HTMLButtonElement>(`button[aria-label][data-app-id="${appId}"]`)
+                const launcherRoot = document.getElementById(isDesktop ? "dock" : "mobile-home");
+                launcherRoot
+                    ?.querySelector<HTMLButtonElement>(`button[data-app-id="${appId}"]`)
                     ?.focus();
             }
         }
@@ -146,7 +146,7 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
         {
             window.removeEventListener("keydown", handleKeyDown);
         };
-    }, [appId, closeApp, isFocused, windowState.isMinimized, windowState.isOpen]);
+    }, [appId, closeApp, isDesktop, isFocused, windowState.isMinimized, windowState.isOpen]);
 
     if (!windowState.isOpen)
     {
@@ -162,7 +162,7 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
                 aria-modal="true"
                 aria-labelledby={titleId}
                 tabIndex={-1}
-                className="fixed inset-x-0 top-0 z-40 flex flex-col os-paper text-ink animate-sheet dark:text-mist bottom-dock"
+                className="fixed inset-x-0 bottom-0 top-0 z-40 flex flex-col os-paper text-ink animate-sheet dark:text-mist pb-[env(safe-area-inset-bottom)]"
             >
                 <WindowChrome
                     titleId={titleId}
