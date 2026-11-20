@@ -29,7 +29,7 @@ export function AppIcon({ appId, className }: { appId: AppId; className?: string
     return (
         <span className={`os-app-icon relative inline-block overflow-visible ${className ?? ""}`}>
             <img
-                src={lightIconPath}
+                src={darkIconPath}
                 alt=""
                 draggable={false}
                 className={`pointer-events-none absolute inset-0 h-full w-full select-none object-contain ${fadeClassName} ${
@@ -37,7 +37,7 @@ export function AppIcon({ appId, className }: { appId: AppId; className?: string
                 }`}
             />
             <img
-                src={darkIconPath}
+                src={lightIconPath}
                 alt=""
                 draggable={false}
                 className={`pointer-events-none absolute inset-0 h-full w-full select-none object-contain ${fadeClassName} ${
@@ -45,7 +45,7 @@ export function AppIcon({ appId, className }: { appId: AppId; className?: string
                 }`}
             />
             <img
-                src={isDark ? darkIconPath : lightIconPath}
+                src={isDark ? lightIconPath : darkIconPath}
                 alt=""
                 draggable={false}
                 aria-hidden="true"
