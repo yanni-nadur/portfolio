@@ -35,7 +35,7 @@ export default {
             },
             spacing: {
                 dock: "5.5rem",
-                topbar: "2.75rem"
+                topbar: "3rem"
             },
             borderRadius: {
                 window: "1.35rem"

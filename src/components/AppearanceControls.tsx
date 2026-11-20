@@ -179,6 +179,49 @@ export function LanguageSwitch()
     );
 }
 
+export const osHeaderControlClassName = "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full border border-black/10 bg-white/70 px-3 text-[0.8rem] font-semibold leading-none text-ink transition-[background-color,border-color,color] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-accent/50 hover:text-accent dark:border-white/15 dark:bg-black/20 dark:text-[#FFF7E8]/90 dark:hover:border-[#F2C14B]/70 dark:hover:text-[#F2C14B]";
+
+export const osHeaderClockClassName = "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full border border-black/10 bg-white/70 px-3 text-[0.8rem] font-semibold leading-none tabular-nums text-ink transition-[background-color,border-color,color] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/15 dark:bg-black/20 dark:text-[#FFF7E8]/90";
+
+export function HeaderThemeSwitch()
+{
+    const { t } = useI18n();
+    const { theme, setTheme } = useSettings();
+    const isDark = theme === "dark";
+
+    return (
+        <button
+            type="button"
+            className={osHeaderControlClassName}
+            aria-label={t("settingsTheme")}
+            aria-pressed={isDark}
+            onClick={() => setTheme(isDark ? "light" : "dark")}
+        >
+            {isDark ? <MoonIcon /> : <SunIcon />}
+            <span>{isDark ? t("simpleThemeDark") : t("simpleThemeLight")}</span>
+        </button>
+    );
+}
+
+export function HeaderLanguageSwitch()
+{
+    const { t } = useI18n();
+    const { language, setLanguage } = useSettings();
+    const isEnglish = language === "en";
+
+    return (
+        <button
+            type="button"
+            className={osHeaderControlClassName}
+            aria-label={t("settingsLanguage")}
+            onClick={() => setLanguage(isEnglish ? "pt" : "en")}
+        >
+            {isEnglish ? <FlagUnitedStates /> : <FlagBrazil />}
+            <span>{isEnglish ? "EN" : "PT"}</span>
+        </button>
+    );
+}
+
 export function AppearanceControls()
 {
     return (

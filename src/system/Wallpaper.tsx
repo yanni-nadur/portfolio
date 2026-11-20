@@ -124,23 +124,19 @@ export function Wallpaper({
         && isFinePointer
         && !prefersReducedMotion;
     const isDarkTheme = theme === "dark";
-    const showAnimeScene = variant === "os" && isDarkTheme;
+    const isOsVariant = variant === "os";
     const introPlayedRef = useRef(false);
     const keepIntroClassRef = useRef(false);
 
-    if (showAnimeScene && playOsIntro && !introPlayedRef.current)
+    if (isOsVariant && playOsIntro && !introPlayedRef.current)
     {
         keepIntroClassRef.current = true;
         introPlayedRef.current = true;
     }
 
-    if (!showAnimeScene)
-    {
-        keepIntroClassRef.current = false;
-    }
     const fadeClassName = prefersReducedMotion
         ? ""
-        : "transition-opacity duration-[420ms] ease-in-out";
+        : "transition-opacity duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)]";
 
     const [springStyle, api] = useSpring(() => ({
         x: 0,
@@ -185,9 +181,13 @@ export function Wallpaper({
             aria-hidden="true"
         >
             <div className="absolute inset-0 night-sky" />
-            <div className={`absolute inset-0 sakura-sky ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
-            <div className={`absolute inset-0 night-glow ${fadeClassName} ${showAnimeScene || !isDarkTheme ? "opacity-0" : "opacity-100"}`} />
-            <div className={`absolute inset-0 sakura-glow ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
+            {!isOsVariant ? (
+                <>
+                    <div className={`absolute inset-0 sakura-sky ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
+                    <div className={`absolute inset-0 night-glow ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`} />
+                    <div className={`absolute inset-0 sakura-glow ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
+                </>
+            ) : null}
 
             <animated.div
                 className="absolute inset-[-5%]"
@@ -196,50 +196,56 @@ export function Wallpaper({
                     y: springStyle.y
                 }}
             >
-                {showAnimeScene ? (
+                {isOsVariant ? (
                     <div className="absolute inset-0">
                         <AnimatedAnimeWallpaper playIntro={keepIntroClassRef.current} />
                     </div>
                 ) : (
-                    <div className={`star-field absolute left-0 top-0 h-[200%] w-full ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`}>
-                        {starArray.map((star, index) => (
-                            <StarMark
-                                key={`star-a-${index}`}
-                                star={star}
-                                index={index}
-                                topOffset={0}
-                            />
-                        ))}
-                        {starArray.map((star, index) => (
-                            <StarMark
-                                key={`star-b-${index}`}
-                                star={star}
-                                index={index}
-                                topOffset={50}
-                            />
-                        ))}
-                    </div>
+                    <>
+                        <div className={`star-field absolute left-0 top-0 h-[200%] w-full ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`}>
+                            {starArray.map((star, index) => (
+                                <StarMark
+                                    key={`star-a-${index}`}
+                                    star={star}
+                                    index={index}
+                                    topOffset={0}
+                                />
+                            ))}
+                            {starArray.map((star, index) => (
+                                <StarMark
+                                    key={`star-b-${index}`}
+                                    star={star}
+                                    index={index}
+                                    topOffset={50}
+                                />
+                            ))}
+                        </div>
+                        <div className={`absolute inset-0 ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`}>
+                            {petalArray.map((petal, index) => (
+                                <span
+                                    key={`petal-${index}`}
+                                    className="petal absolute top-[-12%] rounded-[60%_40%_60%_40%] bg-sakura"
+                                    style={{
+                                        left: `${petal.left}%`,
+                                        width: `${petal.size}px`,
+                                        height: `${petal.size * 0.7}px`,
+                                        animationDelay: `-${petal.delay}s`,
+                                        animationDuration: `${petal.duration}s`,
+                                        ["--petal-drift" as string]: `${petal.drift}px`
+                                    }}
+                                />
+                            ))}
+                        </div>
+                    </>
                 )}
-                <div className={`absolute inset-0 ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`}>
-                    {petalArray.map((petal, index) => (
-                        <span
-                            key={`petal-${index}`}
-                            className="petal absolute top-[-12%] rounded-[60%_40%_60%_40%] bg-sakura"
-                            style={{
-                                left: `${petal.left}%`,
-                                width: `${petal.size}px`,
-                                height: `${petal.size * 0.7}px`,
-                                animationDelay: `-${petal.delay}s`,
-                                animationDuration: `${petal.duration}s`,
-                                ["--petal-drift" as string]: `${petal.drift}px`
-                            }}
-                        />
-                    ))}
-                </div>
             </animated.div>
 
-            <div className={`absolute inset-0 night-vignette ${fadeClassName} ${showAnimeScene || !isDarkTheme ? "opacity-0" : "opacity-100"}`} />
-            <div className={`absolute inset-0 sakura-vignette ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
+            {!isOsVariant ? (
+                <>
+                    <div className={`absolute inset-0 night-vignette ${fadeClassName} ${isDarkTheme ? "opacity-100" : "opacity-0"}`} />
+                    <div className={`absolute inset-0 sakura-vignette ${fadeClassName} ${isDarkTheme ? "opacity-0" : "opacity-100"}`} />
+                </>
+            ) : null}
         </div>
     );
 }

@@ -30,8 +30,8 @@ function createMeteor(isNarrow: boolean): Meteor
 
     return {
         id: meteorId,
-        leftPercent: (isNarrow ? 58 : 46) + Math.random() * (isNarrow ? 28 : 36),
-        topPercent: 2 + Math.random() * (isNarrow ? 16 : 24),
+        leftPercent: 2 + Math.random() * (isNarrow ? 62 : 72),
+        topPercent: 1 + Math.random() * (isNarrow ? 28 : 38),
         lengthPx: (isNarrow ? 72 : 108) + Math.random() * (isNarrow ? 46 : 64),
         angleDegree: Math.atan2(-distanceYPx, distanceXPx) * (180 / Math.PI),
         durationMs: 780 + Math.random() * 620,
@@ -91,13 +91,13 @@ export function ShootingStarsLayer({ isNarrow, isPaused }: ShootingStarsLayerPro
 
                 if (document.hidden)
                 {
-                    arm(900);
+                    arm(700);
                     return;
                 }
 
                 const nextMeteorArray = [createMeteor(isNarrow)];
 
-                if (Math.random() < 0.22)
+                if (Math.random() < 0.38)
                 {
                     nextMeteorArray.push(createMeteor(isNarrow));
                 }
@@ -122,12 +122,12 @@ export function ShootingStarsLayer({ isNarrow, isPaused }: ShootingStarsLayerPro
                     }
 
                     setMeteorArray([]);
-                    arm(2200 + Math.random() * 2800);
+                    arm(900 + Math.random() * 1400);
                 }, lifeMs + 60);
             }, delayMs);
         }
 
-        arm(800 + Math.random() * 900);
+        arm(350 + Math.random() * 650);
 
         return () =>
         {

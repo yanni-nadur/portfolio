@@ -126,7 +126,9 @@ export const uiCopy: LocalizedPair<UiCopy> = {
         bootSimpleStep2: "Loading the portfolio",
         bootSimpleStep3: "Almost ready",
         osHomeLabel: "Apps",
-        osBackToStart: "Start screen"
+        osTitle: "Portfolio OS",
+        osBackToStart: "Start screen",
+        osOpenSimple: "Simple portfolio"
     },
     pt: {
         skipToDock: "Ir para o dock",
@@ -252,6 +254,8 @@ export const uiCopy: LocalizedPair<UiCopy> = {
         bootSimpleStep2: "Carregando o portfólio",
         bootSimpleStep3: "Quase pronto",
         osHomeLabel: "Aplicativos",
-        osBackToStart: "Tela inicial"
+        osTitle: "Portfolio OS",
+        osBackToStart: "Tela inicial",
+        osOpenSimple: "Portfólio simples"
     }
 };

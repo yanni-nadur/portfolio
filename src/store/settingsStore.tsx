@@ -152,7 +152,7 @@ export function SettingsProvider({ children }: { children: ReactNode })
         const timeoutId = window.setTimeout(() =>
         {
             document.documentElement.classList.remove("theme-transition");
-        }, 420);
+        }, 560);
 
         return () =>
         {

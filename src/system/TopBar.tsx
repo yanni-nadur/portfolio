@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
-import { getAssetUrl, profileCopy, profileLinks } from "../content";
+import {
+    HeaderLanguageSwitch,
+    HeaderThemeSwitch,
+    osHeaderClockClassName,
+    osHeaderControlClassName
+} from "../components/AppearanceControls";
 import { useI18n } from "../i18n/I18nProvider";
+import { useIsDesktop } from "../hooks/useMediaQuery";
 import { useView } from "../store/viewStore";
-import { appRegistry } from "./appRegistry";
-import { useWindows } from "./windowStore";
+import { formatClockWithWeekday } from "../utils/formatDateTime";
 
 // -- OPERATIONS
 export function TopBar()
 {
-    const { t, localize } = useI18n();
-    const { focusedAppId } = useWindows();
-    const { openLanding } = useView();
-    const profile = localize(profileCopy);
+    const { t } = useI18n();
+    const { openLanding, openSimple } = useView();
+    const isDesktop = useIsDesktop();
     const [now, setNow] = useState(() => new Date());
 
     useEffect(() =>
@@ -27,43 +31,49 @@ export function TopBar()
         };
     }, []);
 
-    const activeTitle = focusedAppId
-        ? t(appRegistry[focusedAppId].titleKey)
-        : t("desktopLabel");
-
-    const clockText = new Intl.DateTimeFormat(t("clockLocale"), {
-        weekday: "short",
-        hour: "2-digit",
-        minute: "2-digit"
-    }).format(now);
+    const clockText = formatClockWithWeekday(now, t("clockLocale"));
 
     return (
-        <header className="relative z-40 flex h-topbar items-center justify-between gap-4 border-b border-black/10 bg-[#FFF8F4]/75 px-4 text-ink backdrop-blur-md dark:border-white/10 dark:bg-black/55 dark:text-[#FFF7E8]">
-            <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-                <button
-                    type="button"
-                    className="shrink-0 rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-[11px] font-semibold text-ink dark:border-white/15 dark:bg-black/20 dark:text-[#FFF7E8]/90"
-                    onClick={openLanding}
+        <header className="relative z-40 flex h-topbar items-center justify-between gap-3 border-b border-black/10 bg-[#FFF8F4]/80 px-3 text-[0.95rem] text-ink backdrop-blur-md transition-[background-color,border-color,color,box-shadow] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/10 dark:bg-black/55 dark:text-[#FFF7E8] sm:px-4">
+            <p className="min-w-0 truncate font-display text-[1.05rem] font-semibold tracking-wide sm:text-lg">
+                {t("osTitle")}
+            </p>
+            <div className="flex shrink-0 items-center gap-2">
+                {isDesktop ? (
+                    <>
+                        <HeaderThemeSwitch />
+                        <HeaderLanguageSwitch />
+                        <button
+                            type="button"
+                            className={osHeaderControlClassName}
+                            onClick={openSimple}
+                        >
+                            {t("osOpenSimple")}
+                        </button>
+                        <button
+                            type="button"
+                            className={osHeaderControlClassName}
+                            onClick={openLanding}
+                        >
+                            {t("osBackToStart")}
+                        </button>
+                    </>
+                ) : (
+                    <button
+                        type="button"
+                        className={osHeaderControlClassName}
+                        onClick={openLanding}
+                    >
+                        {t("osBackToStart")}
+                    </button>
+                )}
+                <time
+                    className={osHeaderClockClassName}
+                    dateTime={now.toISOString()}
                 >
-                    {t("osBackToStart")}
-                </button>
-                <img
-                    src={getAssetUrl(profileLinks.avatar ?? "images/origami.svg")}
-                    alt=""
-                    className="hidden h-7 w-7 rounded-full object-cover ring-2 ring-[#D9772F]/70 md:block"
-                />
-                <p className="min-w-0 truncate text-sm tracking-wide">
-                    <span className="font-display text-base font-semibold">{profile.name}</span>
-                    <span className="mx-2 hidden text-[#E8A0B0]/70 sm:inline">·</span>
-                    <span className="hidden font-medium text-ink/75 dark:text-[#FFF7E8]/80 sm:inline">{activeTitle}</span>
-                </p>
+                    {clockText}
+                </time>
             </div>
-            <time
-                className="shrink-0 rounded-full border border-black/10 bg-white/70 px-2.5 py-1 text-xs tabular-nums text-ink dark:border-white/10 dark:bg-black/20 dark:text-[#FFF7E8]/90 sm:px-3"
-                dateTime={now.toISOString()}
-            >
-                {clockText}
-            </time>
         </header>
     );
 }

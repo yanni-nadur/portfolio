@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useI18n } from "../i18n/I18nProvider";
 import { useIsDesktop, usePrefersReducedMotion } from "../hooks/useMediaQuery";
-import { useSettings } from "../store/settingsStore";
 import { useWindows } from "./windowStore";
 import { Dock } from "./Dock";
 import { MobileHomeScreen } from "./MobileHomeScreen";
@@ -45,7 +44,6 @@ export function DesktopShell()
     const { t } = useI18n();
     const isDesktop = useIsDesktop();
     const prefersReducedMotion = usePrefersReducedMotion();
-    const { theme } = useSettings();
     const { windowByIdMap } = useWindows();
     const playOsIntroRef = useRef<boolean | null>(null);
 
@@ -58,7 +56,7 @@ export function DesktopShell()
     }
 
     const playOsIntro = playOsIntroRef.current;
-    const shouldHoldChrome = playOsIntro && theme === "dark";
+    const shouldHoldChrome = Boolean(playOsIntro);
     const [isChromeReady, setIsChromeReady] = useState(!shouldHoldChrome);
     const chromeClassName = isChromeReady
         ? (shouldHoldChrome ? "os-chrome-reveal" : "")

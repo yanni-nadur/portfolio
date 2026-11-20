@@ -162,7 +162,7 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
                 aria-modal="true"
                 aria-labelledby={titleId}
                 tabIndex={-1}
-                className="fixed inset-x-0 bottom-0 top-0 z-40 flex flex-col os-paper text-ink animate-sheet dark:text-mist pb-[env(safe-area-inset-bottom)]"
+                className="fixed inset-x-0 bottom-0 top-0 z-40 flex flex-col os-paper text-ink animate-sheet transition-[background,color] duration-[420ms] ease-in-out dark:text-mist pb-[env(safe-area-inset-bottom)]"
             >
                 <WindowChrome
                     titleId={titleId}
@@ -187,7 +187,7 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             role="dialog"
             aria-modal="false"
             aria-labelledby={titleId}
-            className={`absolute overflow-hidden rounded-window os-paper os-ink-border text-ink dark:text-mist ${
+            className={`absolute overflow-hidden rounded-window os-paper os-ink-border text-ink transition-[background,box-shadow,color,opacity] duration-[420ms] ease-in-out dark:text-mist ${
                 isFocused ? "ring-1 ring-[#D9772F]/35" : "opacity-95"
             }`}
             style={{
@@ -252,7 +252,7 @@ function WindowChrome({
 
     return (
         <div
-            className="flex h-12 shrink-0 items-center justify-between gap-3 border-b border-line/70 px-3 os-seigaiha dark:border-white/10"
+            className="flex h-12 shrink-0 items-center justify-between gap-3 border-b border-line/70 px-3 os-seigaiha transition-[background-color,border-color,color] duration-[420ms] ease-in-out dark:border-white/10"
             style={{ background: `linear-gradient(90deg, ${accent}28, transparent 55%)` }}
         >
             <div className="flex items-center gap-2">

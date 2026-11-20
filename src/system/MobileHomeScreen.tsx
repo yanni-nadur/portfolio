@@ -80,15 +80,11 @@ export function MobileHomeScreen()
                             aria-label={label}
                             onClick={() => handleOpen(appId)}
                         >
-                            <span
-                                className="flex h-16 w-16 items-center justify-center rounded-[1.35rem] text-[#FFF7E8] shadow-soft transition-transform group-active:scale-95 sm:h-[4.5rem] sm:w-[4.5rem]"
-                                style={{
-                                    background: `linear-gradient(160deg, ${definition.accent}, #0B1C33 78%)`
-                                }}
-                            >
-                                <AppIcon appId={appId} className="h-7 w-7 sm:h-8 sm:w-8" />
-                            </span>
-                            <span className="max-w-[5.5rem] truncate text-center text-xs font-medium text-[#FFF7E8]/95 drop-shadow-sm dark:text-[#FFF7E8]">
+                            <AppIcon
+                                appId={appId}
+                                className="os-icon-glow h-16 w-16 transition-transform duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-active:scale-[0.98] sm:h-[4.5rem] sm:w-[4.5rem]"
+                            />
+                            <span className="max-w-[5.5rem] truncate text-center text-xs font-medium text-ink drop-shadow-sm transition-colors duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:text-[#FFF7E8]">
                                 {label}
                             </span>
                         </button>

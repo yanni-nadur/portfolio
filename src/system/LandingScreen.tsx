@@ -3,6 +3,7 @@ import { getAssetUrl, profileCopy, profileLinks } from "../content";
 import { LanguageSwitch } from "../components/AppearanceControls";
 import { useI18n } from "../i18n/I18nProvider";
 import { useView } from "../store/viewStore";
+import { formatClockTime, formatLandingDate } from "../utils/formatDateTime";
 import { Wallpaper } from "./Wallpaper";
 
 // -- FUNCTIONS
@@ -94,16 +95,8 @@ export function LandingScreen()
         };
     }, []);
 
-    const clockText = new Intl.DateTimeFormat(t("clockLocale"), {
-        hour: "2-digit",
-        minute: "2-digit"
-    }).format(now);
-
-    const dateText = new Intl.DateTimeFormat(t("clockLocale"), {
-        weekday: "short",
-        day: "numeric",
-        month: "short"
-    }).format(now);
+    const clockText = formatClockTime(now, t("clockLocale"));
+    const dateText = formatLandingDate(now, t("clockLocale"));
 
     return (
         <div className="relative min-h-[100dvh] overflow-x-hidden text-ink dark:text-[#FFF7E8]">

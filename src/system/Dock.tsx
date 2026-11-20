@@ -73,7 +73,7 @@ export function Dock({ className = "" }: DockProps)
                 role="toolbar"
                 aria-orientation="horizontal"
                 onKeyDown={handleKeyDown}
-                className={`mx-auto flex max-w-full items-end gap-1.5 border border-[#FFF7E8]/18 bg-[#07111F]/45 shadow-glow backdrop-blur-xl sm:gap-2 ${
+                className={`mx-auto flex max-w-full items-end gap-1.5 border border-black/10 bg-[#FFF8F4]/80 shadow-soft backdrop-blur-md transition-[background-color,border-color,box-shadow] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-[#FFF7E8]/18 dark:bg-black/55 dark:shadow-glow sm:gap-2 ${
                     isDesktop
                         ? "dock-pill px-4 py-2.5"
                         : "w-full justify-around rounded-none border-x-0 border-b-0 px-1 pt-2 pb-3"
@@ -94,7 +94,6 @@ export function Dock({ className = "" }: DockProps)
                             }}
                             appId={appId}
                             label={t(appRegistry[appId].titleKey)}
-                            accent={appRegistry[appId].accent}
                             isActive={isActive}
                             isRunning={isRunning}
                             isDesktop={isDesktop}
@@ -112,7 +111,6 @@ export function Dock({ className = "" }: DockProps)
 type DockButtonProps = {
     appId: AppId;
     label: string;
-    accent: string;
     isActive: boolean;
     isRunning: boolean;
     isDesktop: boolean;
@@ -124,7 +122,6 @@ type DockButtonProps = {
 function DockButton({
     appId,
     label,
-    accent,
     isActive,
     isRunning,
     isDesktop,
@@ -136,7 +133,7 @@ function DockButton({
     const [springStyle, api] = useSpring(() => ({
         scale: 1,
         y: 0,
-        config: { tension: 300, friction: 18 },
+        config: { tension: 180, friction: 26 },
         immediate: prefersReducedMotion
     }));
 
@@ -159,7 +156,7 @@ function DockButton({
             {
                 if (isDesktop && !prefersReducedMotion)
                 {
-                    api.start({ scale: 1.16, y: -10 });
+                    api.start({ scale: 1.045, y: -3 });
                 }
             }}
             onMouseLeave={() =>
@@ -167,19 +164,15 @@ function DockButton({
                 api.start({ scale: 1, y: 0 });
             }}
         >
+            <AppIcon
+                appId={appId}
+                className="os-icon-glow h-full w-full"
+            />
             <span
-                className="flex h-full w-full items-center justify-center rounded-2xl text-[#FFF7E8] shadow-soft"
-                style={{
-                    background: `linear-gradient(160deg, ${accent}, #0B1C33 78%)`
-                }}
-            >
-                <AppIcon appId={appId} className="h-6 w-6" />
-            </span>
-            <span
-                className={`h-1.5 w-1.5 rounded-full ${isRunning ? "bg-[#F2C14B]" : "bg-transparent"}`}
+                className={`h-1.5 w-1.5 rounded-full transition-colors duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${isRunning ? "bg-[#D9772F] dark:bg-[#F2C14B]" : "bg-transparent"}`}
                 aria-hidden="true"
             />
-            <span className="pointer-events-none absolute -top-9 hidden rounded-full border border-white/10 bg-[#07111F]/85 px-2.5 py-0.5 text-xs text-[#FFF7E8] group-hover:lg:block">
+            <span className="pointer-events-none absolute -top-9 hidden rounded-full border border-black/10 bg-[#FFF8F4]/95 px-2.5 py-0.5 text-xs text-ink transition-[background-color,border-color,color] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/10 dark:bg-black/55 dark:text-[#FFF7E8] group-hover:lg:block">
                 {label}
             </span>
         </animated.button>
