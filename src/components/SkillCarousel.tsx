@@ -1,5 +1,5 @@
 import { skillGroupArray } from "../content";
-import type { SkillGroup } from "../content/types";
+import type { SkillGroup, SkillTrack } from "../content/types";
 import { skillIconByNameMap } from "../content/skillIcons";
 import { usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useI18n } from "../i18n/I18nProvider";
@@ -68,43 +68,59 @@ function shouldSplitSkill(labelText: string): boolean
     return partArray.every((partText) => hasKnownSkill(partText));
 }
 
-function resolveIconName(labelText: string): string
+function resolveIconName(track: SkillTrack): string
 {
-    const directName = getIconName(labelText);
+    if (skillIconByNameMap[track.iconId])
+    {
+        return track.iconId;
+    }
+
+    const directName = getIconName(track.en.title);
 
     if (skillIconByNameMap[directName])
     {
         return directName;
     }
 
-    const firstPartName = getIconName(splitSkillLabel(labelText)[0] ?? labelText);
+    const firstPartName = getIconName(splitSkillLabel(track.en.title)[0] ?? track.en.title);
 
     if (skillIconByNameMap[firstPartName])
     {
         return firstPartName;
     }
 
-    return directName;
+    return track.iconId;
 }
 
-function getChipArray(group: SkillGroup, localize: (value: SkillGroup) => { items: string[] }): SkillChip[]
+function getChipArray(
+    group: SkillGroup,
+    localize: (value: SkillTrack) => { title: string }
+): SkillChip[]
 {
-    const localizedItemArray = localize(group).items;
     const chipArray: SkillChip[] = [];
 
-    group.en.items.forEach((englishItem, itemIndex) =>
+    group.trackArray.forEach((track) =>
     {
-        const localizedItem = localizedItemArray[itemIndex] ?? englishItem;
-        const canSplit = shouldSplitSkill(englishItem);
-        const englishPartArray = canSplit ? splitSkillLabel(englishItem) : [englishItem];
-        const localizedPartArray = canSplit ? splitSkillLabel(localizedItem) : [localizedItem];
+        const localizedTitle = localize(track).title;
+        const canSplit = shouldSplitSkill(track.en.title);
+        const englishPartArray = canSplit ? splitSkillLabel(track.en.title) : [track.en.title];
+        const localizedPartArray = canSplit ? splitSkillLabel(localizedTitle) : [localizedTitle];
 
         englishPartArray.forEach((englishPart, partIndex) =>
         {
-            const iconName = resolveIconName(englishPart);
+            const iconName = partIndex === 0
+                ? resolveIconName(track)
+                : resolveIconName({
+                    ...track,
+                    iconId: getIconName(englishPart),
+                    en: {
+                        ...track.en,
+                        title: englishPart
+                    }
+                });
 
             chipArray.push({
-                chipKey: `${group.id}-${itemIndex}-${partIndex}-${iconName}`,
+                chipKey: `${track.id}-${partIndex}-${iconName}`,
                 label: localizedPartArray[partIndex] ?? englishPart,
                 iconName
             });

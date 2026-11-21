@@ -17,27 +17,26 @@ type SettingsState = {
     theme: ThemeMode;
     language: LanguageCode;
     parallaxEnabled: boolean;
-    favoriteProjectIdArray: string[];
     favoriteTrackKeyArray: string[];
+    skillwaveVolumePercent: number;
 };
 
 type SettingsAction =
     | { type: "setTheme"; theme: ThemeMode }
     | { type: "setLanguage"; language: LanguageCode }
     | { type: "setParallaxEnabled"; enabled: boolean }
-    | { type: "toggleFavoriteProject"; projectId: string }
     | { type: "toggleFavoriteTrack"; trackKey: string }
+    | { type: "setSkillwaveVolumePercent"; volumePercent: number }
     | { type: "hydrate"; state: SettingsState }
-    | { type: "reset" };
+    | { type: "resetPreferences" };
 
 type SettingsContextValue = SettingsState & {
     setTheme: (theme: ThemeMode) => void;
     setLanguage: (language: LanguageCode) => void;
     setParallaxEnabled: (enabled: boolean) => void;
-    toggleFavoriteProject: (projectId: string) => void;
     toggleFavoriteTrack: (trackKey: string) => void;
+    setSkillwaveVolumePercent: (volumePercent: number) => void;
     clearSettings: () => void;
-    isProjectFavorite: (projectId: string) => boolean;
     isTrackFavorite: (trackKey: string) => boolean;
 };
 
@@ -48,8 +47,8 @@ const defaultSettingsState: SettingsState = {
     theme: "dark",
     language: "en",
     parallaxEnabled: true,
-    favoriteProjectIdArray: [],
-    favoriteTrackKeyArray: []
+    favoriteTrackKeyArray: [],
+    skillwaveVolumePercent: 70
 };
 
 const SettingsContext = createContext<SettingsContextValue | null>(null);
@@ -75,20 +74,25 @@ function settingsReducer(state: SettingsState, action: SettingsAction): Settings
             return { ...state, language: action.language };
         case "setParallaxEnabled":
             return { ...state, parallaxEnabled: action.enabled };
-        case "toggleFavoriteProject":
-            return {
-                ...state,
-                favoriteProjectIdArray: toggleId(state.favoriteProjectIdArray, action.projectId)
-            };
         case "toggleFavoriteTrack":
             return {
                 ...state,
                 favoriteTrackKeyArray: toggleId(state.favoriteTrackKeyArray, action.trackKey)
             };
+        case "setSkillwaveVolumePercent":
+            return {
+                ...state,
+                skillwaveVolumePercent: Math.max(0, Math.min(100, Math.round(action.volumePercent)))
+            };
         case "hydrate":
             return action.state;
-        case "reset":
-            return { ...defaultSettingsState };
+        case "resetPreferences":
+            return {
+                ...state,
+                theme: defaultSettingsState.theme,
+                language: defaultSettingsState.language,
+                parallaxEnabled: defaultSettingsState.parallaxEnabled
+            };
         default:
             return state;
     }
@@ -111,12 +115,12 @@ function readStoredSettings(): SettingsState
             theme: parsedValue.theme === "light" ? "light" : "dark",
             language: parsedValue.language === "pt" ? "pt" : "en",
             parallaxEnabled: parsedValue.parallaxEnabled !== false,
-            favoriteProjectIdArray: Array.isArray(parsedValue.favoriteProjectIdArray)
-                ? parsedValue.favoriteProjectIdArray.filter((value) => typeof value === "string")
-                : [],
             favoriteTrackKeyArray: Array.isArray(parsedValue.favoriteTrackKeyArray)
                 ? parsedValue.favoriteTrackKeyArray.filter((value) => typeof value === "string")
-                : []
+                : [],
+            skillwaveVolumePercent: typeof parsedValue.skillwaveVolumePercent === "number"
+                ? Math.max(0, Math.min(100, Math.round(parsedValue.skillwaveVolumePercent)))
+                : 70
         };
     }
     catch
@@ -175,20 +179,19 @@ export function SettingsProvider({ children }: { children: ReactNode })
         dispatch({ type: "setParallaxEnabled", enabled });
     }, []);
 
-    const toggleFavoriteProject = useCallback((projectId: string) =>
-    {
-        dispatch({ type: "toggleFavoriteProject", projectId });
-    }, []);
-
     const toggleFavoriteTrack = useCallback((trackKey: string) =>
     {
         dispatch({ type: "toggleFavoriteTrack", trackKey });
     }, []);
 
+    const setSkillwaveVolumePercent = useCallback((volumePercent: number) =>
+    {
+        dispatch({ type: "setSkillwaveVolumePercent", volumePercent });
+    }, []);
+
     const clearSettings = useCallback(() =>
     {
-        window.localStorage.removeItem(STORAGE_KEY);
-        dispatch({ type: "reset" });
+        dispatch({ type: "resetPreferences" });
     }, []);
 
     const value = useMemo<SettingsContextValue>(() => ({
@@ -196,18 +199,17 @@ export function SettingsProvider({ children }: { children: ReactNode })
         setTheme,
         setLanguage,
         setParallaxEnabled,
-        toggleFavoriteProject,
         toggleFavoriteTrack,
+        setSkillwaveVolumePercent,
         clearSettings,
-        isProjectFavorite: (projectId: string) => state.favoriteProjectIdArray.includes(projectId),
         isTrackFavorite: (trackKey: string) => state.favoriteTrackKeyArray.includes(trackKey)
     }), [
         state,
         setTheme,
         setLanguage,
         setParallaxEnabled,
-        toggleFavoriteProject,
         toggleFavoriteTrack,
+        setSkillwaveVolumePercent,
         clearSettings
     ]);
 

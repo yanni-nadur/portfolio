@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import {
     experienceArray,
     getAssetUrl,
+    languageSkillArray,
     profileCopy,
     profileLinks,
     skillGroupArray,
@@ -162,18 +163,38 @@ export default function ContactsApp()
                         )
                         : null}
                     {sidebarTab === "stack"
-                        ? skillGroupArray.map((group) =>
-                        {
-                            const localized = localize(group);
-                            return (
-                                <div key={group.id}>
-                                    <p className="font-semibold">{localized.title}</p>
+                        ? (
+                            <>
+                                {skillGroupArray.map((group) =>
+                                {
+                                    const localized = localize(group);
+                                    const trackTitleArray = group.trackArray
+                                        .slice(0, 4)
+                                        .map((track) => localize(track).title);
+
+                                    return (
+                                        <div key={group.id}>
+                                            <p className="font-semibold">{localized.title}</p>
+                                            <p className="text-slateSoft dark:text-white/60">
+                                                {trackTitleArray.join(" · ")}
+                                            </p>
+                                        </div>
+                                    );
+                                })}
+                                <div>
+                                    <p className="font-semibold">{t("contactsLanguages")}</p>
                                     <p className="text-slateSoft dark:text-white/60">
-                                        {localized.items.slice(0, 4).join(" · ")}
+                                        {languageSkillArray
+                                            .map((languageSkill) =>
+                                            {
+                                                const localized = localize(languageSkill);
+                                                return `${localized.title} (${localized.level})`;
+                                            })
+                                            .join(" · ")}
                                     </p>
                                 </div>
-                            );
-                        })
+                            </>
+                        )
                         : null}
                 </div>
             </aside>

@@ -64,14 +64,51 @@ export type ExperienceEntry = {
     logo: string | null;
 } & LocalizedPair<ExperienceCopy>;
 
+export type SkillFamiliarity = "proficient" | "familiar";
+
+export type SkillAudioPresetId =
+    | "frontend-keys"
+    | "backend-rhodes"
+    | "ai-pads"
+    | "databases-piano"
+    | "payments-jazz"
+    | "architecture-minimal"
+    | "cloud-ambient"
+    | "quality-vinyl";
+
+export type SkillTrackCopy = {
+    title: string;
+    musicalSubtitle: string | null;
+    description: string | null;
+};
+
+export type SkillTrack = {
+    id: string;
+    iconId: string;
+    familiarity: SkillFamiliarity;
+    musicalVariationId: string;
+} & LocalizedPair<SkillTrackCopy>;
+
 export type SkillGroupCopy = {
     title: string;
-    items: string[];
+    description: string;
 };
 
 export type SkillGroup = {
     id: string;
+    iconId: string;
+    audioPresetId: SkillAudioPresetId;
+    trackArray: SkillTrack[];
 } & LocalizedPair<SkillGroupCopy>;
+
+export type LanguageSkillCopy = {
+    title: string;
+    level: string;
+};
+
+export type LanguageSkill = {
+    id: string;
+} & LocalizedPair<LanguageSkillCopy>;
 
 export type TestimonialCopy = {
     quote: string;

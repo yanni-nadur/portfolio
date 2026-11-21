@@ -127,27 +127,27 @@ export function ThemeSwitch()
 
     return (
         <div
-            className="grid grid-cols-2 gap-1 rounded-2xl bg-black/5 p-1 dark:bg-white/10"
+            className="prefs-segmented grid grid-cols-2 gap-1 rounded-2xl bg-black/[0.04] p-1 dark:bg-white/10"
             role="group"
             aria-label={t("settingsTheme")}
         >
             <button
                 type="button"
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold ${selectionClassName(theme === "dark")}`}
+                className={`flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${selectionClassName(theme === "dark")}`}
                 aria-pressed={theme === "dark"}
                 onClick={() => setTheme("dark")}
             >
                 <MoonIcon />
-                <span>{t("simpleThemeDark")}</span>
+                <span>{t("settingsThemeDark")}</span>
             </button>
             <button
                 type="button"
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold ${selectionClassName(theme === "light")}`}
+                className={`flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${selectionClassName(theme === "light")}`}
                 aria-pressed={theme === "light"}
                 onClick={() => setTheme("light")}
             >
                 <SunIcon />
-                <span>{t("simpleThemeLight")}</span>
+                <span>{t("settingsThemeLight")}</span>
             </button>
         </div>
     );
@@ -160,27 +160,27 @@ export function LanguageSwitch()
 
     return (
         <div
-            className="grid grid-cols-2 gap-1 rounded-2xl bg-black/5 p-1 dark:bg-white/10"
+            className="prefs-segmented grid grid-cols-2 gap-1 rounded-2xl bg-black/[0.04] p-1 dark:bg-white/10"
             role="group"
             aria-label={t("settingsLanguage")}
         >
             <button
                 type="button"
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold ${selectionClassName(language === "en")}`}
+                className={`flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${selectionClassName(language === "en")}`}
                 aria-pressed={language === "en"}
                 onClick={() => setLanguage("en")}
             >
                 <FlagUnitedStates />
-                <span>EN</span>
+                <span>{t("settingsLanguageEnglish")}</span>
             </button>
             <button
                 type="button"
-                className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2 text-xs font-semibold ${selectionClassName(language === "pt")}`}
+                className={`flex min-h-11 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold transition-colors ${selectionClassName(language === "pt")}`}
                 aria-pressed={language === "pt"}
                 onClick={() => setLanguage("pt")}
             >
                 <FlagBrazil />
-                <span>PT</span>
+                <span>{t("settingsLanguagePortuguese")}</span>
             </button>
         </div>
     );

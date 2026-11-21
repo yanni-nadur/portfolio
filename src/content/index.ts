@@ -28,3 +28,11 @@ export function findAnyProject(projectId: string)
         ?? null
     );
 }
+
+export function getAllProjectArray()
+{
+    return [
+        ...featuredProjectArray,
+        ...additionalProjectArray
+    ];
+}

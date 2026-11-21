@@ -19,12 +19,15 @@ type AppWindowProps = {
 export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindowProps)
 {
     const { t } = useI18n();
-    const { closeApp, minimizeApp, focusApp, moveWindow, resizeWindow } = useWindows();
+    const { closeApp, toggleMaximizeApp, focusApp, moveWindow, resizeWindow } = useWindows();
     const prefersReducedMotion = usePrefersReducedMotion();
     const containerRef = useRef<HTMLDivElement>(null);
+    const isDraggingRef = useRef(false);
+    const isResizingRef = useRef(false);
     const definition = appRegistry[appId];
     const titleId = `${appId}-window-title`;
     const AppComponent = definition.Component;
+    const canMoveOrResize = isDesktop && !windowState.isMaximized;
 
     useFocusTrap(containerRef, !isDesktop && windowState.isOpen && !windowState.isMinimized);
 
@@ -41,6 +44,12 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
 
     useEffect(() =>
     {
+        // Keep live drag/resize spring values; store sync only happens after gesture ends.
+        if (isDraggingRef.current || isResizingRef.current)
+        {
+            return;
+        }
+
         api.start({
             x: windowState.position.x,
             y: windowState.position.y,
@@ -53,26 +62,33 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
     }, [api, prefersReducedMotion, windowState]);
 
     const dragBind = useDrag(
-        ({ event, offset: [offsetX, offsetY], last, memo }) =>
+        ({ event, offset: [offsetX, offsetY], first, last, memo }) =>
         {
             event.stopPropagation();
 
-            if (!isDesktop)
+            if (!canMoveOrResize)
             {
                 return memo;
             }
 
-            focusApp(appId);
+            if (first)
+            {
+                isDraggingRef.current = true;
+                focusApp(appId);
+            }
+
             api.start({ x: offsetX, y: offsetY, immediate: true });
 
             if (last)
             {
                 moveWindow(appId, { x: offsetX, y: offsetY });
+                isDraggingRef.current = false;
             }
 
             return memo;
         },
         {
+            enabled: canMoveOrResize,
             from: () => [windowState.position.x, windowState.position.y],
             bounds: {
                 left: 0,
@@ -89,7 +105,7 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
         {
             event.stopPropagation();
 
-            if (!isDesktop)
+            if (!canMoveOrResize)
             {
                 return memo;
             }
@@ -97,6 +113,12 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             const startSize = first
                 ? { ...windowState.size }
                 : (memo as { width: number; height: number });
+
+            if (first)
+            {
+                isResizingRef.current = true;
+                focusApp(appId);
+            }
 
             const nextSize = {
                 width: Math.max(420, startSize.width + movementX),
@@ -112,11 +134,13 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             if (last)
             {
                 resizeWindow(appId, nextSize);
+                isResizingRef.current = false;
             }
 
             return startSize;
         },
         {
+            enabled: canMoveOrResize,
             filterTaps: true
         }
     );
@@ -169,8 +193,9 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
                     title={t(definition.titleKey)}
                     accent={definition.accent}
                     isDesktop={false}
+                    isMaximized={false}
                     onClose={() => closeApp(appId)}
-                    onMinimize={() => closeApp(appId)}
+                    onToggleMaximize={() => undefined}
                 />
                 <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain">
                     <Suspense fallback={<AppLoading />}>
@@ -187,9 +212,9 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             role="dialog"
             aria-modal="false"
             aria-labelledby={titleId}
-            className={`absolute overflow-hidden rounded-window os-paper os-ink-border text-ink transition-[background,box-shadow,color,opacity] duration-[420ms] ease-in-out dark:text-mist ${
-                isFocused ? "ring-1 ring-[#D9772F]/35" : "opacity-95"
-            }`}
+            className={`absolute overflow-hidden os-paper os-ink-border text-ink transition-[background,box-shadow,color,opacity,border-radius] duration-[420ms] ease-in-out dark:text-mist ${
+                windowState.isMaximized ? "rounded-xl" : "rounded-window"
+            } ${isFocused ? "ring-1 ring-[#D9772F]/35" : "opacity-95"}`}
             style={{
                 x: springStyle.x,
                 y: springStyle.y,
@@ -203,14 +228,15 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
             }}
             onMouseDown={() => focusApp(appId)}
         >
-            <div {...dragBind()} className="touch-none">
+            <div {...dragBind()} className="touch-none select-none">
                 <WindowChrome
                     titleId={titleId}
                     title={t(definition.titleKey)}
                     accent={definition.accent}
                     isDesktop={true}
+                    isMaximized={windowState.isMaximized}
                     onClose={() => closeApp(appId)}
-                    onMinimize={() => minimizeApp(appId)}
+                    onToggleMaximize={() => toggleMaximizeApp(appId)}
                 />
             </div>
             <div className="min-h-0 flex-1 overflow-auto">
@@ -218,13 +244,15 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
                     <AppComponent />
                 </Suspense>
             </div>
-            <div
-                {...resizeBind()}
-                className="absolute bottom-1 right-1 h-4 w-4 cursor-se-resize touch-none"
-                aria-hidden="true"
-            >
-                <span className="absolute bottom-1 right-1 h-2 w-2 border-b-2 border-r-2 border-ink/30 dark:border-white/40" />
-            </div>
+            {canMoveOrResize ? (
+                <div
+                    {...resizeBind()}
+                    className="absolute bottom-1 right-1 h-4 w-4 cursor-se-resize touch-none"
+                    aria-hidden="true"
+                >
+                    <span className="absolute bottom-1 right-1 h-2 w-2 border-b-2 border-r-2 border-ink/30 dark:border-white/40" />
+                </div>
+            ) : null}
         </animated.div>
     );
 }
@@ -235,8 +263,9 @@ type WindowChromeProps = {
     title: string;
     accent: string;
     isDesktop: boolean;
+    isMaximized: boolean;
     onClose: () => void;
-    onMinimize: () => void;
+    onToggleMaximize: () => void;
 };
 
 function WindowChrome({
@@ -244,15 +273,16 @@ function WindowChrome({
     title,
     accent,
     isDesktop,
+    isMaximized,
     onClose,
-    onMinimize
+    onToggleMaximize
 }: WindowChromeProps)
 {
     const { t } = useI18n();
 
     return (
         <div
-            className="flex h-12 shrink-0 items-center justify-between gap-3 border-b border-line/70 px-3 os-seigaiha transition-[background-color,border-color,color] duration-[420ms] ease-in-out dark:border-white/10"
+            className="flex h-12 shrink-0 select-none items-center justify-between gap-3 border-b border-line/70 px-3 os-seigaiha transition-[background-color,border-color,color] duration-[420ms] ease-in-out dark:border-white/10"
             style={{ background: `linear-gradient(90deg, ${accent}28, transparent 55%)` }}
         >
             <div className="flex items-center gap-2">
@@ -264,11 +294,10 @@ function WindowChrome({
                             onClick={onClose}
                         />
                         <TrafficButton
-                            label={t("minimizeWindow")}
+                            label={isMaximized ? t("minimizeWindow") : t("maximizeWindow")}
                             colorClassName="bg-[#F2C14B]"
-                            onClick={onMinimize}
+                            onClick={onToggleMaximize}
                         />
-                        <span className="h-3 w-3 rounded-full" style={{ backgroundColor: "#7BA3C9" }} aria-hidden="true" />
                     </>
                 ) : (
                     <button
@@ -280,7 +309,11 @@ function WindowChrome({
                     </button>
                 )}
             </div>
-            <h2 id={titleId} className="truncate font-display text-sm font-semibold tracking-wide">
+            <h2
+                id={titleId}
+                className="truncate font-display text-sm font-semibold tracking-wide select-none"
+                onDoubleClick={(event) => event.preventDefault()}
+            >
                 {title}
             </h2>
             <span className="w-16" aria-hidden="true" />

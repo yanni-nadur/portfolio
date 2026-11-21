@@ -1,385 +1,148 @@
 import { useEffect, useMemo } from "react";
-import {
-    additionalProjectArray,
-    featuredProjectArray,
-    findAnyProject,
-    findFeaturedProject,
-    getAssetUrl
-} from "../../content";
+import { getAllProjectArray, getAssetUrl } from "../../content";
 import type { AdditionalProject, FeaturedProject } from "../../content/types";
-import { ProjectMedia } from "../../components/ProjectMedia";
 import { useI18n } from "../../i18n/I18nProvider";
-import { useSettings } from "../../store/settingsStore";
 import { useWindows } from "../../system/windowStore";
 
 // -- TYPES
-type LibraryTab = "library" | "favorites";
+type GalleryProject = FeaturedProject | AdditionalProject;
+
+/*
+ * Projects is currently a gallery of cards that open each project's public site.
+ * A richer in-app detail view (role, challenges, results) can be rebuilt later
+ * from the existing project data without keeping unused UI here.
+ */
+
+// -- FUNCTIONS
+function isFeaturedProject(project: GalleryProject): project is FeaturedProject
+{
+    return "featured" in project && project.featured === true;
+}
+
+function getProjectImageObjectPosition(projectId: string): string
+{
+    if (projectId === "karen-oliveira")
+    {
+        return "center 20%";
+    }
+
+    if (projectId === "solon")
+    {
+        return "center 35%";
+    }
+
+    return "center";
+}
+
+function compareProjectTitle(
+    leftProject: GalleryProject,
+    rightProject: GalleryProject,
+    language: "en" | "pt"
+): number
+{
+    return leftProject[language].title.localeCompare(rightProject[language].title, language, {
+        sensitivity: "base"
+    });
+}
 
 // -- OPERATIONS
 export default function PhotosApp()
 {
-    const { t, localize } = useI18n();
-    const { isProjectFavorite, toggleFavoriteProject, favoriteProjectIdArray } = useSettings();
+    const { t, language, localize } = useI18n();
     const { windowByIdMap, setAppRoute } = useWindows();
     const route = windowByIdMap.photos.route;
 
-    const selectedProjectId = useMemo(() =>
-    {
-        if (!route)
-        {
-            return null;
-        }
-
-        if (route === "favorites")
-        {
-            return null;
-        }
-
-        return route;
-    }, [route]);
-
-    const activeTab: LibraryTab = route === "favorites" ? "favorites" : "library";
-    const selectedFeatured = selectedProjectId ? findFeaturedProject(selectedProjectId) : null;
-    const selectedAny = selectedProjectId ? findAnyProject(selectedProjectId) : null;
+    const allProjectArray = useMemo(
+        () => [...getAllProjectArray()].sort((leftProject, rightProject) =>
+            compareProjectTitle(leftProject, rightProject, language)
+        ),
+        [language]
+    );
 
     useEffect(() =>
     {
-        if (!selectedProjectId)
+        if (route)
         {
-            return;
+            setAppRoute("photos", null);
         }
+    }, [route, setAppRoute]);
 
-        const activeProjectId = selectedProjectId;
+    return (
+        <div className="projects-app flex h-full min-h-0 flex-col">
+            <header className="projects-app-header shrink-0 px-4 pb-3 pt-4 sm:px-5">
+                <h3 className="font-display text-xl font-semibold tracking-tight">
+                    {t("photosTitle")}
+                </h3>
+                <p className="mt-1 text-xs text-slateSoft dark:text-white/55">
+                    {t("photosProjectCount").replace("{count}", String(allProjectArray.length))}
+                </p>
+            </header>
 
-        function handleKeyDown(event: KeyboardEvent)
-        {
-            if (event.key === "Escape")
-            {
-                setAppRoute("photos", null);
-            }
+            <div className="min-h-0 flex-1 overflow-auto px-4 pb-5 sm:px-5">
+                <div className="projects-grid">
+                    {allProjectArray.map((project) =>
+                    {
+                        const localized = localize(project);
+                        const imageUrl = project.image ? getAssetUrl(project.image) : null;
+                        const accent = isFeaturedProject(project) ? project.accent : "#5A6574";
+                        const projectUrl = project.hasPublicUrl && project.url ? project.url : null;
+                        const cardContent = (
+                            <>
+                                <div
+                                    className="projects-card-media"
+                                    style={{
+                                        background: imageUrl
+                                            ? undefined
+                                            : `linear-gradient(145deg, ${accent}, #16141A)`
+                                    }}
+                                >
+                                    {imageUrl ? (
+                                        <img
+                                            src={imageUrl}
+                                            alt=""
+                                            className="h-full w-full object-cover"
+                                            style={{
+                                                objectPosition: getProjectImageObjectPosition(project.id)
+                                            }}
+                                            loading="lazy"
+                                        />
+                                    ) : null}
+                                </div>
+                                <div className="projects-card-body">
+                                    <h4 className="font-display text-base font-semibold tracking-tight">
+                                        {localized.title}
+                                    </h4>
+                                    <p className="projects-card-summary mt-1.5 text-sm leading-relaxed text-slateSoft dark:text-white/65">
+                                        {localized.summary}
+                                    </p>
+                                </div>
+                            </>
+                        );
 
-            if (event.key !== "ArrowLeft" && event.key !== "ArrowRight")
-            {
-                return;
-            }
+                        if (projectUrl)
+                        {
+                            return (
+                                <a
+                                    key={project.id}
+                                    href={projectUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="projects-card projects-card-link"
+                                    aria-label={`${localized.title}. ${t("photosVisit")}`}
+                                >
+                                    {cardContent}
+                                </a>
+                            );
+                        }
 
-            const projectIdArray = featuredProjectArray.map((project) => project.id);
-            const currentIndex = projectIdArray.indexOf(activeProjectId);
-
-            if (currentIndex < 0)
-            {
-                return;
-            }
-
-            const delta = event.key === "ArrowRight" ? 1 : -1;
-            const nextIndex = (currentIndex + delta + projectIdArray.length) % projectIdArray.length;
-            setAppRoute("photos", projectIdArray[nextIndex]);
-        }
-
-        window.addEventListener("keydown", handleKeyDown);
-
-        return () =>
-        {
-            window.removeEventListener("keydown", handleKeyDown);
-        };
-    }, [selectedProjectId, setAppRoute]);
-
-    if (selectedFeatured)
-    {
-        return (
-            <CaseStudyView
-                project={selectedFeatured}
-                isFavorite={isProjectFavorite(selectedFeatured.id)}
-                onBack={() => setAppRoute("photos", null)}
-                onToggleFavorite={() => toggleFavoriteProject(selectedFeatured.id)}
-            />
-        );
-    }
-
-    if (selectedAny && !("featured" in selectedAny && selectedAny.featured))
-    {
-        const project = selectedAny as AdditionalProject;
-        const localized = localize(project);
-
-        return (
-            <div className="space-y-4 p-5">
-                <button
-                    type="button"
-                    className="text-sm font-semibold text-accent"
-                    onClick={() => setAppRoute("photos", null)}
-                >
-                    {t("back")}
-                </button>
-                <div
-                    className="overflow-hidden rounded-2xl"
-                    style={{ background: "#1F3A5F" }}
-                >
-                    {project.image ? (
-                        <img
-                            src={getAssetUrl(project.image)}
-                            alt=""
-                            className="h-56 w-full object-cover"
-                        />
-                    ) : null}
+                        return (
+                            <article key={project.id} className="projects-card">
+                                {cardContent}
+                            </article>
+                        );
+                    })}
                 </div>
-                <h3 className="font-display text-2xl font-semibold">{localized.title}</h3>
-                <p className="text-sm text-slateSoft dark:text-white/70">{localized.summary}</p>
-                {project.hasPublicUrl && project.url ? (
-                    <a
-                        href={project.url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white"
-                    >
-                        {t("photosVisit")}
-                    </a>
-                ) : null}
             </div>
-        );
-    }
-
-    const favoriteProjectArray = [
-        ...featuredProjectArray,
-        ...additionalProjectArray
-    ].filter((project) => favoriteProjectIdArray.includes(project.id));
-
-    return (
-        <div className="space-y-5 p-5">
-            <div className="flex gap-2">
-                <TabButton
-                    label={t("photosLibrary")}
-                    isActive={activeTab === "library"}
-                    onClick={() => setAppRoute("photos", null)}
-                />
-                <TabButton
-                    label={t("photosFavorites")}
-                    isActive={activeTab === "favorites"}
-                    onClick={() => setAppRoute("photos", "favorites")}
-                />
-            </div>
-
-            {activeTab === "favorites" ? (
-                favoriteProjectArray.length === 0 ? (
-                    <p className="text-sm text-slateSoft dark:text-white/60">
-                        {t("photosEmptyFavorites")}
-                    </p>
-                ) : (
-                    <ProjectGrid
-                        projectArray={favoriteProjectArray}
-                        onOpen={(projectId) => setAppRoute("photos", projectId)}
-                        isFavorite={isProjectFavorite}
-                        onToggleFavorite={toggleFavoriteProject}
-                    />
-                )
-            ) : (
-                <>
-                    <section className="space-y-3">
-                        <h3 className="font-semibold">{t("photosFeatured")}</h3>
-                        <ProjectGrid
-                            projectArray={featuredProjectArray}
-                            onOpen={(projectId) => setAppRoute("photos", projectId)}
-                            isFavorite={isProjectFavorite}
-                            onToggleFavorite={toggleFavoriteProject}
-                        />
-                    </section>
-                    <section className="space-y-3">
-                        <h3 className="font-semibold">{t("photosAdditional")}</h3>
-                        <ProjectGrid
-                            projectArray={additionalProjectArray}
-                            onOpen={(projectId) => setAppRoute("photos", projectId)}
-                            isFavorite={isProjectFavorite}
-                            onToggleFavorite={toggleFavoriteProject}
-                        />
-                    </section>
-                </>
-            )}
-        </div>
-    );
-}
-
-// ~~
-function TabButton({
-    label,
-    isActive,
-    onClick
-}: {
-    label: string;
-    isActive: boolean;
-    onClick: () => void;
-})
-{
-    return (
-        <button
-            type="button"
-            className={`rounded-lg px-3 py-1.5 text-sm ${
-                isActive
-                    ? "bg-ink text-white dark:bg-white dark:text-ink"
-                    : "bg-line/80 dark:bg-white/10"
-            }`}
-            onClick={onClick}
-        >
-            {label}
-        </button>
-    );
-}
-
-function ProjectGrid({
-    projectArray,
-    onOpen,
-    isFavorite,
-    onToggleFavorite
-}: {
-    projectArray: Array<FeaturedProject | AdditionalProject>;
-    onOpen: (projectId: string) => void;
-    isFavorite: (projectId: string) => boolean;
-    onToggleFavorite: (projectId: string) => void;
-})
-{
-    const { localize } = useI18n();
-
-    return (
-        <div className="grid gap-3 sm:grid-cols-2">
-            {projectArray.map((project) =>
-            {
-                const localized = localize(project);
-                const accent = "accent" in project ? project.accent : "#591BC5";
-
-                return (
-                    <article
-                        key={project.id}
-                        className="overflow-hidden rounded-2xl border border-line/70 bg-white/80 dark:border-white/10 dark:bg-white/5"
-                    >
-                        <button
-                            type="button"
-                            className="block w-full text-left"
-                            onClick={() => onOpen(project.id)}
-                        >
-                            <div
-                                className="flex h-36 items-end p-4 text-white"
-                                style={{
-                                    background: project.image
-                                        ? undefined
-                                        : `linear-gradient(145deg, ${accent}, #16141A)`,
-                                    backgroundImage: project.image
-                                        ? `linear-gradient(to top, rgba(0,0,0,0.55), transparent), url(${getAssetUrl(project.image)})`
-                                        : undefined,
-                                    backgroundSize: "cover",
-                                    backgroundPosition: "center"
-                                }}
-                            >
-                                <span className="font-semibold">{localized.title}</span>
-                            </div>
-                        </button>
-                        <div className="flex items-center justify-between gap-2 p-3">
-                            <p className="line-clamp-2 text-xs text-slateSoft dark:text-white/60">
-                                {localized.summary}
-                            </p>
-                            <button
-                                type="button"
-                                className={`shrink-0 text-lg ${
-                                    isFavorite(project.id) ? "text-accent" : "text-slateSoft"
-                                }`}
-                                aria-pressed={isFavorite(project.id)}
-                                aria-label="Favorite"
-                                onClick={() => onToggleFavorite(project.id)}
-                            >
-                                ★
-                            </button>
-                        </div>
-                    </article>
-                );
-            })}
-        </div>
-    );
-}
-
-function CaseStudyView({
-    project,
-    isFavorite,
-    onBack,
-    onToggleFavorite
-}: {
-    project: FeaturedProject;
-    isFavorite: boolean;
-    onBack: () => void;
-    onToggleFavorite: () => void;
-})
-{
-    const { t, localize } = useI18n();
-    const localized = localize(project);
-
-    const sectionArray = [
-        ["caseOverview", localized.overview],
-        ["caseRole", localized.role],
-        ["caseChallenge", localized.challenge],
-        ["caseApproach", localized.approach],
-        ["caseArchitecture", localized.architecture],
-        ["caseResults", localized.results]
-    ] as const;
-
-    return (
-        <div className="space-y-5 p-5">
-            <div className="flex items-center justify-between gap-3">
-                <button
-                    type="button"
-                    className="text-sm font-semibold text-accent"
-                    onClick={onBack}
-                >
-                    {t("back")}
-                </button>
-                <button
-                    type="button"
-                    className={`text-lg ${isFavorite ? "text-accent" : "text-slateSoft"}`}
-                    aria-pressed={isFavorite}
-                    onClick={onToggleFavorite}
-                >
-                    ★
-                </button>
-            </div>
-            <div>
-                <p className="text-sm text-accent">{localized.category}</p>
-                <h3 className="mt-1 font-display text-2xl font-semibold">{localized.title}</h3>
-                <p className="mt-2 text-sm text-slateSoft dark:text-white/70">{localized.summary}</p>
-            </div>
-            <div>
-                <h4 className="mb-2 font-semibold">{t("caseDemo")}</h4>
-                <ProjectMedia
-                    title={localized.title}
-                    accent={project.accent}
-                    media={project.media}
-                />
-            </div>
-            {sectionArray.map(([keyName, bodyText]) => (
-                <section key={keyName}>
-                    <h4 className="font-semibold">{t(keyName)}</h4>
-                    <p className="mt-2 text-sm leading-relaxed text-slateSoft dark:text-white/70">
-                        {bodyText}
-                    </p>
-                </section>
-            ))}
-            <section>
-                <h4 className="font-semibold">{t("caseTechnologies")}</h4>
-                <ul className="mt-2 flex flex-wrap gap-2">
-                    {localized.technologies.map((technologyName) => (
-                        <li
-                            key={technologyName}
-                            className="rounded-lg bg-line/80 px-2.5 py-1 text-xs dark:bg-white/10"
-                        >
-                            {technologyName}
-                        </li>
-                    ))}
-                </ul>
-            </section>
-            {project.hasPublicUrl && project.url ? (
-                <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex rounded-lg bg-accent px-3 py-2 text-sm font-semibold text-white"
-                >
-                    {t("photosVisit")}
-                </a>
-            ) : null}
         </div>
     );
 }

@@ -33,7 +33,7 @@ export const appRegistry: Record<AppId, AppDefinition> = {
         id: "calendar",
         titleKey: "calendarTitle",
         accent: "#3D6B9A",
-        defaultSize: { width: 900, height: 620 },
+        defaultSize: { width: 1080, height: 720 },
         Component: lazy(() => import("../apps/calendar/CalendarApp"))
     },
     photos: {
@@ -47,21 +47,21 @@ export const appRegistry: Record<AppId, AppDefinition> = {
         id: "music",
         titleKey: "musicTitle",
         accent: "#7BA3C9",
-        defaultSize: { width: 780, height: 560 },
+        defaultSize: { width: 860, height: 600 },
         Component: lazy(() => import("../apps/music/MusicApp"))
     },
     mail: {
         id: "mail",
         titleKey: "mailTitle",
         accent: "#B45309",
-        defaultSize: { width: 720, height: 560 },
+        defaultSize: { width: 760, height: 580 },
         Component: lazy(() => import("../apps/mail/MailApp"))
     },
     settings: {
         id: "settings",
         titleKey: "settingsTitle",
         accent: "#5A6574",
-        defaultSize: { width: 560, height: 480 },
+        defaultSize: { width: 640, height: 620 },
         Component: lazy(() => import("../apps/settings/SettingsApp"))
     }
 };

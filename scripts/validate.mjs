@@ -172,6 +172,7 @@ const skillsText = readSource("src/content/skills.ts");
 const testimonialsText = readSource("src/content/testimonials.ts");
 const uiText = readSource("src/content/ui.ts");
 const profileText = readSource("src/content/profile.ts");
+const packageText = readSource("package.json");
 
 assert(
     countIdOccurrences(projectsText, featuredProjectIdArray) === 1,
@@ -203,8 +204,146 @@ contentTextPathArray.forEach((relativePath) =>
 const experienceIdArray = extractQuotedValues(experienceText, "id");
 assert(experienceIdArray.length >= 4, "experience entries exist");
 
-const skillIdArray = extractQuotedValues(skillsText, "id");
-assert(skillIdArray.length === 6, "six skill groups exist");
+const expectedSkillGroupIdArray = [
+    "frontend",
+    "backend",
+    "ai",
+    "databases",
+    "payments",
+    "architecture",
+    "cloud",
+    "quality"
+];
+expectedSkillGroupIdArray.forEach((groupId) =>
+{
+    assert(skillsText.includes(`id: "${groupId}"`), `skill group exists: ${groupId}`);
+});
+assert(skillsText.includes("trackArray:"), "skill groups expose trackArray");
+assert(skillsText.includes("audioPresetId:"), "skill groups expose audio presets");
+assert(skillsText.includes("languageSkillArray"), "language skills remain outside music tracks");
+
+const frontendPlaylistPath = path.join(rootPath, "frontend_lofi_playlist.json");
+assert(fs.existsSync(frontendPlaylistPath), "frontend_lofi_playlist.json exists");
+const frontendPlaylist = JSON.parse(fs.readFileSync(frontendPlaylistPath, "utf8"));
+assert(frontendPlaylist.albumId === "frontend", "frontend playlist albumId is frontend");
+assert(frontendPlaylist.codec === "opus", "frontend playlist codec is opus");
+assert(frontendPlaylist.container === "ogg", "frontend playlist container is ogg");
+assert(frontendPlaylist.fallback === null, "frontend playlist has no codec fallback");
+assert(Array.isArray(frontendPlaylist.tracks), "frontend playlist exposes tracks");
+assert(frontendPlaylist.tracks.length === 8, "frontend playlist has eight original Frontend tracks");
+
+const missingFrontendAudioPathArray = [];
+frontendPlaylist.tracks.forEach((track) =>
+{
+    assert(typeof track.skillId === "string" && track.skillId.length > 0, "frontend track has skillId");
+    assert(typeof track.file === "string" && track.file.endsWith(".ogg"), `frontend track ${track.skillId} uses .ogg`);
+    assert(
+        skillsText.includes(`"${track.skillId}"`),
+        `skills.ts includes frontend track ${track.skillId}`
+    );
+    const audioRelativePath = `public/audio/skillwave/frontend/${track.file}`;
+    if (!fs.existsSync(path.join(rootPath, audioRelativePath)))
+    {
+        missingFrontendAudioPathArray.push(audioRelativePath);
+    }
+});
+
+if (missingFrontendAudioPathArray.length > 0)
+{
+    fail(
+        `missing Skillwave frontend audio files (not substituted):\n  - ${missingFrontendAudioPathArray.join("\n  - ")}`
+    );
+}
+else
+{
+    console.log("OK: all eight original Frontend Vol. 01 Ogg Opus files are present");
+}
+
+const skillwaveManifestPath = path.join(rootPath, "skillwave_all_65_tracks.json");
+assert(fs.existsSync(skillwaveManifestPath), "skillwave_all_65_tracks.json exists");
+const skillwaveManifest = JSON.parse(fs.readFileSync(skillwaveManifestPath, "utf8"));
+assert(skillwaveManifest.codec === "opus", "Skillwave manifest codec is opus");
+assert(skillwaveManifest.container === "ogg", "Skillwave manifest container is ogg");
+assert(skillwaveManifest.fallback === null, "Skillwave manifest has no codec fallback");
+assert(Array.isArray(skillwaveManifest.albums), "Skillwave manifest exposes albums");
+assert(skillwaveManifest.albums.length === 8, "Skillwave has eight albums");
+
+const skillwaveSkillIdRemapMap = {
+    "rest-openapi": "rest-swagger-openapi",
+    "ai-image-generation": "ai-image",
+    "data-modeling-sql-optimization": "sql-modeling-optimization",
+    "event-driven-systems": "event-driven",
+    messaging: "messaging-async",
+    "github-actions-ci-cd": "github-actions-cicd",
+    "testing-unit-integration-e2e": "automated-testing",
+    "wordpress-craft-cms": "wordpress-craft"
+};
+const expectedAlbumTrackCountByAlbumIdMap = {
+    frontend: 11,
+    backend: 9,
+    ai: 7,
+    databases: 6,
+    payments: 8,
+    architecture: 8,
+    "cloud-devops": 7,
+    "quality-tools": 9
+};
+const missingSkillwaveAudioPathArray = [];
+const skillwaveSkillIdSet = new Set();
+let skillwaveTrackCount = 0;
+
+skillwaveManifest.albums.forEach((album) =>
+{
+    assert(typeof album.albumId === "string", "Skillwave album has albumId");
+    assert(Array.isArray(album.tracks), `Skillwave album ${album.albumId} exposes tracks`);
+    assert(
+        album.tracks.length === expectedAlbumTrackCountByAlbumIdMap[album.albumId],
+        `Skillwave album ${album.albumId} has ${expectedAlbumTrackCountByAlbumIdMap[album.albumId]} tracks`
+    );
+
+    album.tracks.forEach((track) =>
+    {
+        skillwaveTrackCount += 1;
+        const skillId = skillwaveSkillIdRemapMap[track.skillId] ?? track.skillId;
+        assert(typeof skillId === "string" && skillId.length > 0, "Skillwave track has skillId");
+        assert(!skillwaveSkillIdSet.has(skillId), `Skillwave skillId is unique: ${skillId}`);
+        skillwaveSkillIdSet.add(skillId);
+        assert(
+            skillsText.includes(`"${skillId}"`),
+            `skills.ts includes Skillwave track ${skillId}`
+        );
+        assert(typeof track.file === "string" && track.file.endsWith(".ogg"), `Skillwave track ${skillId} uses .ogg`);
+        assert(typeof track.audioPath === "string" && track.audioPath.endsWith(".ogg"), `Skillwave track ${skillId} has audioPath`);
+        const audioRelativePath = path.join("public", track.audioPath).replace(/\\/g, "/");
+        if (!fs.existsSync(path.join(rootPath, audioRelativePath)))
+        {
+            missingSkillwaveAudioPathArray.push(audioRelativePath);
+        }
+    });
+});
+
+assert(skillwaveTrackCount === 65, "Skillwave has 65 unique tracks");
+
+if (missingSkillwaveAudioPathArray.length > 0)
+{
+    fail(
+        `missing Skillwave audio files (not substituted):\n  - ${missingSkillwaveAudioPathArray.join("\n  - ")}`
+    );
+}
+else
+{
+    console.log("OK: all 65 Skillwave Ogg Opus files are present");
+}
+
+const skillwaveCatalogText = readSource("src/apps/music/audio/skillwaveCatalog.ts");
+assert(skillwaveCatalogText.includes("skillwaveAlbumTrackArray"), "Skillwave catalog exports track array");
+assert(skillwaveCatalogText.includes("getAssetUrl"), "Skillwave catalog resolves assets via getAssetUrl");
+
+const musicEngineText = readSource("src/apps/music/audio/SkillwaveAudioEngine.ts");
+assert(musicEngineText.includes("HTMLAudioElement"), "Skillwave engine uses HTMLAudioElement");
+assert(musicEngineText.includes("canplay"), "Skillwave engine listens for canplay");
+assert(!musicEngineText.includes("from \"tone\"") && !musicEngineText.includes("from 'tone'"), "Skillwave engine does not import tone");
+assert(!packageText.includes("\"tone\""), "package.json no longer depends on tone");
 
 const testimonialIdArray = extractQuotedValues(testimonialsText, "id");
 assert(testimonialIdArray.length === 5, "five testimonials exist");

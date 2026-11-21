@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getAssetUrl, profileCopy } from "../content";
+import { profileCopy } from "../content";
 import { usePrefersReducedMotion } from "../hooks/useMediaQuery";
 import { useI18n } from "../i18n/I18nProvider";
+import { BOOT_MARK_DATA_URL } from "./bootMark";
 
 // -- TYPES
 type BootVariant = "os" | "simple";
@@ -108,9 +109,12 @@ export function BootScreen({ variant }: BootScreenProps)
             <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center text-ink dark:text-[#FFF7E8]">
                 <div className="boot-logo flex h-20 w-20 items-center justify-center rounded-2xl bg-[#FFF8F4] p-3 shadow-glow ring-2 ring-[#D9772F]/70">
                     <img
-                        src={getAssetUrl("images/companies/aurora.webp")}
+                        src={BOOT_MARK_DATA_URL}
                         alt=""
+                        width={56}
+                        height={56}
                         className="h-full w-full object-contain"
+                        decoding="sync"
                     />
                 </div>
                 <p className="mt-5 font-display text-3xl font-semibold">

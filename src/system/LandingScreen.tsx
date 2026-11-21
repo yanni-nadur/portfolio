@@ -103,7 +103,7 @@ export function LandingScreen()
             <Wallpaper />
 
             <header className="absolute inset-x-0 top-0 z-20 flex justify-end px-4 pt-4 sm:px-6 sm:pt-5">
-                <div className="flex w-[9.5rem] flex-col gap-2 sm:w-40">
+                <div className="flex flex-row items-center gap-2">
                     <ThemeSwitch />
                     <LanguageSwitch />
                 </div>

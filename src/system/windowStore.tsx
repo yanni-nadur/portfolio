@@ -11,13 +11,20 @@ import { appIdArray, appRegistry, type AppId } from "./appRegistry";
 import { buildAppPath, parseAppFromPath, replacePath } from "./pathRouting";
 
 // -- TYPES
+export type WindowBounds = {
+    position: { x: number; y: number };
+    size: { width: number; height: number };
+};
+
 export type WindowState = {
     id: AppId;
     isOpen: boolean;
     isMinimized: boolean;
+    isMaximized: boolean;
     zIndex: number;
     position: { x: number; y: number };
     size: { width: number; height: number };
+    restoreBounds: WindowBounds | null;
     route: string | null;
 };
 
@@ -25,6 +32,7 @@ type WindowAction =
     | { type: "open"; appId: AppId; route?: string | null }
     | { type: "close"; appId: AppId }
     | { type: "minimize"; appId: AppId }
+    | { type: "toggleMaximize"; appId: AppId }
     | { type: "focus"; appId: AppId }
     | { type: "move"; appId: AppId; position: { x: number; y: number } }
     | { type: "resize"; appId: AppId; size: { width: number; height: number } }
@@ -37,6 +45,7 @@ type WindowContextValue = {
     openApp: (appId: AppId, route?: string | null) => void;
     closeApp: (appId: AppId) => void;
     minimizeApp: (appId: AppId) => void;
+    toggleMaximizeApp: (appId: AppId) => void;
     focusApp: (appId: AppId) => void;
     moveWindow: (appId: AppId, position: { x: number; y: number }) => void;
     resizeWindow: (appId: AppId, size: { width: number; height: number }) => void;
@@ -45,21 +54,64 @@ type WindowContextValue = {
 
 // -- CONSTANTS
 const BASE_Z_INDEX = 20;
+const TOPBAR_HEIGHT_PX = 48;
+const DOCK_RESERVE_PX = 96;
+const MAXIMIZE_INSET_PX = 8;
 const WindowContext = createContext<WindowContextValue | null>(null);
 
 // -- FUNCTIONS
+function getDesktopAreaSize(): { width: number; height: number }
+{
+    return {
+        width: window.innerWidth,
+        height: Math.max(
+            320,
+            window.innerHeight - TOPBAR_HEIGHT_PX - DOCK_RESERVE_PX
+        )
+    };
+}
+
+function getCenteredPosition(size: { width: number; height: number }): { x: number; y: number }
+{
+    const desktopArea = getDesktopAreaSize();
+
+    return {
+        x: Math.max(0, Math.round((desktopArea.width - size.width) / 2)),
+        y: Math.max(0, Math.round((desktopArea.height - size.height) / 2))
+    };
+}
+
+function getMaximizedBounds(): WindowBounds
+{
+    return {
+        position: {
+            x: MAXIMIZE_INSET_PX,
+            y: MAXIMIZE_INSET_PX
+        },
+        size: {
+            width: Math.max(420, window.innerWidth - MAXIMIZE_INSET_PX * 2),
+            height: Math.max(
+                320,
+                window.innerHeight - TOPBAR_HEIGHT_PX - DOCK_RESERVE_PX - MAXIMIZE_INSET_PX * 2
+            )
+        }
+    };
+}
+
 function createInitialWindow(appId: AppId, cascadeIndex: number): WindowState
 {
     const definition = appRegistry[appId];
-    const offset = cascadeIndex * 28;
+    const size = { ...definition.defaultSize };
 
     return {
         id: appId,
         isOpen: false,
         isMinimized: false,
+        isMaximized: false,
         zIndex: BASE_Z_INDEX + cascadeIndex,
-        position: { x: 72 + offset, y: 64 + offset },
-        size: { ...definition.defaultSize },
+        position: getCenteredPosition(size),
+        size,
+        restoreBounds: null,
         route: null
     };
 }
@@ -107,6 +159,20 @@ function getFocusedAppId(windowByIdMap: Record<AppId, WindowState>): AppId | nul
     return focusedAppId;
 }
 
+function clearMaximizedState(windowState: WindowState): WindowState
+{
+    if (!windowState.isMaximized && windowState.restoreBounds === null)
+    {
+        return windowState;
+    }
+
+    return {
+        ...windowState,
+        isMaximized: false,
+        restoreBounds: null
+    };
+}
+
 function windowReducer(
     state: Record<AppId, WindowState>,
     action: WindowAction
@@ -117,6 +183,7 @@ function windowReducer(
         case "open":
         {
             const currentWindow = state[action.appId];
+            const shouldCenter = !currentWindow.isOpen;
 
             return {
                 ...state,
@@ -125,6 +192,9 @@ function windowReducer(
                     isOpen: true,
                     isMinimized: false,
                     zIndex: getNextZIndex(state),
+                    position: shouldCenter
+                        ? getCenteredPosition(currentWindow.size)
+                        : currentWindow.position,
                     route: action.route !== undefined ? action.route : currentWindow.route
                 }
             };
@@ -136,6 +206,8 @@ function windowReducer(
                     ...state[action.appId],
                     isOpen: false,
                     isMinimized: false,
+                    isMaximized: false,
+                    restoreBounds: null,
                     route: null
                 }
             };
@@ -147,21 +219,78 @@ function windowReducer(
                     isMinimized: true
                 }
             };
-        case "focus":
+        case "toggleMaximize":
+        {
+            const currentWindow = state[action.appId];
+
+            if (currentWindow.isMaximized)
+            {
+                const restoredBounds = currentWindow.restoreBounds ?? {
+                    position: currentWindow.position,
+                    size: currentWindow.size
+                };
+
+                return {
+                    ...state,
+                    [action.appId]: {
+                        ...currentWindow,
+                        isMaximized: false,
+                        isMinimized: false,
+                        position: restoredBounds.position,
+                        size: restoredBounds.size,
+                        restoreBounds: null,
+                        zIndex: getNextZIndex(state)
+                    }
+                };
+            }
+
+            const maximizedBounds = getMaximizedBounds();
+
             return {
                 ...state,
                 [action.appId]: {
-                    ...state[action.appId],
+                    ...currentWindow,
+                    isMaximized: true,
+                    isMinimized: false,
+                    restoreBounds: {
+                        position: { ...currentWindow.position },
+                        size: { ...currentWindow.size }
+                    },
+                    position: maximizedBounds.position,
+                    size: maximizedBounds.size,
+                    zIndex: getNextZIndex(state)
+                }
+            };
+        }
+        case "focus":
+        {
+            const currentWindow = state[action.appId];
+            const focusedAppId = getFocusedAppId(state);
+
+            if (
+                focusedAppId === action.appId
+                && currentWindow.isOpen
+                && !currentWindow.isMinimized
+            )
+            {
+                return state;
+            }
+
+            return {
+                ...state,
+                [action.appId]: {
+                    ...currentWindow,
                     isOpen: true,
                     isMinimized: false,
                     zIndex: getNextZIndex(state)
                 }
             };
+        }
         case "move":
             return {
                 ...state,
                 [action.appId]: {
-                    ...state[action.appId],
+                    ...clearMaximizedState(state[action.appId]),
                     position: action.position
                 }
             };
@@ -169,7 +298,7 @@ function windowReducer(
             return {
                 ...state,
                 [action.appId]: {
-                    ...state[action.appId],
+                    ...clearMaximizedState(state[action.appId]),
                     size: action.size
                 }
             };
@@ -191,6 +320,7 @@ function windowReducer(
             }
 
             const currentWindow = state[parsedPath.appId];
+            const shouldCenter = !currentWindow.isOpen;
 
             return {
                 ...state,
@@ -199,6 +329,9 @@ function windowReducer(
                     isOpen: true,
                     isMinimized: false,
                     zIndex: getNextZIndex(state),
+                    position: shouldCenter
+                        ? getCenteredPosition(currentWindow.size)
+                        : currentWindow.position,
                     route: parsedPath.route
                 }
             };
@@ -271,6 +404,11 @@ export function WindowProvider({
         dispatch({ type: "minimize", appId });
     }, []);
 
+    const toggleMaximizeApp = useCallback((appId: AppId) =>
+    {
+        dispatch({ type: "toggleMaximize", appId });
+    }, []);
+
     const focusApp = useCallback((appId: AppId) =>
     {
         dispatch({ type: "focus", appId });
@@ -297,6 +435,7 @@ export function WindowProvider({
         openApp,
         closeApp,
         minimizeApp,
+        toggleMaximizeApp,
         focusApp,
         moveWindow,
         resizeWindow,
@@ -307,6 +446,7 @@ export function WindowProvider({
         openApp,
         closeApp,
         minimizeApp,
+        toggleMaximizeApp,
         focusApp,
         moveWindow,
         resizeWindow,
