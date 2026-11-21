@@ -34,7 +34,7 @@ function AppRoutes()
         return (
             <>
                 <SimplePortfolio />
-                <BootScreen variant="simple" />
+                <BootScreen key="boot-simple" variant="simple" />
             </>
         );
     }
@@ -42,7 +42,7 @@ function AppRoutes()
     return (
         <WindowProvider pathSyncEnabled={true}>
             <DesktopShell />
-            <BootScreen variant="os" />
+            <BootScreen key="boot-os" variant="os" />
         </WindowProvider>
     );
 }

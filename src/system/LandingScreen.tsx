@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAssetUrl, profileCopy, profileLinks } from "../content";
-import { LanguageSwitch } from "../components/AppearanceControls";
+import { LanguageSwitch, ThemeSwitch } from "../components/AppearanceControls";
 import { useI18n } from "../i18n/I18nProvider";
 import { useView } from "../store/viewStore";
 import { formatClockTime, formatLandingDate } from "../utils/formatDateTime";
@@ -103,7 +103,8 @@ export function LandingScreen()
             <Wallpaper />
 
             <header className="absolute inset-x-0 top-0 z-20 flex justify-end px-4 pt-4 sm:px-6 sm:pt-5">
-                <div className="w-[9.5rem] sm:w-40">
+                <div className="flex w-[9.5rem] flex-col gap-2 sm:w-40">
+                    <ThemeSwitch />
                     <LanguageSwitch />
                 </div>
             </header>

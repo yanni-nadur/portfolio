@@ -1,1 +1,77 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="240" height="18" viewBox="0 0 240 18"><defs><linearGradient id="g"><stop stop-color="#D9E8FF" stop-opacity="0"/><stop offset=".8" stop-color="#DBE5FF" stop-opacity=".45"/><stop offset="1" stop-color="#FFF8FF"/></linearGradient><filter id="blur" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="4"/></filter></defs><path d="M0 9 H238" stroke="url(#g)" stroke-width="4" filter="url(#blur)"/><path d="M0 9 H238" stroke="url(#g)" stroke-width="2"/><circle cx="236" cy="9" r="3" fill="white"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="410" viewBox="0 0 840 410" fill="none" role="img" aria-label="Meteoro anime de cauda azul violeta e ponta rosa luminosa, com fundo transparente">
+  <title>Meteoro anime — rosa e violeta</title>
+  <desc>Sprite vetorial com cauda azul brilhante afilada para o canto superior direito e núcleo rosa e branco na extremidade inferior esquerda. Fundo transparente, próprio para animação por CSS.</desc>
+  <defs>
+    <!-- A cabeça fica à esquerda/embaixo; a cauda desaparece à direita/em cima. -->
+    <linearGradient id="wide-trail" x1="165" y1="328" x2="790" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FF9AF2" stop-opacity="0.96"/>
+      <stop offset="0.07" stop-color="#D896FF" stop-opacity="0.89"/>
+      <stop offset="0.24" stop-color="#8F85FF" stop-opacity="0.78"/>
+      <stop offset="0.48" stop-color="#527FFF" stop-opacity="0.48"/>
+      <stop offset="0.75" stop-color="#5286FF" stop-opacity="0.21"/>
+      <stop offset="1" stop-color="#4777FF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="fine-trail" x1="165" y1="328" x2="790" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="0.035" stop-color="#FFE5FA" stop-opacity="1"/>
+      <stop offset="0.15" stop-color="#D3B1FF" stop-opacity="0.98"/>
+      <stop offset="0.40" stop-color="#7FA3FF" stop-opacity="0.96"/>
+      <stop offset="0.65" stop-color="#6585FF" stop-opacity="0.61"/>
+      <stop offset="0.90" stop-color="#5A7AFF" stop-opacity="0.20"/>
+      <stop offset="1" stop-color="#5A7AFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="white-thread" x1="165" y1="328" x2="790" y2="28" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFDFE" stop-opacity="1"/>
+      <stop offset="0.05" stop-color="#FFE6F6" stop-opacity="0.95"/>
+      <stop offset="0.24" stop-color="#C3BFFF" stop-opacity="0.68"/>
+      <stop offset="0.55" stop-color="#9FC5FF" stop-opacity="0.47"/>
+      <stop offset="0.85" stop-color="#8CA6FF" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#8CA6FF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="pink-bloom">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="0.14" stop-color="#FFE4FA" stop-opacity="0.95"/>
+      <stop offset="0.39" stop-color="#FF9BEB" stop-opacity="0.54"/>
+      <stop offset="0.72" stop-color="#B176FF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#A56BFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="blue-bloom">
+      <stop offset="0" stop-color="#A4BBFF" stop-opacity="0.46"/>
+      <stop offset="0.5" stop-color="#627CFF" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#5F73FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="short-flare" x1="165" y1="302" x2="165" y2="353" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFD3F9" stop-opacity="0"/>
+      <stop offset="0.36" stop-color="#FFDCF9" stop-opacity="0.58"/>
+      <stop offset="0.52" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="0.69" stop-color="#FFA8ED" stop-opacity="0.63"/>
+      <stop offset="1" stop-color="#FF8BDC" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="blur-wide" x="-40%" y="-80%" width="180%" height="260%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="blur-soft" x="-40%" y="-80%" width="180%" height="260%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3.1"/>
+    </filter>
+    <filter id="blur-head" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+  </defs>
+
+  <!-- Back-glow suave, azul/violeta. -->
+  <path d="M165 328 C315 249 552 124 790 28" stroke="url(#wide-trail)" stroke-width="19" stroke-linecap="round" filter="url(#blur-wide)" opacity="0.9"/>
+  <path d="M165 328 C315 249 552 124 790 28" stroke="url(#wide-trail)" stroke-width="8.5" stroke-linecap="round" filter="url(#blur-soft)" opacity="0.9"/>
+  <!-- Trilha bem fina e nítida, crescendo em luminosidade perto da cabeça. -->
+  <path d="M165 328 C315 249 552 124 790 28" stroke="url(#fine-trail)" stroke-width="3.7" stroke-linecap="round"/>
+  <path d="M165 328 C315 249 552 124 790 28" stroke="url(#white-thread)" stroke-width="1.25" stroke-linecap="round"/>
+
+  <!-- Halo da cabeça, estrela cor-de-rosa com centro branco. -->
+  <ellipse cx="165" cy="328" rx="42" ry="33" fill="url(#blue-bloom)" filter="url(#blur-head)"/>
+  <ellipse cx="165" cy="328" rx="28" ry="28" fill="url(#pink-bloom)"/>
+  <ellipse cx="165" cy="328" rx="16" ry="14" fill="url(#pink-bloom)" opacity="0.9"/>
+  <path d="M165 301 C163.9 318 163.7 324.5 165 328 C166 332 166.1 338 165 355 C164 337 163.5 333 165 328 C165.9 324 165.7 318 165 301Z" fill="url(#short-flare)" opacity="0.93"/>
+  <path d="M141 340 Q158 330 165 328 Q174 324 190 315" stroke="#FFE7FA" stroke-width="0.95" stroke-linecap="round" opacity="0.65"/>
+  <ellipse cx="165" cy="328" rx="5.5" ry="5" fill="#FFC3F4" filter="url(#blur-soft)"/>
+  <circle cx="165" cy="328" r="3.3" fill="#FFFFFF"/>
+  <circle cx="164.1" cy="327.2" r="1.5" fill="#FFFFFF"/>
+</svg>

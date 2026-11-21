@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { getAssetUrl } from "../content";
 
 // -- TYPES
 type Meteor = {
@@ -17,26 +18,35 @@ type ShootingStarsLayerProps = {
     isPaused: boolean;
 };
 
+// -- CONSTANTS
+const METEOR_SPRITE_PATH = "images/os-wallpaper/meteor-trail.svg";
+const METEOR_SPRITE_ANGLE_DEGREE = 25.6;
+
 // -- VARIABLES
 let nextMeteorId = 1;
 
 // -- FUNCTIONS
 function createMeteor(isNarrow: boolean): Meteor
 {
-    const distanceXPx = (isNarrow ? 150 : 260) + Math.random() * (isNarrow ? 90 : 180);
-    const distanceYPx = (isNarrow ? 48 : 70) + Math.random() * (isNarrow ? 70 : 120);
+    // Down-left fall (~42-55°).
+    const distanceXPx = (isNarrow ? 120 : 195) + Math.random() * (isNarrow ? 75 : 130);
+    const distanceYPx = (isNarrow ? 135 : 225) + Math.random() * (isNarrow ? 100 : 150);
+    const travelXPx = -distanceXPx;
+    const travelYPx = distanceYPx;
+    const travelAngleDegree = Math.atan2(travelYPx, travelXPx) * (180 / Math.PI);
+    const spriteHeadAngleDegree = 180 - METEOR_SPRITE_ANGLE_DEGREE;
     const meteorId = nextMeteorId;
     nextMeteorId += 1;
 
     return {
         id: meteorId,
-        leftPercent: 2 + Math.random() * (isNarrow ? 62 : 72),
-        topPercent: 1 + Math.random() * (isNarrow ? 28 : 38),
-        lengthPx: (isNarrow ? 72 : 108) + Math.random() * (isNarrow ? 46 : 64),
-        angleDegree: Math.atan2(-distanceYPx, distanceXPx) * (180 / Math.PI),
-        durationMs: 780 + Math.random() * 620,
-        travelXPx: -distanceXPx,
-        travelYPx: distanceYPx
+        leftPercent: 28 + Math.random() * (isNarrow ? 48 : 58),
+        topPercent: 1 + Math.random() * (isNarrow ? 24 : 32),
+        lengthPx: (isNarrow ? 150 : 230) + Math.random() * (isNarrow ? 50 : 70),
+        angleDegree: travelAngleDegree - spriteHeadAngleDegree,
+        durationMs: 880 + Math.random() * 670,
+        travelXPx,
+        travelYPx
     };
 }
 
@@ -49,6 +59,7 @@ function MeteorMark({ meteor }: { meteor: Meteor })
                 left: `${meteor.leftPercent}%`,
                 top: `${meteor.topPercent}%`,
                 width: `${meteor.lengthPx}px`,
+                backgroundImage: `url(${getAssetUrl(METEOR_SPRITE_PATH)})`,
                 ["--meteor-angle" as string]: `${meteor.angleDegree}deg`,
                 ["--meteor-duration" as string]: `${meteor.durationMs}ms`,
                 ["--meteor-dx" as string]: `${meteor.travelXPx}px`,

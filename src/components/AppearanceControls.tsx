@@ -1,5 +1,12 @@
+import { uiCopy } from "../content/ui";
 import { useI18n } from "../i18n/I18nProvider";
 import { useSettings } from "../store/settingsStore";
+
+// -- TYPES
+type StableLocaleTextProps = {
+    textArray: string[];
+    activeText: string;
+};
 
 // -- FUNCTIONS
 function selectionClassName(isSelected: boolean): string
@@ -113,7 +120,7 @@ function MoonIcon()
 }
 
 // -- OPERATIONS
-function ThemeSwitch()
+export function ThemeSwitch()
 {
     const { t } = useI18n();
     const { theme, setTheme } = useSettings();
@@ -183,11 +190,37 @@ export const osHeaderControlClassName = "inline-flex h-8 shrink-0 items-center j
 
 export const osHeaderClockClassName = "inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-full border border-black/10 bg-white/70 px-3 text-[0.8rem] font-semibold leading-none tabular-nums text-ink transition-[background-color,border-color,color] duration-[560ms] ease-[cubic-bezier(0.22,1,0.36,1)] dark:border-white/15 dark:bg-black/20 dark:text-[#FFF7E8]/90";
 
+export function StableLocaleText({ textArray, activeText }: StableLocaleTextProps)
+{
+    const uniqueTextArray = Array.from(new Set(textArray));
+
+    return (
+        <span className="inline-grid justify-items-center">
+            {uniqueTextArray.map((text) => (
+                <span
+                    key={text}
+                    className={`col-start-1 row-start-1 whitespace-nowrap ${text === activeText ? "" : "invisible"}`}
+                    aria-hidden={text !== activeText}
+                >
+                    {text}
+                </span>
+            ))}
+        </span>
+    );
+}
+
 export function HeaderThemeSwitch()
 {
     const { t } = useI18n();
     const { theme, setTheme } = useSettings();
     const isDark = theme === "dark";
+    const activeText = isDark ? t("simpleThemeDark") : t("simpleThemeLight");
+    const themeTextArray = [
+        uiCopy.en.simpleThemeLight,
+        uiCopy.en.simpleThemeDark,
+        uiCopy.pt.simpleThemeLight,
+        uiCopy.pt.simpleThemeDark
+    ];
 
     return (
         <button
@@ -198,7 +231,7 @@ export function HeaderThemeSwitch()
             onClick={() => setTheme(isDark ? "light" : "dark")}
         >
             {isDark ? <MoonIcon /> : <SunIcon />}
-            <span>{isDark ? t("simpleThemeDark") : t("simpleThemeLight")}</span>
+            <StableLocaleText textArray={themeTextArray} activeText={activeText} />
         </button>
     );
 }

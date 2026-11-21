@@ -229,5 +229,3 @@ export function useSettings(): SettingsContextValue
 
     return contextValue;
 }
-
-export { STORAGE_KEY };

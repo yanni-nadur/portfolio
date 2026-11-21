@@ -271,9 +271,9 @@ Fontes (Google Fonts em `index.html`):
 - Display: Shippori Mincho (`font-display`)
 - Body: Zen Kaku Gothic New (`font-sans`)
 
-Cores (Tailwind extend): `ink`, `slateSoft`, `mist`, `surface`, `line`, `accent` `#D9772F`, `accentDeep`, `night`, `sky`, `sakura`, `washi`
+Cores (Tailwind extend): `ink`, `slateSoft`, `mist`, `line`, `accent` `#D9772F`, `accentDeep`, `sky`
 
-Temas: `darkMode: "class"` em `<html>`; dark ≈ night/preto; light ≈ washi/sakura
+Temas: `darkMode: "class"` em `<html>`; dark ≈ night/preto; light ≈ mist/sakura
 
 Wallpaper CSS: `night-sky`, `sakura-sky`, glows, vignettes (`src/index.css`)
 

@@ -224,11 +224,11 @@ export function Wallpaper({
                             {petalArray.map((petal, index) => (
                                 <span
                                     key={`petal-${index}`}
-                                    className="petal absolute top-[-12%] rounded-[60%_40%_60%_40%] bg-sakura"
+                                    className="petal absolute top-[-12%]"
                                     style={{
                                         left: `${petal.left}%`,
-                                        width: `${petal.size}px`,
-                                        height: `${petal.size * 0.7}px`,
+                                        width: `${petal.size * 1.35}px`,
+                                        height: `${petal.size * 0.78}px`,
                                         animationDelay: `-${petal.delay}s`,
                                         animationDuration: `${petal.duration}s`,
                                         ["--petal-drift" as string]: `${petal.drift}px`

@@ -145,7 +145,7 @@ function SkillMark({ iconName }: { iconName: string })
 function SkillChipItem({ chip }: { chip: SkillChip })
 {
     return (
-        <li className="flex shrink-0 items-center gap-2 rounded-full border border-line/80 bg-white/90 px-3 py-1.5 text-sm text-ink shadow-soft dark:border-white/10 dark:bg-[#121C2B] dark:text-mist">
+        <li className="flex shrink-0 items-center gap-2 rounded-full border border-line/80 bg-white/90 px-3 py-1.5 text-sm text-ink dark:border-white/10 dark:bg-[#121C2B] dark:text-mist">
             <SkillMark iconName={chip.iconName} />
             <span className="whitespace-nowrap">{chip.label}</span>
         </li>

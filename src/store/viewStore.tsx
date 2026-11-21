@@ -27,35 +27,6 @@ type ViewContextValue = {
 // -- CONSTANTS
 const ViewContext = createContext<ViewContextValue | null>(null);
 
-// -- FUNCTIONS
-export function parsePortfolioView(pathOrHashText: string): PortfolioView
-{
-    if (pathOrHashText.startsWith("#"))
-    {
-        const cleanedHash = pathOrHashText.replace(/^#\/?/, "").trim();
-        const firstSegment = cleanedHash.split("/").filter(Boolean)[0] ?? "";
-
-        if (!firstSegment)
-        {
-            return "landing";
-        }
-
-        if (firstSegment === "simple")
-        {
-            return "simple";
-        }
-
-        if (firstSegment === "os")
-        {
-            return "os";
-        }
-
-        return parseViewFromPath(`/${cleanedHash}`);
-    }
-
-    return parseViewFromPath(pathOrHashText);
-}
-
 // -- OPERATIONS
 export function ViewProvider({ children }: { children: ReactNode })
 {
