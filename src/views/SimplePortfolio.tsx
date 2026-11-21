@@ -317,7 +317,7 @@ export function SimplePortfolio()
                                     </p>
                                 </div>
                             </div>
-                            <div className="mt-6 max-w-4xl space-y-3 text-base leading-relaxed text-ink/80 dark:text-[#FFF7E8]/90">
+                            <div className="mt-6 w-full space-y-3 text-base leading-relaxed text-ink/80 dark:text-[#FFF7E8]/90">
                                 {profile.aboutParagraphArray.map((paragraphText) => (
                                     <p key={paragraphText}>{paragraphText}</p>
                                 ))}
