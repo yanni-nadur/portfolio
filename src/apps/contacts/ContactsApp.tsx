@@ -1,247 +1,204 @@
-import { useMemo, useState } from "react";
+import { type ReactNode } from "react";
 import {
-    experienceArray,
     getAssetUrl,
-    languageSkillArray,
     profileCopy,
     profileLinks,
-    skillGroupArray,
     testimonialArray
 } from "../../content";
-import { CompanyMark } from "../../components/CompanyMark";
+import type { Testimonial } from "../../content/types";
 import { useI18n } from "../../i18n/I18nProvider";
+import { type AppId } from "../../system/appRegistry";
+import { AppIcon } from "../../system/icons";
+import { useWindows } from "../../system/windowStore";
 
 // -- TYPES
-type SidebarTab = "work" | "education" | "stack";
+type ProfileShortcut = {
+    id: string;
+    appId: AppId;
+    labelKey: string;
+};
+
+// -- CONSTANTS
+const profileShortcutArray: ProfileShortcut[] = [
+    {
+        id: "career",
+        appId: "calendar",
+        labelKey: "contactsCareerShortcut"
+    },
+    {
+        id: "skills",
+        appId: "music",
+        labelKey: "contactsSkillsShortcut"
+    },
+    {
+        id: "contact",
+        appId: "mail",
+        labelKey: "contactsContactShortcut"
+    }
+];
+
+// -- FUNCTIONS
+function getQuoteParagraphArray(quoteText: string): string[]
+{
+    return quoteText
+        .split(/\n+/)
+        .map((paragraphText) => paragraphText.trim())
+        .filter((paragraphText) => paragraphText.length > 0);
+}
 
 // -- OPERATIONS
 export default function ContactsApp()
 {
     const { t, localize } = useI18n();
     const profile = localize(profileCopy);
-    const [sidebarTab, setSidebarTab] = useState<SidebarTab>("work");
+    const { windowByIdMap, openApp, focusApp, focusedAppId } = useWindows();
 
-    const workArray = useMemo(
-        () => experienceArray.filter((entry) => entry.track === "career"),
-        []
-    );
-    const educationArray = useMemo(
-        () => experienceArray.filter((entry) => entry.track === "education"),
-        []
-    );
-
-    const channelArray = [
-        {
-            id: "email",
-            label: t("contactsEmail"),
-            href: `mailto:${profileLinks.email}`
-        },
-        {
-            id: "github",
-            label: t("contactsGithub"),
-            href: profileLinks.github
-        },
-        {
-            id: "linkedin",
-            label: t("contactsLinkedin"),
-            href: profileLinks.linkedin
-        }
-    ];
-
-    if (profileLinks.whatsapp)
+    function openOrFocusApp(appId: AppId)
     {
-        channelArray.push({
-            id: "whatsapp",
-            label: t("contactsWhatsapp"),
-            href: profileLinks.whatsapp
-        });
+        const windowState = windowByIdMap[appId];
+
+        if (windowState.isOpen && !windowState.isMinimized && focusedAppId === appId)
+        {
+            return;
+        }
+
+        if (windowState.isOpen)
+        {
+            focusApp(appId);
+            return;
+        }
+
+        openApp(appId, windowState.route);
     }
 
     return (
-        <div className="grid min-h-full lg:h-full lg:grid-cols-[280px_minmax(0,1fr)]">
-            <aside className="border-b border-line bg-white/70 p-4 dark:border-white/10 dark:bg-white/5 lg:border-b-0 lg:border-r lg:overflow-auto">
-                <div className="flex items-center gap-3">
+        <div className="profile-app h-full overflow-auto">
+            <div className="profile-app-inner">
+                <header className="profile-identity">
                     {profileLinks.avatar ? (
                         <img
                             src={getAssetUrl(profileLinks.avatar)}
                             alt=""
-                            className="h-16 w-16 rounded-full object-cover ring-2 ring-accent/50 shadow-soft"
+                            className="profile-avatar"
                         />
                     ) : (
-                        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-lg font-bold text-white">
+                        <div className="profile-avatar profile-avatar-fallback" aria-hidden="true">
                             {profile.initials}
                         </div>
                     )}
-                    <div>
-                        <h3 className="font-display text-lg font-semibold">{profile.name}</h3>
-                        <p className="text-sm text-accent">{profile.status}</p>
-                    </div>
-                </div>
-                <p className="mt-4 text-sm text-slateSoft dark:text-white/70">
-                    {profile.statusMessage}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                    {channelArray.map((channel) => (
-                        <a
-                            key={channel.id}
-                            href={channel.href}
-                            target={channel.id === "email" ? undefined : "_blank"}
-                            rel={channel.id === "email" ? undefined : "noreferrer"}
-                            className="rounded-full bg-accent px-3 py-1.5 text-sm font-semibold text-white"
-                        >
-                            {channel.label}
-                        </a>
-                    ))}
-                </div>
-                <div className="mt-6 flex gap-2">
-                    {(
-                        [
-                            ["work", t("contactsWork")],
-                            ["education", t("contactsEducation")],
-                            ["stack", t("contactsStack")]
-                        ] as Array<[SidebarTab, string]>
-                    ).map(([tabId, label]) => (
-                        <button
-                            key={tabId}
-                            type="button"
-                            className={`rounded-lg px-2.5 py-1 text-sm ${
-                                sidebarTab === tabId
-                                    ? "bg-ink text-white dark:bg-white dark:text-ink"
-                                    : "bg-line/80 dark:bg-white/10"
-                            }`}
-                            onClick={() => setSidebarTab(tabId)}
-                        >
-                            {label}
-                        </button>
-                    ))}
-                </div>
-                <div className="mt-4 space-y-3 text-sm">
-                    {sidebarTab === "work"
-                        ? workArray.map((entry) =>
-                        {
-                            const localized = localize(entry);
-                            return (
-                                <div key={entry.id} className="flex gap-2">
-                                    <CompanyMark
-                                        companyName={localized.company}
-                                        logo={entry.logo}
-                                        sizeClassName="h-8 w-8"
-                                    />
-                                    <div>
-                                        <p className="font-semibold">{localized.company}</p>
-                                        <p className="text-slateSoft dark:text-white/60">
-                                            {localized.role}
-                                        </p>
-                                    </div>
-                                </div>
-                            );
-                        })
-                        : null}
-                    {sidebarTab === "education"
-                        ? (
-                            educationArray.length > 0
-                                ? educationArray.map((entry) =>
-                                {
-                                    const localized = localize(entry);
-                                    return (
-                                        <div key={entry.id}>
-                                            <p className="font-semibold">{localized.company}</p>
-                                            <p className="text-slateSoft dark:text-white/60">
-                                                {localized.role}
-                                            </p>
-                                            <p className="text-xs text-slateSoft dark:text-white/50">
-                                                {localized.period}
-                                            </p>
-                                        </div>
-                                    );
-                                })
-                                : (
-                                    <p className="text-slateSoft dark:text-white/60">
-                                        {profile.aboutParagraphArray[0]}
-                                    </p>
-                                )
-                        )
-                        : null}
-                    {sidebarTab === "stack"
-                        ? (
-                            <>
-                                {skillGroupArray.map((group) =>
-                                {
-                                    const localized = localize(group);
-                                    const trackTitleArray = group.trackArray
-                                        .slice(0, 4)
-                                        .map((track) => localize(track).title);
-
-                                    return (
-                                        <div key={group.id}>
-                                            <p className="font-semibold">{localized.title}</p>
-                                            <p className="text-slateSoft dark:text-white/60">
-                                                {trackTitleArray.join(" · ")}
-                                            </p>
-                                        </div>
-                                    );
-                                })}
-                                <div>
-                                    <p className="font-semibold">{t("contactsLanguages")}</p>
-                                    <p className="text-slateSoft dark:text-white/60">
-                                        {languageSkillArray
-                                            .map((languageSkill) =>
-                                            {
-                                                const localized = localize(languageSkill);
-                                                return `${localized.title} (${localized.level})`;
-                                            })
-                                            .join(" · ")}
-                                    </p>
-                                </div>
-                            </>
-                        )
-                        : null}
-                </div>
-            </aside>
-            <section className="space-y-6 p-5">
-                <div>
-                    <h3 className="font-display text-xl font-semibold">{t("contactsAbout")}</h3>
-                    {profile.aboutParagraphArray.map((paragraphText) => (
-                        <p
-                            key={paragraphText}
-                            className="mt-3 text-sm leading-relaxed text-slateSoft dark:text-white/75"
-                        >
-                            {paragraphText}
+                    <div className="profile-identity-copy">
+                        <h3 className="profile-name font-display">{profile.name}</h3>
+                        <p className="profile-role">{profile.role}</p>
+                        <p className="profile-availability">
+                            <span className="profile-availability-dot" aria-hidden="true" />
+                            <span>{profile.statusMessage}</span>
                         </p>
-                    ))}
-                </div>
-                <div>
-                    <h3 className="font-display text-xl font-semibold">{t("contactsMessages")}</h3>
-                    <ul className="mt-4 space-y-3">
-                        {testimonialArray.map((testimonial) =>
-                        {
-                            const localized = localize(testimonial);
+                    </div>
+                </header>
 
-                            return (
-                                <li
-                                    key={testimonial.id}
-                                    className="flex gap-3 rounded-2xl bg-white/80 p-3 dark:bg-white/5"
-                                >
-                                    <img
-                                        src={getAssetUrl(testimonial.image)}
-                                        alt=""
-                                        className="h-10 w-10 rounded-full object-cover"
-                                    />
-                                    <div>
-                                        <p className="whitespace-pre-line text-sm leading-relaxed">{localized.quote}</p>
-                                        <p className="mt-2 text-xs font-semibold">
-                                            {localized.name}
-                                        </p>
-                                        <p className="text-xs text-slateSoft dark:text-white/55">
-                                            {localized.role}
-                                        </p>
-                                    </div>
-                                </li>
-                            );
-                        })}
+                <section className="profile-about" aria-labelledby="profile-about-heading">
+                    <h4 id="profile-about-heading" className="profile-section-title font-display">
+                        {t("contactsAbout")}
+                    </h4>
+                    <div className="profile-about-copy">
+                        {profile.aboutParagraphArray.map((paragraphText) => (
+                            <p key={paragraphText}>{paragraphText}</p>
+                        ))}
+                    </div>
+                </section>
+
+                <nav className="profile-shortcuts" aria-label={t("contactsShortcutsLabel")}>
+                    {profileShortcutArray.map((shortcut) =>
+                    {
+                        const labelText = t(shortcut.labelKey);
+
+                        return (
+                            <button
+                                key={shortcut.id}
+                                type="button"
+                                className="profile-shortcut"
+                                onClick={() => openOrFocusApp(shortcut.appId)}
+                                aria-label={labelText}
+                            >
+                                <AppIcon appId={shortcut.appId} className="profile-shortcut-icon" />
+                                <span className="profile-shortcut-label">{labelText}</span>
+                                <span className="profile-shortcut-chevron" aria-hidden="true">
+                                    <ChevronIcon />
+                                </span>
+                            </button>
+                        );
+                    })}
+                </nav>
+
+                <section
+                    className="profile-recommendations"
+                    aria-labelledby="profile-recommendations-heading"
+                >
+                    <h4 id="profile-recommendations-heading" className="profile-section-title font-display">
+                        {t("contactsRecommendations")}
+                    </h4>
+                    <ul className="profile-recommendation-grid">
+                        {testimonialArray.map((testimonial) => (
+                            <li key={testimonial.id}>
+                                <RecommendationCard testimonial={testimonial} />
+                            </li>
+                        ))}
                     </ul>
-                </div>
-            </section>
+                </section>
+            </div>
         </div>
+    );
+}
+
+// ~~
+type RecommendationCardProps = {
+    testimonial: Testimonial;
+};
+
+function RecommendationCard({ testimonial }: RecommendationCardProps)
+{
+    const { localize } = useI18n();
+    const localized = localize(testimonial);
+    const paragraphArray = getQuoteParagraphArray(localized.quote);
+
+    return (
+        <article className="profile-recommendation-card">
+            <div className="profile-recommendation-quote-mark" aria-hidden="true">
+                "
+            </div>
+            <div className="profile-recommendation-quote">
+                {paragraphArray.map((paragraphText) => (
+                    <p key={paragraphText}>{paragraphText}</p>
+                ))}
+            </div>
+            <div className="profile-recommendation-divider" aria-hidden="true" />
+            <footer className="profile-recommendation-author">
+                <img
+                    src={getAssetUrl(testimonial.image)}
+                    alt=""
+                    className="profile-recommendation-avatar"
+                />
+                <div className="min-w-0">
+                    <p className="profile-recommendation-name">{localized.name}</p>
+                    <p className="profile-recommendation-role">{localized.role}</p>
+                </div>
+            </footer>
+        </article>
+    );
+}
+
+// ~~
+function ChevronIcon(): ReactNode
+{
+    return (
+        <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden="true" fill="none">
+            <path
+                d="M6 3.5 10.5 8 6 12.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
     );
 }

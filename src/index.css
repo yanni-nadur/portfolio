@@ -1056,6 +1056,326 @@ html.dark .sw-range::-moz-range-thumb {
     }
 }
 
+/* -- Profile app */
+.profile-app {
+    container-type: inline-size;
+    container-name: profile-app;
+    background: rgba(255, 253, 249, 0.88);
+    color: inherit;
+}
+
+html.dark .profile-app {
+    background: rgba(0, 0, 0, 0.28);
+}
+
+.profile-app-inner {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1.15rem 1rem 1.75rem;
+}
+
+@container profile-app (min-width: 34rem) {
+    .profile-app-inner {
+        padding: 1.35rem 1.35rem 1.9rem;
+    }
+}
+
+.profile-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.95rem;
+    text-align: center;
+}
+
+@container profile-app (min-width: 34rem) {
+    .profile-identity {
+        flex-direction: row;
+        align-items: center;
+        text-align: left;
+        gap: 1.15rem;
+    }
+}
+
+.profile-avatar {
+    height: 5.5rem;
+    width: 5.5rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    object-fit: cover;
+    border: 2px solid rgba(217, 119, 47, 0.35);
+    box-shadow: 0 8px 22px rgba(11, 28, 51, 0.08);
+}
+
+html.dark .profile-avatar {
+    border-color: rgba(242, 193, 75, 0.35);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+.profile-avatar-fallback {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #d9772f;
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.profile-identity-copy {
+    min-width: 0;
+}
+
+.profile-name {
+    font-size: 1.45rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.profile-role {
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    color: rgba(90, 101, 116, 0.95);
+}
+
+html.dark .profile-role {
+    color: rgba(255, 247, 232, 0.68);
+}
+
+.profile-availability {
+    margin-top: 0.55rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(221, 214, 203, 0.9);
+    background: rgba(255, 255, 255, 0.72);
+    padding: 0.28rem 0.7rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(55, 65, 81, 0.9);
+}
+
+html.dark .profile-availability {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 247, 232, 0.78);
+}
+
+.profile-availability-dot {
+    height: 0.45rem;
+    width: 0.45rem;
+    border-radius: 9999px;
+    background: #2f9e6c;
+    box-shadow: 0 0 0 3px rgba(47, 158, 108, 0.18);
+}
+
+.profile-section-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.profile-about {
+    margin-top: 1.45rem;
+}
+
+.profile-about-copy {
+    margin-top: 0.7rem;
+    display: grid;
+    gap: 0.7rem;
+}
+
+.profile-about-copy p {
+    font-size: 0.925rem;
+    line-height: 1.65;
+    color: rgba(90, 101, 116, 0.95);
+}
+
+html.dark .profile-about-copy p {
+    color: rgba(255, 247, 232, 0.76);
+}
+
+.profile-shortcuts {
+    margin-top: 1.25rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+}
+
+@container profile-app (min-width: 28rem) {
+    .profile-shortcuts {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.65rem;
+    }
+}
+
+.profile-shortcut {
+    display: flex;
+    min-height: 3rem;
+    align-items: center;
+    gap: 0.65rem;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(221, 214, 203, 0.95);
+    background: rgba(255, 255, 255, 0.78);
+    padding: 0.55rem 0.75rem;
+    text-align: left;
+    color: inherit;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+html.dark .profile-shortcut {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.profile-shortcut:hover {
+    border-color: rgba(217, 119, 47, 0.4);
+    background: rgba(217, 119, 47, 0.08);
+}
+
+html.dark .profile-shortcut:hover {
+    border-color: rgba(217, 119, 47, 0.45);
+    background: rgba(217, 119, 47, 0.16);
+}
+
+.profile-shortcut:focus-visible {
+    outline: 2px solid rgba(217, 119, 47, 0.7);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .profile-shortcut:hover {
+        transform: translateY(-1px);
+    }
+}
+
+.profile-shortcut-icon {
+    height: 1.75rem;
+    width: 1.75rem;
+    flex-shrink: 0;
+}
+
+.profile-shortcut-label {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.profile-shortcut-chevron {
+    color: rgba(90, 101, 116, 0.7);
+}
+
+html.dark .profile-shortcut-chevron {
+    color: rgba(255, 247, 232, 0.55);
+}
+
+.profile-recommendations {
+    margin-top: 1.6rem;
+    padding-bottom: 0.35rem;
+}
+
+.profile-recommendation-grid {
+    margin-top: 0.85rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.85rem;
+    list-style: none;
+    padding: 0;
+}
+
+@container profile-app (min-width: 40rem) {
+    .profile-recommendation-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.95rem;
+    }
+}
+
+.profile-recommendation-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.05rem;
+    border: 1px solid rgba(221, 214, 203, 0.95);
+    background: rgba(255, 253, 250, 0.96);
+    box-shadow: 0 10px 28px rgba(11, 28, 51, 0.05);
+    padding: 1rem 1rem 0.95rem;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+html.dark .profile-recommendation-card {
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(18, 18, 18, 0.92);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.profile-recommendation-quote-mark {
+    margin-bottom: 0.15rem;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: rgba(217, 119, 47, 0.55);
+}
+
+.profile-recommendation-quote {
+    display: grid;
+    gap: 0.65rem;
+}
+
+.profile-recommendation-quote p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(55, 65, 81, 0.95);
+}
+
+html.dark .profile-recommendation-quote p {
+    color: rgba(255, 247, 232, 0.84);
+}
+
+.profile-recommendation-divider {
+    margin: auto 0 0.75rem;
+    padding-top: 0.95rem;
+    flex-shrink: 0;
+    border: 0;
+    border-bottom: 1px solid rgba(221, 214, 203, 0.9);
+    background: transparent;
+}
+
+html.dark .profile-recommendation-divider {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile-recommendation-author {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.profile-recommendation-avatar {
+    height: 2.4rem;
+    width: 2.4rem;
+    flex-shrink: 0;
+    border-radius: 9999px;
+    object-fit: cover;
+}
+
+.profile-recommendation-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.profile-recommendation-role {
+    margin-top: 0.1rem;
+    font-size: 0.75rem;
+    color: rgba(90, 101, 116, 0.9);
+}
+
+html.dark .profile-recommendation-role {
+    color: rgba(255, 247, 232, 0.55);
+}
+
 /* -- Projects app */
 .projects-app,
 .prefs-app {
@@ -1702,7 +2022,9 @@ html.dark .timeline-mobile-period {
     .timeline-card,
     .timeline-mobile-marker,
     .timeline-mobile-body,
-    .timeline-back-to-top {
+    .timeline-back-to-top,
+    .profile-shortcut,
+    .profile-recommendation-card {
         animation: none;
         transition: none;
     }

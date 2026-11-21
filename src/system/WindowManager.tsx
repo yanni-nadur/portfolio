@@ -11,21 +11,35 @@ export function WindowManager()
 
     if (!isDesktop)
     {
-        const activeAppId = focusedAppId
-            ?? appIdArray.find((appId) => windowByIdMap[appId].isOpen) ?? null;
-
-        if (!activeAppId)
-        {
-            return null;
-        }
-
         return (
-            <AppWindow
-                appId={activeAppId}
-                windowState={windowByIdMap[activeAppId]}
-                isDesktop={false}
-                isFocused={true}
-            />
+            <>
+                {appIdArray.map((appId) =>
+                {
+                    const windowState = windowByIdMap[appId];
+
+                    if (!windowState.isOpen)
+                    {
+                        return null;
+                    }
+
+                    const isActive = focusedAppId === appId && !windowState.isMinimized;
+
+                    return (
+                        <div
+                            key={appId}
+                            className={isActive ? undefined : "hidden"}
+                            aria-hidden={isActive ? undefined : true}
+                        >
+                            <AppWindow
+                                appId={appId}
+                                windowState={windowState}
+                                isDesktop={false}
+                                isFocused={isActive}
+                            />
+                        </div>
+                    );
+                })}
+            </>
         );
     }
 

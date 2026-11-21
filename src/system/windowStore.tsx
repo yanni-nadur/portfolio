@@ -57,6 +57,7 @@ const BASE_Z_INDEX = 20;
 const TOPBAR_HEIGHT_PX = 48;
 const DOCK_RESERVE_PX = 96;
 const MAXIMIZE_INSET_PX = 8;
+const OPEN_CASCADE_OFFSET_PX = 32;
 const WindowContext = createContext<WindowContextValue | null>(null);
 
 // -- FUNCTIONS
@@ -78,6 +79,26 @@ function getCenteredPosition(size: { width: number; height: number }): { x: numb
     return {
         x: Math.max(0, Math.round((desktopArea.width - size.width) / 2)),
         y: Math.max(0, Math.round((desktopArea.height - size.height) / 2))
+    };
+}
+
+function getCascadedOpenPosition(
+    size: { width: number; height: number },
+    anchorWindow: WindowState | null
+): { x: number; y: number }
+{
+    if (!anchorWindow || !anchorWindow.isOpen || anchorWindow.isMinimized)
+    {
+        return getCenteredPosition(size);
+    }
+
+    const desktopArea = getDesktopAreaSize();
+    const maxX = Math.max(0, desktopArea.width - size.width);
+    const maxY = Math.max(0, desktopArea.height - size.height);
+
+    return {
+        x: Math.max(0, Math.min(anchorWindow.position.x + OPEN_CASCADE_OFFSET_PX, maxX)),
+        y: Math.max(0, Math.min(anchorWindow.position.y + OPEN_CASCADE_OFFSET_PX, maxY))
     };
 }
 
@@ -183,7 +204,13 @@ function windowReducer(
         case "open":
         {
             const currentWindow = state[action.appId];
-            const shouldCenter = !currentWindow.isOpen;
+            const shouldPlaceWindow = !currentWindow.isOpen;
+            const focusedAppId = getFocusedAppId(state);
+            const anchorWindow = shouldPlaceWindow
+                && focusedAppId
+                && focusedAppId !== action.appId
+                ? state[focusedAppId]
+                : null;
 
             return {
                 ...state,
@@ -192,8 +219,8 @@ function windowReducer(
                     isOpen: true,
                     isMinimized: false,
                     zIndex: getNextZIndex(state),
-                    position: shouldCenter
-                        ? getCenteredPosition(currentWindow.size)
+                    position: shouldPlaceWindow
+                        ? getCascadedOpenPosition(currentWindow.size, anchorWindow)
                         : currentWindow.position,
                     route: action.route !== undefined ? action.route : currentWindow.route
                 }

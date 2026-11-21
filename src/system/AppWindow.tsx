@@ -29,7 +29,10 @@ export function AppWindow({ appId, windowState, isDesktop, isFocused }: AppWindo
     const AppComponent = definition.Component;
     const canMoveOrResize = isDesktop && !windowState.isMaximized;
 
-    useFocusTrap(containerRef, !isDesktop && windowState.isOpen && !windowState.isMinimized);
+    useFocusTrap(
+        containerRef,
+        !isDesktop && isFocused && windowState.isOpen && !windowState.isMinimized
+    );
 
     const [springStyle, api] = useSpring(() => ({
         x: windowState.position.x,

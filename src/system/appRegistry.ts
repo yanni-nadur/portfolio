@@ -26,7 +26,7 @@ export const appRegistry: Record<AppId, AppDefinition> = {
         id: "contacts",
         titleKey: "contactsTitle",
         accent: "#D9772F",
-        defaultSize: { width: 820, height: 560 },
+        defaultSize: { width: 1050, height: 700 },
         Component: lazy(() => import("../apps/contacts/ContactsApp"))
     },
     calendar: {

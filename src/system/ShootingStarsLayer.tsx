@@ -40,7 +40,9 @@ function createMeteor(isNarrow: boolean): Meteor
 
     return {
         id: meteorId,
-        leftPercent: 28 + Math.random() * (isNarrow ? 48 : 58),
+        leftPercent: isNarrow
+            ? 28 + Math.random() * 48
+            : Math.random() * 70,
         topPercent: 1 + Math.random() * (isNarrow ? 24 : 32),
         lengthPx: (isNarrow ? 150 : 230) + Math.random() * (isNarrow ? 50 : 70),
         angleDegree: travelAngleDegree - spriteHeadAngleDegree,
